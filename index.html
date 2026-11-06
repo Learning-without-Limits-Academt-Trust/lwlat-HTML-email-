@@ -9,315 +9,396 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  /* Brand palette, from LwLAT Brand Guidelines v1.0 via the Pulse Concept C spec. */
   :root {
-    --mission: #098F88;
     --teal-dark: #00706A;
-    --teal: #009189;
     --teal-shade: #00524E;
-    --orange: #F5BA19;
-    --lime: #ACCE33;
-    --green: #73A434;
-    --red: #CE153F;
-    --purple: #6F2789;
-    --grey: #636466;
-    --ink: #1F1F1F;
+    --teal: #009189;
     --tint: #E6F4F3;
     --tint-2: #F2F7F7;
-    --line: #d3e4e2;
-    --paper: #ffffff;
+    --lime: #ACCE33;
+    --orange: #F5BA19;
+    --red: #CE153F;
+    --ink: #1F1F1F;
+    --grey: #636466;
+    --line: #dde5e4;
+    --panel: #ffffff;
+    --chrome: #f5f7f7;
+    --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.08);
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; min-height: 100%; }
+  html, body { margin: 0; height: 100%; }
   body {
-    font-family: "Source Sans 3", "The Sans", Arial, sans-serif;
+    background: var(--chrome);
     color: var(--ink);
-    background: var(--teal-shade);
-    font-size: 16px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    font-family: "Source Sans 3", Arial, sans-serif;
+    font-size: 15px;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    grid-template-rows: 60px 1fr;
+    overflow: hidden;
   }
-
-  /* Fixed, full-screen backdrop: radial teal gradient, faint 50px grid, ring arcs. */
-  .backdrop {
-    position: fixed; inset: 0; z-index: -1; overflow: hidden;
-    background: radial-gradient(ellipse at 0% 0%, var(--mission) 0%, var(--teal-dark) 55%, var(--teal-shade) 100%);
-  }
-  .backdrop::before {
-    content: ""; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 80%);
-            mask-image: radial-gradient(ellipse at center, #000 35%, transparent 80%);
-  }
-  .backdrop svg { position: absolute; right: -18vw; bottom: -30vh; width: 90vw; height: auto; }
-
-  /* Header */
-  header.top {
-    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
-    padding: 14px 24px; color: #fff;
-  }
-  .logo-ph {
-    min-width: 120px; height: 44px; border: 1.5px dashed rgba(255,255,255,.6); border-radius: 8px;
-    display: grid; place-items: center; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.85);
-    padding: 0 10px;
-  }
-  .divider { width: 1px; height: 32px; background: rgba(255,255,255,.35); }
-  .product { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 900; margin: 0; }
-  .product svg { width: 28px; height: 28px; }
-  .tabs { display: flex; gap: 6px; }
-  .glass {
-    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); color: #fff;
-    border-radius: 999px; min-height: 44px; padding: 0 18px; font: inherit; font-size: 15px; font-weight: 600;
-    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-  }
-  .glass:hover { background: rgba(255,255,255,.16); }
-  .tabs .glass[aria-selected="true"] { background: #fff; color: var(--teal-dark); border-color: #fff; }
-  .glass select {
-    font: inherit; font-size: 15px; font-weight: 600; border: 0; border-radius: 999px; padding: 6px 10px;
-    background: #fff; color: var(--teal-dark); min-height: 32px;
-  }
-  .spacer { flex: 1; }
-
-  /* Main: two white "app window" cards over the backdrop */
-  main {
-    flex: 1; display: grid; grid-template-columns: minmax(340px, 460px) 1fr; gap: 20px;
-    padding: 6px 24px 16px; min-height: 0; height: calc(100vh - 72px - 40px);
-  }
-  .window {
-    background: rgba(255,255,255,.98); border-radius: 26px; box-shadow: 0 30px 60px rgba(0,30,28,.38), 0 4px 12px rgba(0,30,28,.18);
-    display: flex; flex-direction: column; min-height: 0; overflow: hidden;
-  }
-  .winbar { display: flex; align-items: center; gap: 7px; padding: 14px 20px 10px; }
-  .winbar .dot { width: 12px; height: 12px; border-radius: 50%; }
-  .winbar .dot:nth-child(1) { background: var(--red); }
-  .winbar .dot:nth-child(2) { background: var(--orange); }
-  .winbar .dot:nth-child(3) { background: var(--lime); }
-  .winbar .pill {
-    margin-left: auto; background: var(--teal-dark); color: #fff; border-radius: 999px; padding: 4px 12px;
-    font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  }
-  .panel { overflow-y: auto; padding: 4px 22px 22px; flex: 1; min-height: 0; }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--teal-dark); background: var(--tint); border-radius: 999px; padding: 5px 12px;
-  }
-  .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 3px rgba(172,206,51,.35); }
-  h2 { font-size: 22px; font-weight: 900; margin: 22px 0 10px; color: var(--ink); }
-  .panel > h2:first-of-type { margin-top: 12px; }
-
-  .preview-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; align-items: center; }
-  .preview { flex: 1; min-height: 0; margin: 0 12px 12px; border-radius: 16px; overflow: hidden; background: var(--tint-2); }
-  .preview iframe { display: block; width: 100%; height: 100%; min-height: 560px; border: 0; }
-  .status { font-size: 15px; font-weight: 600; color: var(--teal-dark); }
-  .status.warn { color: var(--red); }
-
-  button.btn, label.btn {
-    font: inherit; font-size: 15px; font-weight: 600; border-radius: 999px; min-height: 44px; padding: 0 18px; cursor: pointer;
-    border: 1.5px solid var(--teal-dark); background: #fff; color: var(--teal-dark); display: inline-flex; gap: 6px; align-items: center;
-  }
-  button.btn.primary { background: var(--teal-dark); color: #fff; }
-  button.btn.primary:hover { background: var(--teal-shade); }
-  button.btn:hover, label.btn:hover { background: var(--tint); }
-  button.btn.primary:hover { background: var(--teal-shade); }
-  button.btn.small, label.btn.small { padding: 0 14px; font-size: 14px; }
-  :focus-visible { outline: 3px solid var(--lime) !important; outline-offset: 2px; }
-  label.btn:focus-within { outline: 3px solid var(--lime); outline-offset: 2px; }
-
-  .field { margin-bottom: 12px; }
-  .field label {
-    display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px; color: var(--grey);
-  }
-  .field input[type=text], .field input[type=url], .field select, .field textarea {
-    width: 100%; font: inherit; font-size: 16px; min-height: 44px; padding: 8px 12px; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink);
-  }
-  .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--teal); }
-  .field textarea { min-height: 100px; resize: vertical; line-height: 1.45; }
-  .field .hint { font-size: 14px; color: var(--grey); margin-top: 4px; line-height: 1.4; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .check { display: flex; gap: 10px; align-items: center; min-height: 44px; font-size: 15px; font-weight: 600; }
-  .check input { width: 20px; height: 20px; accent-color: var(--teal-dark); }
-
-  .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-  .theme {
-    border: 2px solid var(--line); border-radius: 14px; padding: 8px; min-height: 44px; cursor: pointer; background: #fff;
-    font: inherit; font-size: 14px; font-weight: 600; text-align: left; color: var(--ink);
-  }
-  .theme[aria-pressed="true"] { border-color: var(--teal-dark); background: var(--tint); }
-  .theme .sw { display: flex; height: 18px; border-radius: 6px; overflow: hidden; margin-bottom: 6px; }
-  .theme .sw span { flex: 1; }
-
-  .blocks { list-style: none; margin: 0; padding: 0; }
-  .block { border-radius: 16px; margin-bottom: 8px; background: var(--tint-2); border: 1px solid var(--line); }
-  .block > details > summary { list-style: none; cursor: pointer; padding: 0 4px 0 14px; min-height: 48px; display: flex; gap: 8px; align-items: center; border-radius: 16px; }
-  .block > details > summary::-webkit-details-marker { display: none; }
-  .block .type { font-weight: 700; font-size: 15px; }
-  .block .snip { color: var(--grey); font-size: 14px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; flex: 1; min-width: 0; }
-  .block .tools { display: flex; }
-  .block .tools button { border: 0; background: transparent; cursor: pointer; width: 44px; height: 44px; border-radius: 12px; font-size: 16px; color: var(--grey); }
-  .block .tools button:hover { background: var(--tint); color: var(--teal-dark); }
-  .block details[open] { background: #fff; border-radius: 16px; }
-  .block .body { padding: 10px 14px 6px; border-top: 1px solid var(--line); }
-  .addgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .addgrid button {
-    font: inherit; font-size: 14px; font-weight: 600; min-height: 44px; padding: 6px; border: 1.5px dashed var(--teal); background: var(--tint);
-    border-radius: 12px; cursor: pointer; color: var(--teal-dark);
-  }
-  .addgrid button:hover { border-style: solid; background: #fff; }
-  .note { background: var(--tint); border-left: 5px solid var(--teal); padding: 10px 12px; font-size: 15px; border-radius: 10px; margin: 10px 0; line-height: 1.45; }
-  .note.warn { background: #fef5dc; border-color: var(--orange); }
-  .steps { padding-left: 20px; line-height: 1.55; margin-top: 0; }
-  .imgrow { display: flex; gap: 6px; align-items: center; }
-  .imgrow input[type=url] { flex: 1; }
-  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ui, .ui * { box-sizing: border-box; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
   [hidden] { display: none !important; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-  footer.foot { color: rgba(255,255,255,.9); font-size: 14px; padding: 0 24px 12px; display: flex; gap: 8px; flex-wrap: wrap; height: 40px; align-items: center; }
-  footer.foot a { color: #fff; font-weight: 600; }
+  /* ---------- Top bar ---------- */
+  .topbar {
+    grid-column: 1 / -1; background: var(--panel); border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 10px; padding: 0 16px; z-index: 5;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 17px; color: var(--teal-dark); white-space: nowrap; }
+  .brand svg { width: 24px; height: 24px; }
+  .name {
+    border: 1px solid transparent; border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 16px; font-weight: 600; min-width: 0; width: 280px;
+    background: transparent; color: var(--ink);
+  }
+  .name:hover { border-color: var(--line); }
+  .name:focus { border-color: var(--teal); background: #fff; outline: none; }
+  .grow { flex: 1; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 8px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; color: var(--grey);
+  }
+  .icon-btn:hover:not(:disabled) { background: var(--tint-2); color: var(--ink); }
+  .icon-btn:disabled { opacity: .35; cursor: default; }
+  .icon-btn svg { width: 20px; height: 20px; }
+  .btn {
+    min-height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer;
+    font-weight: 600; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--ink);
+  }
+  .btn:hover { border-color: var(--teal); }
+  .btn.primary { background: var(--teal-dark); border-color: var(--teal-dark); color: #fff; }
+  .btn.primary:hover { background: var(--teal-shade); }
+  .btn svg { width: 18px; height: 18px; }
+  .menu-wrap { position: relative; }
+  .menu {
+    position: absolute; right: 0; top: 46px; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow);
+    padding: 6px; min-width: 230px; z-index: 20;
+  }
+  .menu button, .menu label {
+    display: flex; width: 100%; text-align: left; padding: 9px 12px; border: 0; background: none; border-radius: 6px; cursor: pointer; font-size: 15px; gap: 10px; align-items: center;
+  }
+  .menu button:hover, .menu label:hover { background: var(--tint-2); }
+  .menu hr { border: 0; border-top: 1px solid var(--line); margin: 6px 0; }
 
-  @media (max-width: 900px) {
-    main { grid-template-columns: 1fr; height: auto; padding: 6px 12px 16px; }
-    header.top { padding: 12px 16px; }
-    .panel { overflow: visible; }
-    .preview iframe { min-height: 760px; }
-    .backdrop svg { width: 160vw; right: -60vw; }
+  /* ---------- Sidebar ---------- */
+  .side { background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; display: flex; flex-direction: column; min-height: 0; }
+  .tabs { display: flex; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 2; }
+  .tabs button {
+    flex: 1; border: 0; background: none; padding: 14px 0 12px; cursor: pointer; font-weight: 700; color: var(--grey); border-bottom: 3px solid transparent;
+  }
+  .tabs button[aria-selected="true"] { color: var(--teal-dark); border-bottom-color: var(--teal-dark); }
+  .pane { padding: 16px; }
+  .pane h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--grey); margin: 18px 0 10px; font-weight: 700; }
+  .pane h3:first-child { margin-top: 0; }
+  .hint { color: var(--grey); font-size: 14px; line-height: 1.45; margin: 0 0 12px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tile {
+    border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 12px 4px 10px; cursor: grab; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); min-height: 76px; user-select: none;
+  }
+  .tile:hover { border-color: var(--teal); box-shadow: var(--shadow); color: var(--teal-dark); }
+  .tile svg { width: 26px; height: 26px; color: var(--teal-dark); }
+  .tile:active { cursor: grabbing; }
+  .template-card {
+    display: flex; gap: 12px; align-items: center; width: 100%; border: 1px dashed var(--teal); background: var(--tint-2); border-radius: 10px;
+    padding: 12px; cursor: pointer; text-align: left; margin-bottom: 4px;
+  }
+  .template-card:hover { background: var(--tint); }
+  .template-card svg { width: 28px; height: 28px; color: var(--teal-dark); flex: none; }
+  .template-card strong { display: block; color: var(--teal-dark); }
+  .template-card span { font-size: 14px; color: var(--grey); }
+
+  .insp-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 2; }
+  .insp-head h2 { font-size: 17px; margin: 0; flex: 1; }
+  .back { border: 0; background: none; cursor: pointer; color: var(--teal-dark); font-weight: 700; padding: 8px; border-radius: 8px; display: flex; align-items: center; gap: 4px; }
+  .back:hover { background: var(--tint-2); }
+  .back svg { width: 18px; height: 18px; }
+  .f { margin-bottom: 16px; }
+  .f > label, .f > .lbl { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+  .f input[type=text], .f input[type=url] {
+    width: 100%; font: inherit; font-size: 15px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
+  }
+  .f input:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px rgba(0,145,137,.18); }
+  .f .sub { font-size: 13px; color: var(--grey); margin-top: 5px; line-height: 1.4; }
+  .seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { flex: 1; border: 0; background: #fff; padding: 9px 6px; cursor: pointer; font-size: 14px; font-weight: 600; border-right: 1px solid var(--line); color: var(--grey); }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--tint); color: var(--teal-dark); }
+  .seg button svg { width: 18px; height: 18px; vertical-align: middle; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+  .swatch {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); cursor: pointer; padding: 0; position: relative;
+  }
+  .swatch[aria-pressed="true"] { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--teal-dark); }
+  .imgbox { border: 1px dashed var(--line); border-radius: 10px; padding: 10px; background: var(--tint-2); }
+  .imgbox img { display: block; max-width: 100%; max-height: 140px; margin: 0 auto 10px; border-radius: 6px; }
+  .imgbox .row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .imgbox .row .btn { flex: 1; justify-content: center; }
+  .danger { color: var(--red) !important; }
+  .insp-actions { display: flex; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); margin-top: 8px; }
+
+  .themes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .theme { border: 2px solid var(--line); border-radius: 10px; padding: 8px; background: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 14px; }
+  .theme[aria-pressed="true"] { border-color: var(--teal-dark); background: var(--tint-2); }
+  .theme .sw { display: flex; height: 22px; border-radius: 6px; overflow: hidden; margin-bottom: 6px; }
+  .theme .sw span { flex: 1; }
+  .toggle { display: flex; align-items: center; gap: 10px; font-weight: 600; cursor: pointer; }
+  .toggle input { width: 20px; height: 20px; accent-color: var(--teal-dark); }
+
+  /* ---------- Canvas ---------- */
+  .stage { overflow: auto; min-height: 0; position: relative; }
+  .cv { min-height: 100%; padding: 40px 24px 80px; box-sizing: border-box; transition: background-color .2s; }
+  .card { width: 600px; margin: 0 auto; background: #fff; border-radius: 24px; position: relative; box-shadow: 0 12px 40px rgba(0,0,0,.18); }
+  .card table { border-collapse: separate; }
+  .blk { position: relative; cursor: pointer; }
+  .blk::after { content: ""; position: absolute; inset: 0; border: 2px solid transparent; pointer-events: none; border-radius: 4px; z-index: 1; }
+  .blk:hover::after { border-color: rgba(0,145,137,.45); }
+  .blk.sel::after { border-color: var(--teal-dark); box-shadow: 0 0 0 1px #fff inset; }
+  .blk .tag {
+    position: absolute; left: -2px; top: -24px; background: var(--teal-dark); color: #fff; font: 700 12px "Source Sans 3", Arial, sans-serif;
+    padding: 3px 8px; border-radius: 6px 6px 0 0; display: none; z-index: 3; letter-spacing: .03em;
+  }
+  .blk.sel .tag { display: block; }
+  .blk .tools {
+    position: absolute; right: -54px; top: 0; display: none; flex-direction: column; gap: 2px; background: #fff; border-radius: 10px; box-shadow: var(--shadow);
+    padding: 4px; z-index: 3;
+  }
+  .blk.sel .tools, .blk:hover .tools { display: flex; }
+  .blk .tools button, .blk .tools span { width: 36px; height: 36px; border: 0; background: none; border-radius: 8px; cursor: pointer; display: grid; place-items: center; color: var(--grey); }
+  .blk .tools button:hover, .blk .tools span:hover { background: var(--tint-2); color: var(--ink); }
+  .blk .tools [data-act="drag"] { cursor: grab; }
+  .blk .tools svg { width: 18px; height: 18px; }
+  .wb { cursor: pointer; position: relative; }
+  .wb:hover::after { content: "Window bar · change in Styles"; position: absolute; left: 50%; top: 14px; transform: translateX(-50%); font: 600 12px "Source Sans 3", Arial, sans-serif; color: var(--grey); }
+  .cv [data-f] { outline: none; cursor: text; border-radius: 3px; }
+  .cv [data-f]:hover { box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 40%, transparent); }
+  .cv [data-f]:focus { box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 60%, transparent); }
+  .cv [data-f]:empty { display: inline-block; min-width: 80px; }
+  .cv [data-f]:empty::before { content: attr(data-ph); opacity: .45; }
+  .cv [data-rich]:empty { display: block; }
+  .cv [data-rich] ul, .cv [data-rich] ol { padding-left: 22px; }
+  .dropline { position: absolute; left: -8px; right: -8px; height: 4px; background: var(--lime); border-radius: 2px; display: none; z-index: 4; box-shadow: 0 0 0 2px #fff; }
+  .empty {
+    margin: 0; padding: 70px 30px; text-align: center; color: var(--grey); font: 600 16px "Source Sans 3", Arial, sans-serif; border: 2px dashed var(--line); border-radius: 24px;
+  }
+  .imgph {
+    border: 2px dashed #b9cfcd; border-radius: 14px; background: var(--tint-2); padding: 40px 10px; text-align: center; color: var(--teal-dark);
+    font: 600 15px "Source Sans 3", Arial, sans-serif;
+  }
+  .imgph svg { width: 36px; height: 36px; display: block; margin: 0 auto 8px; }
+
+  /* Rich text toolbar */
+  .rtb {
+    position: fixed; z-index: 30; background: var(--ink); border-radius: 10px; padding: 4px; display: flex; gap: 2px; box-shadow: var(--shadow);
+  }
+  .rtb button { width: 34px; height: 34px; border: 0; background: none; color: #fff; border-radius: 7px; cursor: pointer; font-size: 15px; display: grid; place-items: center; }
+  .rtb button:hover { background: rgba(255,255,255,.15); }
+  .rtb svg { width: 18px; height: 18px; }
+  .linkpop {
+    position: fixed; z-index: 31; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 10px; display: flex; gap: 6px; width: 340px;
+  }
+  .linkpop input { flex: 1; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+
+  /* Modals */
+  .modal { position: fixed; inset: 0; background: rgba(20,30,30,.5); display: grid; place-items: center; z-index: 40; padding: 16px; }
+  .dialog { background: #fff; border-radius: 16px; width: min(960px, 100%); max-height: calc(100vh - 32px); display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+  .dialog header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .dialog header h2 { margin: 0; font-size: 19px; flex: 1; }
+  .dialog .body { padding: 18px; overflow: auto; }
+  .pv-stage { background: var(--chrome); display: flex; justify-content: center; padding: 20px; overflow: auto; flex: 1; min-height: 0; }
+  .pv-desktop iframe { width: 760px; max-width: 100%; height: 70vh; border: 0; background: #fff; border-radius: 8px; box-shadow: var(--shadow); }
+  .phone { width: 375px; height: 70vh; border: 10px solid #222; border-radius: 36px; overflow: hidden auto; background: #fff; }
+  .phone iframe { width: 600px; border: 0; transform: scale(.592); transform-origin: 0 0; display: block; }
+  .tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .tpl {
+    border: 2px solid var(--line); border-radius: 12px; padding: 0; background: #fff; cursor: pointer; text-align: left; overflow: hidden;
+  }
+  .tpl:hover { border-color: var(--teal-dark); }
+  .tpl .thumb { height: 120px; display: flex; flex-direction: column; gap: 6px; padding: 14px; }
+  .tpl .thumb i { display: block; border-radius: 4px; }
+  .tpl .meta { padding: 10px 12px 12px; border-top: 1px solid var(--line); }
+  .tpl .meta strong { display: block; }
+  .tpl .meta span { font-size: 14px; color: var(--grey); }
+  .canva-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .canva-grid textarea { width: 100%; min-height: 280px; font: 13px Consolas, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+  .canva-grid iframe { width: 100%; height: 360px; border: 1px solid var(--line); border-radius: 8px; }
+  .canva-grid ol { padding-left: 20px; line-height: 1.55; margin-top: 0; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 10px;
+    font-weight: 600; z-index: 50; box-shadow: var(--shadow); max-width: calc(100vw - 32px);
+  }
+  .toast.warn { background: var(--red); }
+
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; overflow: auto; height: auto; }
+    .topbar { flex-wrap: wrap; padding: 8px 12px; }
+    .name { width: 100%; order: 5; }
+    .side { max-height: 46vh; border-right: 0; border-bottom: 1px solid var(--line); }
+    .stage { overflow-x: auto; }
+    .cv { padding: 30px 60px 60px 12px; width: max-content; min-width: 100%; }
+    .canva-grid { grid-template-columns: 1fr; }
+    .brand span { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="backdrop" aria-hidden="true">
-  <svg viewBox="0 0 1000 1000" fill="none">
-    <circle cx="500" cy="500" r="480" stroke="#00524E" stroke-width="70" opacity=".55"/>
-    <circle cx="500" cy="500" r="340" stroke="#00524E" stroke-width="40" opacity=".45"/>
-    <circle cx="500" cy="500" r="220" stroke="#73A434" stroke-width="26" opacity=".35"/>
-  </svg>
-</div>
 
-<header class="top">
-  <div class="logo-ph" title="Replace with the white LwLAT logo master artwork">LwLAT logo</div>
-  <span class="divider" aria-hidden="true"></span>
-  <p class="product">
-    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M2 15h6l3-7 5 13 3-6h7" stroke="#ACCE33" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Email Builder
-  </p>
-  <div class="tabs" role="tablist" aria-label="Mode">
-    <button class="glass" role="tab" id="tab-build" aria-selected="true">Build an email</button>
-    <button class="glass" role="tab" id="tab-import" aria-selected="false">Use a Canva email</button>
+<header class="topbar ui">
+  <div class="brand">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M2 15h6l3-7 5 13 3-6h7" stroke="#00706A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>LwLAT Email Builder</span>
   </div>
-  <div class="spacer"></div>
-  <label class="glass" id="template-wrap">
-    Start from
-    <select id="template">
-      <option value="">Choose…</option>
-      <option value="bulletin">Staff bulletin</option>
-      <option value="event">Event invitation</option>
-      <option value="celebration">Celebration</option>
-      <option value="blank">Blank</option>
-    </select>
-  </label>
+  <label for="name" class="sr">Email name</label>
+  <input id="name" class="name" type="text" placeholder="Untitled email" title="Email name. Type the subject line into Outlook yourself.">
+  <div class="grow"></div>
+  <button class="icon-btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+  <button class="icon-btn" id="redo" title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
+  <button class="btn" id="preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>Preview</button>
+  <div class="menu-wrap">
+    <button class="btn" id="more-btn" aria-haspopup="true" aria-expanded="false">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+    <div class="menu" id="more-menu" role="menu" hidden>
+      <button role="menuitem" data-m="templates">Start from a template</button>
+      <button role="menuitem" data-m="canva">Use a Canva email</button>
+      <hr>
+      <button role="menuitem" data-m="save">Save design file</button>
+      <label role="menuitem">Open design file<input type="file" id="open-design" accept=".json,application/json" class="sr"></label>
+      <hr>
+      <button role="menuitem" data-m="download">Download .html</button>
+      <button role="menuitem" data-m="code">Copy HTML code</button>
+    </div>
+  </div>
+  <button class="btn primary" id="copy-outlook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h11"/></svg>Copy for Outlook</button>
 </header>
 
-<main>
-  <!-- EDITOR WINDOW -->
-  <section class="window" aria-label="Editor">
-    <div class="winbar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="pill" id="editor-pill">Editor</span></div>
-
-    <div class="panel" id="panel-build">
-      <span class="eyebrow">Look and feel</span>
-      <h2>Colour theme</h2>
+<aside class="side ui" aria-label="Content and styles">
+  <div id="side-main">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-content" aria-selected="true">Content</button>
+      <button role="tab" id="tab-styles" aria-selected="false">Styles</button>
+    </div>
+    <div class="pane" id="pane-content">
+      <button class="template-card" id="tpl-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <div><strong>Start from a template</strong><span>Staff bulletin, event invitation and more</span></div>
+      </button>
+      <h3>Blocks</h3>
+      <p class="hint">Drag a block into your email, or click it to add it under the selected block.</p>
+      <div class="tiles" id="tiles"></div>
+    </div>
+    <div class="pane" id="pane-styles" hidden>
+      <h3>Colour theme</h3>
       <div class="themes" id="themes"></div>
-      <div class="row2">
-        <div class="field">
-          <label for="font">Font</label>
-          <select id="font">
-            <option value="Arial, Helvetica, sans-serif">Arial</option>
-            <option value="Verdana, Geneva, sans-serif">Verdana</option>
-            <option value="'Trebuchet MS', Arial, sans-serif">Trebuchet</option>
-            <option value="Georgia, 'Times New Roman', serif">Georgia</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="corners">Button corners</label>
-          <select id="corners">
-            <option value="30">Pill</option>
-            <option value="8">Rounded</option>
-            <option value="0">Square</option>
-          </select>
-        </div>
-      </div>
-      <div class="check"><input type="checkbox" id="windowbar"><label for="windowbar">Show window bar at the top of the email</label></div>
-      <div class="field" id="pill-field">
-        <label for="pilltext">Window bar label</label>
+      <h3>Font</h3>
+      <div class="seg" id="font-seg"></div>
+      <h3>Button shape</h3>
+      <div class="seg" id="corner-seg"></div>
+      <h3>Window bar</h3>
+      <label class="toggle"><input type="checkbox" id="windowbar"> Show window dots at the top</label>
+      <div class="f" id="pill-field" style="margin-top:12px">
+        <label for="pilltext">Label on the right</label>
         <input type="text" id="pilltext" placeholder="e.g. Staff bulletin">
       </div>
-      <div class="field">
-        <label for="subject">Subject line (for your reference)</label>
-        <input type="text" id="subject">
-        <div class="hint">Type this into Outlook's subject box yourself. It is not copied with the body.</div>
-      </div>
-
-      <h2>Blocks</h2>
-      <ul class="blocks" id="blocks"></ul>
-
-      <h2>Add a block</h2>
-      <div class="addgrid" id="addgrid"></div>
-
-      <h2>Save your work</h2>
-      <p style="font-size:15px;color:var(--grey);margin:0 0 10px;line-height:1.45">Your current email is kept in this browser automatically. To keep a copy or share a design with a colleague, save it as a file.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn" id="save-design">Save design file</button>
-        <label class="btn">Open design file<input type="file" id="open-design" accept=".json,application/json" class="sr"></label>
-      </div>
     </div>
+  </div>
+  <div id="side-insp" hidden></div>
+</aside>
 
-    <div class="panel" id="panel-import" hidden>
-      <span class="eyebrow">Canva</span>
-      <h2>Bring in an email from Canva</h2>
-      <ol class="steps">
-        <li>In Canva, design your email using the <strong>Email</strong> design type.</li>
-        <li>Choose <strong>Share</strong>, then the HTML export option, then <strong>Copy HTML</strong>.</li>
-        <li>Paste it into the box below, or open the downloaded <code>.html</code> file.</li>
-        <li>Check the preview, then press <strong>Copy for Outlook</strong> and paste into a new email.</li>
-      </ol>
-      <div class="field">
-        <label for="import-html">Email HTML</label>
-        <textarea id="import-html" style="min-height:220px;font-family:Consolas,monospace;font-size:13px" placeholder="Paste the HTML from Canva here"></textarea>
-      </div>
-      <label class="btn">Open an .html file<input type="file" id="import-file" accept=".html,.htm,text/html" class="sr"></label>
-      <div class="note warn">If pictures are missing from the preview, they were saved as separate files rather than web links. Use Canva's <strong>Copy HTML</strong> option instead of the download.</div>
-      <div class="note">Canva keeps text as real text only when you use text boxes. Anything grouped or placed over a picture is flattened into a single image, which colleagues cannot read if images are blocked.</div>
-    </div>
-  </section>
-
-  <!-- PREVIEW WINDOW -->
-  <section class="window" aria-label="Preview">
-    <div class="winbar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="pill">Preview</span></div>
-    <div class="preview-actions">
-      <button class="btn primary" id="copy-outlook">Copy for Outlook</button>
-      <button class="btn" id="open-tab">Open in new tab</button>
-      <button class="btn" id="download">Download .html</button>
-      <button class="btn" id="copy-code">Copy HTML code</button>
-      <span class="status" id="status" role="status" aria-live="polite"></span>
-    </div>
-    <div class="preview"><iframe id="frame" title="Email preview"></iframe></div>
-  </section>
+<main class="stage" id="stage" aria-label="Email canvas">
+  <div class="cv" id="cv"></div>
 </main>
 
-<footer class="foot">Learning without Limits Academy Trust · <a href="https://www.lwlat.org.uk" target="_blank" rel="noopener">lwlat.org.uk</a></footer>
+<!-- Rich text toolbar -->
+<div class="rtb ui" id="rtb" hidden role="toolbar" aria-label="Text formatting">
+  <button data-cmd="bold" title="Bold (Ctrl+B)" aria-label="Bold"><b>B</b></button>
+  <button data-cmd="italic" title="Italic (Ctrl+I)" aria-label="Italic"><i style="font-family:Georgia">I</i></button>
+  <button data-cmd="underline" title="Underline (Ctrl+U)" aria-label="Underline"><u>U</u></button>
+  <button data-cmd="link" title="Add link" aria-label="Add link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></button>
+  <button data-cmd="insertUnorderedList" title="Bullet list" aria-label="Bullet list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg></button>
+  <button data-cmd="clear" title="Clear formatting" aria-label="Clear formatting"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V4h16v3M9 20h6M12 4l-3 16"/><path d="m15 15 6 6m0-6-6 6"/></svg></button>
+</div>
+<div class="linkpop ui" id="linkpop" hidden>
+  <label for="link-url" class="sr">Link address</label>
+  <input id="link-url" type="url" placeholder="https://… or someone@lwlat.org.uk">
+  <button class="btn primary" id="link-apply">Add</button>
+</div>
+
+<!-- Preview -->
+<div class="modal ui" id="m-preview" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="pv-title" style="height:calc(100vh - 32px)">
+    <header>
+      <h2 id="pv-title">Preview</h2>
+      <div class="seg" id="pv-seg" style="width:220px">
+        <button aria-pressed="true" data-v="desktop">Desktop</button>
+        <button aria-pressed="false" data-v="mobile">Phone</button>
+      </div>
+      <button class="icon-btn" data-close aria-label="Close preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="pv-stage">
+      <div class="pv-desktop" id="pv-desktop"><iframe id="pv-frame-d" title="Desktop preview"></iframe></div>
+      <div class="phone" id="pv-mobile" hidden><iframe id="pv-frame-m" title="Phone preview" scrolling="no"></iframe></div>
+    </div>
+  </div>
+</div>
+
+<!-- Templates -->
+<div class="modal ui" id="m-templates" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="tpl-title">
+    <header>
+      <h2 id="tpl-title">Start from a template</h2>
+      <button class="icon-btn" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="body">
+      <p class="hint">This replaces the email you are working on. Use <strong>More, Save design file</strong> first if you want to keep it.</p>
+      <div class="tpl-grid" id="tpl-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Canva -->
+<div class="modal ui" id="m-canva" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="canva-title">
+    <header>
+      <h2 id="canva-title">Use a Canva email</h2>
+      <button class="icon-btn" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="body">
+      <div class="canva-grid">
+        <div>
+          <ol>
+            <li>In Canva, design using the <strong>Email</strong> design type.</li>
+            <li>Choose <strong>Share</strong>, then the HTML option, then <strong>Copy HTML</strong>.</li>
+            <li>Paste it below, or open a downloaded <code>.html</code> file.</li>
+          </ol>
+          <label for="canva-html" class="sr">Canva HTML</label>
+          <textarea id="canva-html" placeholder="Paste the HTML from Canva here"></textarea>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <label class="btn">Open .html file<input type="file" id="canva-file" accept=".html,.htm,text/html" class="sr"></label>
+            <button class="btn primary" id="canva-copy">Copy for Outlook</button>
+          </div>
+          <p class="hint" style="margin-top:12px">Use text boxes in Canva for words. Anything grouped with a picture becomes a flat image that colleagues cannot read when pictures are blocked.</p>
+        </div>
+        <iframe id="canva-frame" title="Canva email preview"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast ui" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
 (() => {
   'use strict';
+  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
 
-  /* ---------- Themes ----------
+  /* =========================================================
+     Brand and themes
      Brand palette only. White text sits on "primary" and "dark", near-black
-     text on orange, light green and the tints, so every pairing passes WCAG AA.
-     "highlight" (light green) is only used for large text on a dark background. */
+     text on everything else, so every pairing passes WCAG AA. Light green
+     is only used for large headline words on dark backgrounds.
+     ========================================================= */
   const BRAND = { red: '#CE153F', orange: '#F5BA19', lime: '#ACCE33', teal: '#00706A', purple: '#6F2789', grey: '#636466', ink: '#1F1F1F' };
   const THEMES = {
     pulse:  { name: 'Pulse teal',  primary: '#00706A', accent: '#F5BA19', highlight: '#ACCE33', light: '#E6F4F3', dark: '#00524E', page: '#098F88' },
@@ -327,259 +408,177 @@
     red:    { name: 'Red',         primary: '#CE153F', accent: '#F5BA19', highlight: '#F5BA19', light: '#F2F7F7', dark: '#1F1F1F', page: '#F2F7F7' },
     night:  { name: 'Deep teal',   primary: '#00524E', accent: '#ACCE33', highlight: '#ACCE33', light: '#E6F4F3', dark: '#1F1F1F', page: '#00524E' },
   };
+  const ROLE_NAMES = { primary: 'Main colour', accent: 'Accent', highlight: 'Light green', light: 'Pale tint', white: 'White', dark: 'Dark' };
   const DARK_ROLES = ['primary', 'dark'];
-  const ROLE_OPTS = [['primary', 'Main colour'], ['accent', 'Orange or green accent'], ['highlight', 'Light green'], ['light', 'Pale tint'], ['white', 'White'], ['dark', 'Dark']];
-  const ALIGN_OPTS = [['left', 'Left'], ['center', 'Centre'], ['right', 'Right']];
   const EVENT_KINDS = {
     trust:    { label: 'Trust event', bg: BRAND.teal,   fg: '#ffffff' },
     deadline: { label: 'Deadline',    bg: BRAND.orange, fg: BRAND.ink },
     meeting:  { label: 'Meeting',     bg: BRAND.purple, fg: '#ffffff' },
   };
+  const FONTS = [["Arial, Helvetica, sans-serif", 'Arial'], ["Verdana, Geneva, sans-serif", 'Verdana'], ["'Trebuchet MS', Arial, sans-serif", 'Trebuchet'], ["Georgia, 'Times New Roman', serif", 'Georgia']];
+  const CORNERS = [['30', 'Pill'], ['8', 'Rounded'], ['0', 'Square']];
 
-  /* ---------- Block definitions ---------- */
+  /* =========================================================
+     Icons
+     ========================================================= */
+  const ic = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+  const ICONS = {
+    banner: ic('<rect x="3" y="4" width="18" height="10" rx="2"/><path d="M7 18h10M9 21h6"/>'),
+    announce: ic('<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/>'),
+    heading: ic('<path d="M6 4v16M18 4v16M6 12h12"/>'),
+    text: ic('<path d="M4 6h16M4 10h16M4 14h16M4 18h10"/>'),
+    image: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/>'),
+    button: ic('<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/>'),
+    callout: ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 5v14M8 10h8M8 14h5"/>'),
+    columns: ic('<rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/>'),
+    event: ic('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+    stats: ic('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
+    quote: ic('<path d="M7 7h4v4c0 3-2 5-4 6M15 7h4v4c0 3-2 5-4 6"/>'),
+    divider: ic('<path d="M3 12h18"/><path d="M8 6h8M8 18h8" opacity=".4"/>'),
+    spacer: ic('<path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/>'),
+    footer: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18"/>'),
+    up: ic('<path d="m6 15 6-6 6 6"/>'), down: ic('<path d="m6 9 6 6 6-6"/>'),
+    copy: ic('<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h11"/>'),
+    trash: ic('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'),
+    drag: ic('<circle cx="9" cy="6" r="1" fill="currentColor"/><circle cx="15" cy="6" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="18" r="1" fill="currentColor"/><circle cx="15" cy="18" r="1" fill="currentColor"/>'),
+    left: ic('<path d="M4 6h16M4 10h10M4 14h16M4 18h10"/>'), center: ic('<path d="M4 6h16M7 10h10M4 14h16M7 18h10"/>'), right: ic('<path d="M4 6h16M10 10h10M4 14h16M10 18h10"/>'),
+    back: ic('<path d="m15 18-6-6 6-6"/>'),
+  };
+
+  /* =========================================================
+     Blocks
+     "inline" fields are typed straight into the email on the canvas.
+     "fields" are the settings shown in the side panel.
+     ========================================================= */
+  const ALIGN = ['align', 'Alignment', 'align'];
   const BLOCKS = {
-    banner: {
-      label: 'Banner', snip: b => `${b.title} ${b.highlight || ''}`,
-      fields: [
-        ['image', 'Picture across the top (optional)', 'image'],
-        ['eyebrow', 'Pill label above the title', 'text'],
-        ['title', 'Title', 'text'],
-        ['highlight', 'Highlighted words after the title (optional)', 'text', null, 'Shown in light green, or in the main colour on a pale background. Keep it short, e.g. a name.'],
-        ['subtitle', 'Subtitle', 'text'],
-        ['bg', 'Background', 'role'],
-        ['align', 'Alignment', 'select', ALIGN_OPTS],
-      ],
-      defaults: { image: '', eyebrow: '', title: 'Your headline here', highlight: '', subtitle: '', bg: 'primary', align: 'left' },
-    },
-    announce: {
-      label: 'Announcement', snip: b => b.text,
-      fields: [
-        ['label', 'Label', 'text'],
-        ['text', 'Message', 'text'],
-        ['linkText', 'Link text (optional)', 'text'],
-        ['url', 'Link', 'url'],
-      ],
-      defaults: { label: 'Announcement', text: 'One trust-wide message, short and clear.', linkText: '', url: '' },
-    },
-    heading: {
-      label: 'Heading', snip: b => b.text,
-      fields: [
-        ['text', 'Heading', 'text'],
-        ['size', 'Size', 'select', [['large', 'Section title'], ['medium', 'Card title']]],
-        ['color', 'Colour', 'select', [['primary', 'Main colour'], ['ink', 'Near-black']]],
-        ['align', 'Alignment', 'select', ALIGN_OPTS],
-      ],
-      defaults: { text: 'Section heading', size: 'large', color: 'primary', align: 'left' },
-    },
-    text: {
-      label: 'Text', snip: b => b.text,
-      fields: [
-        ['text', 'Text', 'textarea', null, 'Leave a blank line between paragraphs. **bold**, *italic*, [link text](https://…) and lines starting with "- " for bullet points all work.'],
-        ['align', 'Alignment', 'select', ALIGN_OPTS],
-      ],
-      defaults: { text: 'Write your message here.', align: 'left' },
-    },
-    image: {
-      label: 'Picture', snip: b => b.alt || '(no description)',
-      fields: [
-        ['src', 'Picture', 'image'],
-        ['alt', 'Description for screen readers and blocked images', 'text'],
-        ['link', 'Link when clicked (optional)', 'url'],
-        ['fit', 'Width', 'select', [['inset', 'With margins'], ['full', 'Edge to edge'], ['half', 'Half width, centred']]],
-        ['caption', 'Caption (optional)', 'text'],
-      ],
-      defaults: { src: '', alt: '', link: '', fit: 'inset', caption: '' },
-    },
-    button: {
-      label: 'Button', snip: b => b.label,
-      fields: [
-        ['label', 'Button text', 'text'],
-        ['url', 'Link', 'url'],
-        ['bg', 'Colour', 'select', [['primary', 'Main colour'], ['highlight', 'Light green'], ['accent', 'Orange or green accent'], ['dark', 'Dark']]],
-        ['align', 'Alignment', 'select', ALIGN_OPTS],
-      ],
-      defaults: { label: 'Find out more', url: 'https://', bg: 'primary', align: 'left' },
-    },
-    callout: {
-      label: 'Highlight box', snip: b => b.title,
-      fields: [
-        ['title', 'Title', 'text'],
-        ['text', 'Text', 'textarea'],
-        ['bg', 'Background', 'role'],
-      ],
-      defaults: { title: 'Don’t forget', text: 'A short reminder or key message.', bg: 'light' },
-    },
-    columns: {
-      label: 'Two columns', snip: b => [b.t1, b.t2].filter(Boolean).join(' | '),
-      fields: [
-        ['i1', 'Left picture (optional)', 'image'], ['t1', 'Left title', 'text'], ['x1', 'Left text', 'textarea'], ['l1', 'Left link text', 'text'], ['u1', 'Left link', 'url'],
-        ['i2', 'Right picture (optional)', 'image'], ['t2', 'Right title', 'text'], ['x2', 'Right text', 'textarea'], ['l2', 'Right link text', 'text'], ['u2', 'Right link', 'url'],
-      ],
-      defaults: { i1: '', t1: 'Left story', x1: 'A sentence or two.', l1: '', u1: '', i2: '', t2: 'Right story', x2: 'A sentence or two.', l2: '', u2: '' },
-    },
-    event: {
-      label: 'Date', snip: b => `${b.day} ${b.month} ${b.title}`,
-      fields: [
-        ['kind', 'Type', 'select', Object.entries(EVENT_KINDS).map(([k, v]) => [k, v.label])],
-        ['day', 'Day (number)', 'text'],
-        ['month', 'Month (short)', 'text'],
-        ['title', 'What', 'text'],
-        ['details', 'When and where', 'text'],
-      ],
-      defaults: { kind: 'trust', day: '14', month: 'Nov', title: 'Event name', details: '15:30 to 16:30, Main hall' },
-    },
-    stats: {
-      label: 'Big numbers', snip: b => [b.v1, b.v2, b.v3].filter(Boolean).join(' · '),
-      fields: [
-        ['v1', 'Number 1', 'text'], ['l1', 'Label 1', 'text'],
-        ['v2', 'Number 2', 'text'], ['l2', 'Label 2', 'text'],
-        ['v3', 'Number 3 (optional)', 'text'], ['l3', 'Label 3', 'text'],
-        ['bg', 'Background', 'role'],
-      ],
-      defaults: { v1: '96%', l1: 'attendance', v2: '1,200', l2: 'books read', v3: '5', l3: 'academies', bg: 'light' },
-    },
-    quote: {
-      label: 'Quote', snip: b => b.text,
-      fields: [['text', 'Quote', 'textarea'], ['who', 'Who said it', 'text']],
-      defaults: { text: 'A lovely thing someone said.', who: 'Name, role' },
-    },
-    divider: {
-      label: 'Divider', snip: () => '',
-      fields: [['color', 'Colour', 'select', [['highlight', 'Light green'], ['accent', 'Orange or green accent'], ['primary', 'Main colour'], ['light', 'Pale tint']]]],
-      defaults: { color: 'highlight' },
-    },
-    spacer: {
-      label: 'Space', snip: b => `${b.h}px`,
-      fields: [['h', 'Height', 'select', [['12', 'Small'], ['24', 'Medium'], ['48', 'Large']]]],
-      defaults: { h: '24' },
-    },
-    footer: {
-      label: 'Footer', snip: b => b.text,
-      fields: [['text', 'Footer text', 'textarea'], ['bg', 'Background', 'role']],
-      defaults: { text: 'Learning without Limits Academy Trust\n[lwlat.org.uk](https://www.lwlat.org.uk)', bg: 'light' },
-    },
+    banner:   { label: 'Banner', fields: [['image', 'Picture across the top', 'image'], ['highlight', 'Highlighted words after the title', 'text', 'Shown in light green on dark colours. Keep it short, such as a name.'], ['bg', 'Background', 'roles', ['primary', 'dark', 'light', 'accent', 'highlight', 'white']], ALIGN],
+                defaults: { image: '', eyebrow: '', title: 'Your headline here', highlight: '', subtitle: '', bg: 'primary', align: 'left' } },
+    announce: { label: 'Announcement', fields: [['linkText', 'Link text', 'text'], ['url', 'Link address', 'url']],
+                defaults: { label: 'Announcement', text: 'One trust-wide message, short and clear.', linkText: '', url: '' } },
+    heading:  { label: 'Heading', fields: [['size', 'Size', 'seg', [['large', 'Large'], ['medium', 'Medium']]], ['color', 'Colour', 'seg', [['primary', 'Main colour'], ['ink', 'Black']]], ALIGN],
+                defaults: { text: 'Section heading', size: 'large', color: 'primary', align: 'left' } },
+    text:     { label: 'Text', fields: [ALIGN],
+                defaults: { text: '<p>Click here to start writing.</p>', align: 'left' } },
+    image:    { label: 'Image', fields: [['src', 'Picture', 'image'], ['alt', 'Description', 'text', 'Shown when pictures are blocked and read aloud by screen readers.'], ['link', 'Link when clicked', 'url'], ['fit', 'Size', 'seg', [['inset', 'Standard'], ['full', 'Full width'], ['half', 'Small']]], ['caption', 'Caption', 'text']],
+                defaults: { src: '', alt: '', link: '', fit: 'inset', caption: '' } },
+    button:   { label: 'Button', fields: [['url', 'Link address', 'url'], ['bg', 'Colour', 'roles', ['primary', 'dark', 'accent', 'highlight']], ALIGN],
+                defaults: { label: 'Find out more', url: '', bg: 'primary', align: 'left' } },
+    callout:  { label: 'Box', fields: [['bg', 'Background', 'roles', ['light', 'accent', 'highlight', 'primary', 'dark', 'white']]],
+                defaults: { title: 'Don’t forget', text: '<p>A short reminder or key message.</p>', bg: 'light' } },
+    columns:  { label: 'Columns', fields: [['i1', 'Left picture', 'image'], ['l1', 'Left link text', 'text'], ['u1', 'Left link address', 'url'], ['i2', 'Right picture', 'image'], ['l2', 'Right link text', 'text'], ['u2', 'Right link address', 'url']],
+                defaults: { i1: '', t1: 'Left story', x1: '<p>A sentence or two.</p>', l1: '', u1: '', i2: '', t2: 'Right story', x2: '<p>A sentence or two.</p>', l2: '', u2: '' } },
+    event:    { label: 'Date', fields: [['kind', 'Type', 'seg', Object.entries(EVENT_KINDS).map(([k, v]) => [k, v.label])]],
+                defaults: { kind: 'trust', day: '14', month: 'Nov', title: 'Event name', details: '15:30 to 16:30, Main hall' } },
+    stats:    { label: 'Numbers', fields: [['bg', 'Background', 'roles', ['light', 'accent', 'highlight', 'primary', 'dark', 'white']]],
+                defaults: { v1: '96%', l1: 'attendance', v2: '1,200', l2: 'books read', v3: '5', l3: 'academies', bg: 'light' } },
+    quote:    { label: 'Quote', fields: [],
+                defaults: { text: 'A lovely thing someone said.', who: 'Name, role' } },
+    divider:  { label: 'Divider', fields: [['color', 'Colour', 'roles', ['highlight', 'accent', 'primary', 'light']]],
+                defaults: { color: 'highlight' } },
+    spacer:   { label: 'Space', fields: [['h', 'Height', 'seg', [['12', 'Small'], ['24', 'Medium'], ['48', 'Large']]]],
+                defaults: { h: '24' } },
+    footer:   { label: 'Footer', fields: [['bg', 'Background', 'roles', ['light', 'dark', 'primary', 'white']]],
+                defaults: { text: '<p>Learning without Limits Academy Trust<br><a href="https://www.lwlat.org.uk">lwlat.org.uk</a></p>', bg: 'light' } },
   };
+  const RICH = { text: ['text'], callout: ['text'], columns: ['x1', 'x2'], footer: ['text'] };
 
-  /* ---------- State ---------- */
-  const STORE_KEY = 'lwlat-email-builder-v2';
-  let uid = 1;
-  const nid = () => 'b' + (Date.now().toString(36)) + (uid++);
-  const mk = (type, props = {}) => ({ id: nid(), type, ...BLOCKS[type].defaults, ...props });
-  const FOOTER = 'Learning without Limits Academy Trust\n[lwlat.org.uk](https://www.lwlat.org.uk)';
-
-  const TEMPLATES = {
-    bulletin: () => ({
-      theme: 'pulse', font: 'Arial, Helvetica, sans-serif', corners: '30', subject: 'Staff bulletin', windowBar: true, pill: 'Staff bulletin',
-      blocks: [
-        mk('banner', { eyebrow: 'Week beginning [date]', title: 'Good morning,', highlight: 'everyone.', subtitle: 'Your round-up of news from across the trust.' }),
-        mk('announce', { text: '[One trust-wide message, e.g. half term dates or a deadline.]', linkText: 'All announcements', url: 'https://' }),
-        mk('text', { text: 'Here is a short round-up of news from across the trust this week. Thank you, as ever, for all you do for our learners.' }),
-        mk('heading', { text: 'Celebrating our learners' }),
-        mk('image', { src: placeholder(1080, 540, 'Your picture here'), alt: '[Describe the picture]' }),
-        mk('text', { text: '[A few lines about the story. Who, what and why it matters.]' }),
-        mk('stats'),
-        mk('heading', { text: 'This week' }),
-        mk('event', { kind: 'trust', day: '[14]', month: '[Nov]', title: '[Trust event]', details: '[Time, place]' }),
-        mk('event', { kind: 'deadline', day: '[18]', month: '[Nov]', title: '[Deadline]', details: '[What is due]' }),
-        mk('event', { kind: 'meeting', day: '[21]', month: '[Nov]', title: '[Meeting]', details: '[Time, place]' }),
-        mk('callout', { title: 'Staff wellbeing', text: '[Short message, with a link if needed.]', bg: 'light' }),
-        mk('button', { label: 'Read the full update', url: 'https://' }),
-        mk('spacer'),
-        mk('footer', { text: FOOTER }),
-      ],
-    }),
-    event: () => ({
-      theme: 'green', font: 'Arial, Helvetica, sans-serif', corners: '30', subject: 'You’re invited', windowBar: true, pill: 'Invitation',
-      blocks: [
-        mk('banner', { eyebrow: 'You’re invited', title: '[Event name]', subtitle: '[Day, date] · [Venue]', bg: 'primary' }),
-        mk('text', { text: '[Opening line. Why the event is happening and who it is for.]' }),
-        mk('event', { kind: 'trust', day: '[28]', month: '[Nov]', title: '[Event name]', details: '[Start time to end time, venue]' }),
-        mk('columns', { t1: 'What to expect', x1: '[Short description]', t2: 'What to bring', x2: '[Short description]' }),
-        mk('button', { label: 'Book your place', url: 'https://', bg: 'highlight' }),
-        mk('divider'),
-        mk('footer', { text: 'Questions? Contact [name] at [email]\n\n' + FOOTER, bg: 'light' }),
-      ],
-    }),
-    celebration: () => ({
-      theme: 'purple', font: "'Trebuchet MS', Arial, sans-serif", corners: '30', subject: 'Thank you', windowBar: true, pill: 'Celebration',
-      blocks: [
-        mk('banner', { image: placeholder(1200, 500, 'Celebration picture'), eyebrow: '[What we are celebrating]', title: 'Thank you,', highlight: 'everyone!', bg: 'primary', align: 'center' }),
-        mk('text', { text: '[A warm message to colleagues.]', align: 'center' }),
-        mk('stats', { bg: 'accent' }),
-        mk('quote', { text: '[A quote from a learner, parent or colleague.]', who: '[Name, role]' }),
-        mk('footer', { text: FOOTER, bg: 'dark' }),
-      ],
-    }),
-    blank: () => ({
-      theme: 'pulse', font: 'Arial, Helvetica, sans-serif', corners: '30', subject: '', windowBar: false, pill: '',
-      blocks: [mk('banner'), mk('text'), mk('footer')],
-    }),
-  };
-
-  let state;
-  try { state = JSON.parse(localStorage.getItem(STORE_KEY)); } catch (e) { state = null; }
-  if (!state || !Array.isArray(state.blocks)) state = TEMPLATES.bulletin();
-
-  /* ---------- Helpers ---------- */
-  function placeholder(w, h, label) {
-    const c = document.createElement('canvas'); c.width = w; c.height = h;
-    const g = c.getContext('2d');
-    g.fillStyle = '#E6F4F3'; g.fillRect(0, 0, w, h);
-    g.strokeStyle = '#009189'; g.lineWidth = 6; g.setLineDash([24, 14]); g.strokeRect(3, 3, w - 6, h - 6);
-    g.fillStyle = '#00706A'; g.font = `bold ${Math.round(h / 9)}px Arial`; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.fillText(label, w / 2, h / 2);
-    return c.toDataURL('image/jpeg', 0.7);
-  }
+  /* =========================================================
+     Helpers
+     ========================================================= */
+  const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const safeUrl = u => {
     u = String(u || '').trim();
     if (!u || u === 'https://') return '';
     if (/^(https?:|mailto:|tel:)/i.test(u)) return u;
     if (/^data:image\//i.test(u)) return u;
+    if (/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(u)) return 'mailto:' + u;
     if (/^[\w.-]+\.[a-z]{2,}/i.test(u)) return 'https://' + u;
     return '';
   };
+  const linkOnly = u => { const s = safeUrl(u); return /^data:/i.test(s) ? '' : s; };
   const roleColour = (role, T) => role === 'white' ? '#ffffff' : (T[role] || T.primary);
   const isDark = role => DARK_ROLES.includes(role);
   const fgFor = role => isDark(role) ? '#ffffff' : BRAND.ink;
+  const theme = () => THEMES[state.theme] || THEMES.pulse;
+  let uid = 1;
+  const nid = () => 'b' + Date.now().toString(36) + (uid++);
+  const mk = (type, props = {}) => ({ id: nid(), type, ...BLOCKS[type].defaults, ...props });
 
-  // Light formatting for text areas. Input is escaped first, so nothing typed can inject HTML.
-  function inline(s, linkColour) {
-    s = esc(s);
-    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) => {
-      const href = safeUrl(u.replace(/&amp;/g, '&'));
-      return href ? `<a href="${esc(href)}" style="color:${linkColour};text-decoration:underline">${t}</a>` : t;
-    });
-    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
-    return s;
-  }
-  function richText(text, opts) {
-    const { colour, linkColour, size = 17, line = 26, align = 'left', font } = opts;
-    const pStyle = `margin:0 0 14px 0;font-family:${font};font-size:${size}px;line-height:${line}px;color:${colour};text-align:${align}`;
-    const paras = String(text || '').replace(/\r/g, '').split(/\n\s*\n/);
-    return paras.map(p => {
+  // Simple markdown-like text to HTML. Used for templates and for designs saved by the earlier version.
+  function md(s) {
+    const inl = t => esc(t)
+      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, x, u) => { const h = linkOnly(u.replace(/&amp;/g, '&')); return h ? `<a href="${esc(h)}">${x}</a>` : x; })
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+    return String(s || '').replace(/\r/g, '').split(/\n\s*\n/).map(p => {
       const lines = p.split('\n');
-      if (lines.every(l => /^\s*[-•]\s+/.test(l))) {
-        return `<ul style="margin:0 0 14px 0;padding-left:22px">` + lines.map(l =>
-          `<li style="font-family:${font};font-size:${size}px;line-height:${line}px;color:${colour};margin:0 0 4px 0">${inline(l.replace(/^\s*[-•]\s+/, ''), linkColour)}</li>`).join('') + `</ul>`;
-      }
-      return `<p style="${pStyle}">${lines.map(l => inline(l, linkColour)).join('<br>')}</p>`;
-    }).join('').replace(/margin:0 0 14px 0([^>]*>)(?![\s\S]*margin:0 0 14px 0)/, 'margin:0$1');
+      if (lines.every(l => /^\s*[-•]\s+/.test(l))) return '<ul>' + lines.map(l => `<li>${inl(l.replace(/^\s*[-•]\s+/, ''))}</li>`).join('') + '</ul>';
+      return `<p>${lines.map(inl).join('<br>')}</p>`;
+    }).join('');
   }
 
-  /* ---------- Email rendering ----------
+  // Keep only safe, email-friendly formatting from typed or pasted text.
+  const TAGS = { B: 'strong', STRONG: 'strong', I: 'em', EM: 'em', U: 'u', A: 'a', BR: 'br', P: 'p', DIV: 'p', H1: 'p', H2: 'p', H3: 'p', H4: 'p', UL: 'ul', OL: 'ol', LI: 'li' };
+  const DROP = ['SCRIPT', 'STYLE', 'TEMPLATE', 'IFRAME', 'OBJECT', 'EMBED', 'IMG', 'SVG', 'META', 'LINK', 'TITLE', 'HEAD', 'VIDEO', 'AUDIO', 'CANVAS', 'INPUT', 'BUTTON', 'SELECT', 'TEXTAREA'];
+  function clean(html) {
+    const src = document.createElement('template'); src.innerHTML = String(html || '');
+    const out = document.createElement('div');
+    const walk = (from, to) => {
+      for (const n of Array.from(from.childNodes)) {
+        if (n.nodeType === 3) { to.appendChild(document.createTextNode(n.nodeValue)); continue; }
+        if (n.nodeType !== 1 || DROP.includes(n.tagName)) continue;
+        const m = TAGS[n.tagName];
+        if (!m) { walk(n, to); continue; }
+        if (m === 'p' && to !== out && to.tagName !== 'LI') { walk(n, to); if (n.nextSibling) to.appendChild(document.createElement('br')); continue; }
+        if (m === 'p' && to.tagName === 'LI') { walk(n, to); continue; }
+        const el = document.createElement(m);
+        if (m === 'a') { const h = linkOnly(n.getAttribute('href')); if (!h) { walk(n, to); continue; } el.setAttribute('href', h); }
+        if (m !== 'br') walk(n, el);
+        to.appendChild(el);
+      }
+    };
+    walk(src.content, out);
+    return out.innerHTML;
+  }
+
+  // Turn clean HTML into email HTML with every style written inline.
+  function styledRich(html, o) {
+    const { colour, linkColour, size = 17, line = 26, align = 'left', font } = o;
+    const box = document.createElement('div'); box.innerHTML = clean(html);
+    // Wrap loose text and inline tags at the top level in paragraphs.
+    let run = null;
+    for (const n of Array.from(box.childNodes)) {
+      const block = n.nodeType === 1 && /^(P|UL|OL)$/.test(n.tagName);
+      if (block) { run = null; continue; }
+      if (n.nodeType === 3 && !n.nodeValue.trim() && !run) { n.remove(); continue; }
+      if (!run) { run = document.createElement('p'); box.insertBefore(run, n); }
+      run.appendChild(n);
+    }
+    const base = `font-family:${font};font-size:${size}px;line-height:${line}px;color:${colour}`;
+    box.querySelectorAll('p').forEach(p => p.setAttribute('style', `margin:0 0 14px 0;${base};text-align:${align}`));
+    box.querySelectorAll('ul,ol').forEach(l => l.setAttribute('style', 'margin:0 0 14px 0;padding-left:24px'));
+    box.querySelectorAll('li').forEach(li => li.setAttribute('style', `margin:0 0 4px 0;${base}`));
+    box.querySelectorAll('a').forEach(a => { a.setAttribute('style', `color:${linkColour};text-decoration:underline`); a.setAttribute('target', '_blank'); });
+    const last = box.lastElementChild;
+    if (last) last.style.marginBottom = '0';
+    return box.innerHTML;
+  }
+
+  /* =========================================================
+     Email rendering (shared by the canvas and the final email)
      Written for Outlook on Windows, which uses Microsoft Word to draw emails:
      tables for layout, every style inline, bgcolor attributes as well as CSS,
      pixel widths on images, and web-safe fonts. A fixed 600px card keeps the
      layout identical in classic Outlook, new Outlook and Outlook on the web.
-     Rounded corners show everywhere except classic Outlook, which squares them. */
+     Rounded corners show everywhere except classic Outlook, which squares them.
+     ========================================================= */
   const W = 600, PAD = 32, CARD_R = 24;
   function img(src, alt, w, link, extra = '') {
     const s = safeUrl(src);
     if (!s) return '';
     const tag = `<img src="${esc(s)}" width="${w}" alt="${esc(alt)}" style="display:block;width:${w}px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;${extra}">`;
-    const l = safeUrl(link);
+    const l = linkOnly(link);
     return l ? `<a href="${esc(l)}" target="_blank">${tag}</a>` : tag;
   }
   const corners = pos => `border-radius:${pos.first ? CARD_R : 0}px ${pos.first ? CARD_R : 0}px ${pos.last ? CARD_R : 0}px ${pos.last ? CARD_R : 0}px;`;
@@ -592,53 +591,57 @@
 <td valign="middle" align="right">${pill}</td></tr></table></td></tr>`;
   }
 
-  function renderBlock(b, T, F, R, pos) {
+  function renderBlock(b, T, F, R, pos, ed) {
     const td = (inner, style = '', attrs = '') => `<tr><td ${attrs} style="${style}">${inner}</td></tr>`;
+    // E: a short piece of text. On the canvas it can be typed into directly.
+    const E = (k, ph) => ed ? `<span data-f="${k}" contenteditable="plaintext-only" data-ph="${esc(ph)}" spellcheck="true">${esc(b[k])}</span>` : esc(b[k]);
+    // RT: formatted text (bold, links, lists). On the canvas it can be typed into directly.
+    const RT = (k, o) => ed ? `<div data-f="${k}" data-rich contenteditable="true" data-ph="Type your text here" spellcheck="true">${styledRich(b[k], o)}</div>` : styledRich(b[k], o);
+    const show = k => ed || String(b[k] || '').trim();
     switch (b.type) {
       case 'banner': {
         const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
         const hl = isDark(b.bg) ? T.highlight : T.primary;
-        const dotC = isDark(b.bg) ? T.highlight : T.primary;
-        const top = b.image ? td(img(b.image, '', W, ''), `padding:0;font-size:0;line-height:0;overflow:hidden;${corners({ first: pos.first, last: false })}`) : '';
-        const bannerPos = { first: pos.first && !b.image, last: pos.last };
-        // align="center" centres the pill. Left and right leave it unaligned, because an aligned table floats.
+        const top = safeUrl(b.image) ? td(img(b.image, '', W, ''), `padding:0;font-size:0;line-height:0;overflow:hidden;${corners({ first: pos.first, last: false })}`) : '';
+        const bannerPos = { first: pos.first && !top, last: pos.last };
+        // align="center" centres the pill. Left alignment leaves it unaligned, because an aligned table floats.
         const tblAlign = b.align === 'center' ? ' align="center"' : '';
-        const eb = b.eyebrow ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0"${tblAlign} style="margin:0 0 16px 0"><tr><td style="border:1px solid ${dotC};border-radius:20px;padding:6px 14px;font-family:${F};font-size:12px;line-height:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:bold;color:${fg}"><span style="color:${dotC}">&#9679;</span>&nbsp; ${esc(b.eyebrow)}</td></tr></table>` : '';
-        const title = `${esc(b.title)}${b.highlight ? ` <span style="color:${hl}">${esc(b.highlight)}</span>` : ''}`;
-        const sub = b.subtitle ? `<p style="margin:12px 0 0 0;font-family:${F};font-size:19px;line-height:27px;color:${fg}">${esc(b.subtitle)}</p>` : '';
+        const eb = show('eyebrow') ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0"${tblAlign} style="margin:0 0 16px 0"><tr><td style="border:1px solid ${hl};border-radius:20px;padding:6px 14px;font-family:${F};font-size:12px;line-height:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:bold;color:${fg}"><span style="color:${hl}">&#9679;</span>&nbsp; ${E('eyebrow', 'Add a label')}</td></tr></table>` : '';
+        const title = `${E('title', 'Your headline')}${b.highlight ? ` <span style="color:${hl}">${esc(b.highlight)}</span>` : ''}`;
+        const sub = show('subtitle') ? `<p style="margin:12px 0 0 0;font-family:${F};font-size:19px;line-height:27px;color:${fg};text-align:${b.align}">${E('subtitle', 'Add a subtitle (optional)')}</p>` : '';
         return top + td(`${eb}<h1 style="margin:0;font-family:${F};font-size:44px;line-height:50px;font-weight:900;color:${fg};text-align:${b.align}">${title}</h1>${sub}`,
           `background-color:${bg};padding:40px ${PAD}px;text-align:${b.align};${corners(bannerPos)}`, `bgcolor="${bg}" align="${b.align}"`);
       }
       case 'announce': {
-        const link = safeUrl(b.url);
+        const link = linkOnly(b.url);
         const more = b.linkText && link ? `<td valign="middle" align="right" style="padding-left:12px;white-space:nowrap"><a href="${esc(link)}" target="_blank" style="font-family:${F};font-size:15px;line-height:20px;font-weight:bold;color:${BRAND.ink};text-decoration:underline">${esc(b.linkText)} &rarr;</a></td>` : '';
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td width="40" valign="middle" style="width:40px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="36" height="36" align="center" valign="middle" bgcolor="${BRAND.ink}" style="width:36px;height:36px;background-color:${BRAND.ink};border-radius:18px;font-size:17px;line-height:36px;text-align:center">&#128227;</td></tr></table></td>
-<td valign="middle" style="padding-left:12px"><p style="margin:0;font-family:${F};font-size:12px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.ink}">${esc(b.label)}</p>
-<p style="margin:2px 0 0 0;font-family:${F};font-size:16px;line-height:22px;color:${BRAND.ink}">${esc(b.text)}</p></td>${more}
+<td valign="middle" style="padding-left:12px"><p style="margin:0;font-family:${F};font-size:12px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.ink}">${E('label', 'Label')}</p>
+<p style="margin:2px 0 0 0;font-family:${F};font-size:16px;line-height:22px;color:${BRAND.ink}">${E('text', 'Your message')}</p></td>${more}
 </tr></table>`, `background-color:${BRAND.orange};padding:14px ${PAD}px;${corners(pos)}`, `bgcolor="${BRAND.orange}"`);
       }
       case 'heading': {
         const size = b.size === 'large' ? 30 : 22;
         const c = b.color === 'ink' ? BRAND.ink : T.primary;
-        return td(`<h2 style="margin:0;font-family:${F};font-size:${size}px;line-height:${size + 8}px;font-weight:900;color:${c};text-align:${b.align}">${esc(b.text)}</h2>`,
+        return td(`<h2 style="margin:0;font-family:${F};font-size:${size}px;line-height:${size + 8}px;font-weight:900;color:${c};text-align:${b.align}">${E('text', 'Heading')}</h2>`,
           `padding:28px ${PAD}px 6px ${PAD}px`, `align="${b.align}"`);
       }
       case 'text':
-        return td(richText(b.text, { colour: BRAND.ink, linkColour: T.primary, align: b.align, font: F }), `padding:16px ${PAD}px 4px ${PAD}px`, `align="${b.align}"`);
+        return td(RT('text', { colour: BRAND.ink, linkColour: T.primary, align: b.align, font: F }), `padding:16px ${PAD}px 4px ${PAD}px`, `align="${b.align}"`);
       case 'image': {
-        if (!safeUrl(b.src)) return '';
+        if (!safeUrl(b.src)) return ed ? td(`<div class="imgph">${ICONS.image}Add an image<br><span style="font-weight:400;font-size:14px">Click here, then upload or paste a link. You can also drop a picture here.</span></div>`, `padding:12px ${PAD}px`) : '';
         const w = b.fit === 'full' ? W : b.fit === 'half' ? (W - 2 * PAD) / 2 : W - 2 * PAD;
         const pad = b.fit === 'full' ? '10px 0' : `12px ${PAD}px`;
         const radius = b.fit === 'full' ? '' : 'border-radius:18px;';
         const cap = b.caption ? `<p style="margin:8px 0 0 0;font-family:${F};font-size:14px;line-height:20px;color:${BRAND.grey};text-align:center">${esc(b.caption)}</p>` : '';
-        return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>${img(b.src, b.alt, w, b.link, radius)}</td></tr></table>${cap}`, `padding:${pad}`, 'align="center"');
+        return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>${img(b.src, b.alt, w, ed ? '' : b.link, radius)}</td></tr></table>${cap}`, `padding:${pad}`, 'align="center"');
       }
       case 'button': {
-        const bg = roleColour(b.bg, T), fg = fgFor(b.bg), href = safeUrl(b.url) || '#';
+        const bg = roleColour(b.bg, T), fg = fgFor(b.bg), href = linkOnly(b.url) || '#';
         return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="${b.align}"><tr>
 <td bgcolor="${bg}" style="background-color:${bg};border-radius:${R}px;padding:15px 32px;mso-padding-alt:15px 32px">
-<a href="${esc(href)}" target="_blank" style="font-family:${F};font-size:17px;line-height:20px;font-weight:bold;color:${fg};text-decoration:none;display:inline-block">${esc(b.label)}</a>
+<a href="${esc(href)}" target="_blank" style="font-family:${F};font-size:17px;line-height:20px;font-weight:bold;color:${fg};text-decoration:none;display:inline-block">${E('label', 'Button text')}</a>
 </td></tr></table>`, `padding:18px ${PAD}px`, `align="${b.align}"`);
       }
       case 'callout': {
@@ -647,54 +650,54 @@
         const link = isDark(b.bg) ? '#ffffff' : (b.bg === 'light' || b.bg === 'white') ? T.primary : BRAND.ink;
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td bgcolor="${bg}" style="background-color:${bg};border-left:6px solid ${edge};padding:22px 26px;border-radius:18px">
-<p style="margin:0 0 8px 0;font-family:${F};font-size:22px;line-height:28px;font-weight:900;color:${fg}">${esc(b.title)}</p>
-${richText(b.text, { colour: fg, linkColour: link, size: 16, line: 24, font: F })}
+<p style="margin:0 0 8px 0;font-family:${F};font-size:22px;line-height:28px;font-weight:900;color:${fg}">${E('title', 'Box title')}</p>
+${RT('text', { colour: fg, linkColour: link, size: 16, line: 24, font: F })}
 </td></tr></table>`, `padding:14px ${PAD}px`);
       }
       case 'columns': {
         const colW = (W - 2 * PAD - 20) / 2;
-        const col = (i, t, x, l, u) => {
-          const href = safeUrl(u);
-          return `${i ? img(i, t || '', colW, u, 'margin-bottom:12px;border-radius:14px') : ''}
-${t ? `<p style="margin:0 0 6px 0;font-family:${F};font-size:20px;line-height:26px;font-weight:900;color:${T.primary}">${esc(t)}</p>` : ''}
-${richText(x, { colour: BRAND.ink, linkColour: T.primary, size: 16, line: 23, font: F })}
+        const col = (n) => {
+          const href = linkOnly(b['u' + n]), l = b['l' + n];
+          return `${b['i' + n] ? img(b['i' + n], b['t' + n] || '', colW, ed ? '' : b['u' + n], 'margin-bottom:12px;border-radius:14px') : ''}
+${show('t' + n) ? `<p style="margin:0 0 6px 0;font-family:${F};font-size:20px;line-height:26px;font-weight:900;color:${T.primary}">${E('t' + n, 'Title')}</p>` : ''}
+${RT('x' + n, { colour: BRAND.ink, linkColour: T.primary, size: 16, line: 23, font: F })}
 ${l && href ? `<p style="margin:10px 0 0 0;font-family:${F};font-size:15px;line-height:20px;font-weight:bold"><a href="${esc(href)}" target="_blank" style="color:${T.primary};text-decoration:underline">${esc(l)} &rarr;</a></p>` : ''}`;
         };
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td width="${colW}" valign="top" style="width:${colW}px;vertical-align:top">${col(b.i1, b.t1, b.x1, b.l1, b.u1)}</td>
+<td width="${colW}" valign="top" style="width:${colW}px;vertical-align:top">${col(1)}</td>
 <td width="20" style="width:20px;font-size:0;line-height:0">&nbsp;</td>
-<td width="${colW}" valign="top" style="width:${colW}px;vertical-align:top">${col(b.i2, b.t2, b.x2, b.l2, b.u2)}</td>
+<td width="${colW}" valign="top" style="width:${colW}px;vertical-align:top">${col(2)}</td>
 </tr></table>`, `padding:14px ${PAD}px`);
       }
       case 'event': {
         const k = EVENT_KINDS[b.kind] || EVENT_KINDS.trust;
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td width="78" bgcolor="${k.bg}" align="center" valign="middle" style="width:78px;background-color:${k.bg};border-radius:16px;padding:10px 0;text-align:center">
-<p style="margin:0;font-family:${F};font-size:28px;line-height:32px;font-weight:900;color:${k.fg}">${esc(b.day)}</p>
-<p style="margin:0;font-family:${F};font-size:13px;line-height:16px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:${k.fg}">${esc(b.month)}</p>
+<p style="margin:0;font-family:${F};font-size:28px;line-height:32px;font-weight:900;color:${k.fg}">${E('day', '00')}</p>
+<p style="margin:0;font-family:${F};font-size:13px;line-height:16px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:${k.fg}">${E('month', 'Mon')}</p>
 </td>
 <td valign="middle" style="padding:0 0 0 18px;vertical-align:middle">
 <p style="margin:0 0 2px 0;font-family:${F};font-size:12px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.grey}">${esc(k.label)}</p>
-<p style="margin:0 0 2px 0;font-family:${F};font-size:19px;line-height:25px;font-weight:bold;color:${BRAND.ink}">${esc(b.title)}</p>
-<p style="margin:0;font-family:${F};font-size:15px;line-height:21px;color:${BRAND.grey}">${esc(b.details)}</p>
+<p style="margin:0 0 2px 0;font-family:${F};font-size:19px;line-height:25px;font-weight:bold;color:${BRAND.ink}">${E('title', 'What is happening')}</p>
+<p style="margin:0;font-family:${F};font-size:15px;line-height:21px;color:${BRAND.grey}">${E('details', 'When and where')}</p>
 </td></tr></table>`, `padding:8px ${PAD}px`);
       }
       case 'stats': {
-        const items = [[b.v1, b.l1], [b.v2, b.l2], [b.v3, b.l3]].filter(([v]) => String(v || '').trim());
+        const items = [1, 2, 3].filter(n => ed || String(b['v' + n] || '').trim());
         if (!items.length) return '';
         const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
         const numC = (b.bg === 'light' || b.bg === 'white') ? T.primary : isDark(b.bg) ? T.highlight : BRAND.ink;
         const w = Math.floor((W - 2 * PAD) / items.length);
-        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${bg}" style="background-color:${bg};border-radius:18px"><tr>${items.map(([v, l]) =>
+        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${bg}" style="background-color:${bg};border-radius:18px"><tr>${items.map(n =>
           `<td width="${w}" align="center" valign="top" style="width:${w}px;padding:24px 8px;text-align:center">
-<p style="margin:0;font-family:${F};font-size:42px;line-height:48px;font-weight:900;color:${numC}">${esc(v)}</p>
-<p style="margin:4px 0 0 0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${fg}">${esc(l)}</p></td>`).join('')}</tr></table>`, `padding:14px ${PAD}px`);
+<p style="margin:0;font-family:${F};font-size:42px;line-height:48px;font-weight:900;color:${numC}">${E('v' + n, n === 3 ? '+ number' : '0')}</p>
+<p style="margin:4px 0 0 0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${fg}">${E('l' + n, 'Label')}</p></td>`).join('')}</tr></table>`, `padding:14px ${PAD}px`);
       }
       case 'quote':
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td style="border-left:6px solid ${T.highlight};padding:4px 0 4px 22px">
-<p style="margin:0 0 8px 0;font-family:${F};font-size:22px;line-height:31px;font-style:italic;color:${BRAND.ink}">&ldquo;${esc(b.text)}&rdquo;</p>
-<p style="margin:0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${T.primary}">${esc(b.who)}</p>
+<p style="margin:0 0 8px 0;font-family:${F};font-size:22px;line-height:31px;font-style:italic;color:${BRAND.ink}">&ldquo;${E('text', 'The quote')}&rdquo;</p>
+<p style="margin:0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${T.primary}">${E('who', 'Who said it')}</p>
 </td></tr></table>`, `padding:18px ${PAD}px`);
       case 'divider': {
         const c = roleColour(b.color, T);
@@ -705,7 +708,7 @@ ${l && href ? `<p style="margin:10px 0 0 0;font-family:${F};font-size:15px;line-
       case 'footer': {
         const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
         const link = isDark(b.bg) ? '#ffffff' : T.primary;
-        return td(richText(b.text, { colour: fg, linkColour: link, size: 14, line: 21, align: 'center', font: F }),
+        return td(RT('text', { colour: fg, linkColour: link, size: 14, line: 21, align: 'center', font: F }),
           `background-color:${bg};padding:26px ${PAD}px;${corners(pos)}`, `bgcolor="${bg}" align="center"`);
       }
     }
@@ -714,10 +717,10 @@ ${l && href ? `<p style="margin:10px 0 0 0;font-family:${F};font-size:15px;line-
 
   // The part that goes into Outlook: a coloured page band with a white 600px card inside.
   function renderBody() {
-    const T = THEMES[state.theme] || THEMES.pulse, F = state.font, R = state.corners;
-    const visible = state.blocks.filter(b => BLOCKS[b.type]);
-    const bar = state.windowBar ? windowBar(T, F, state.pill, { first: true, last: !visible.length }) : '';
-    const rows = visible.map((b, i) => renderBlock(b, T, F, R, { first: !bar && i === 0, last: i === visible.length - 1 })).join('\n');
+    const T = theme(), F = state.font, R = state.corners;
+    const vis = state.blocks.filter(b => BLOCKS[b.type]);
+    const bar = state.windowBar ? windowBar(T, F, state.pill, { first: true, last: !vis.length }) : '';
+    const rows = vis.map((b, i) => renderBlock(b, T, F, R, { first: !bar && i === 0, last: i === vis.length - 1 }, false)).join('\n');
     return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${T.page}" style="width:100%;background-color:${T.page};border-collapse:separate">
 <tr><td align="center" style="padding:32px 10px">
 <table role="presentation" width="${W}" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" align="center" style="width:${W}px;background-color:#ffffff;border-collapse:separate;border-radius:${CARD_R}px">
@@ -725,101 +728,430 @@ ${bar}${rows}
 </table>
 </td></tr></table>`;
   }
-  function renderDoc(body, title) {
-    const T = THEMES[state.theme] || THEMES.pulse;
+  function renderDoc() {
     return `<!DOCTYPE html>
 <html lang="en-GB" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>${esc(title || 'Email')}</title>
+<title>${esc(state.subject || 'Email')}</title>
 <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
 </head>
-<body style="margin:0;padding:0;background-color:${T.page}">
-${body}
+<body style="margin:0;padding:0;background-color:${theme().page}">
+${renderBody()}
 </body>
 </html>`;
   }
 
-  /* ---------- Editor UI ---------- */
-  const $ = s => document.querySelector(s);
-  const frame = $('#frame');
-  let mode = 'build';
-  let importedHtml = '';
+  /* =========================================================
+     Templates
+     ========================================================= */
+  const FOOTER = md('Learning without Limits Academy Trust\n[lwlat.org.uk](https://www.lwlat.org.uk)');
+  const TEMPLATES = {
+    bulletin: {
+      name: 'Staff bulletin', desc: 'Weekly round-up with news, numbers and dates', colours: ['#098F88', '#00706A', '#F5BA19', '#E6F4F3'],
+      make: () => ({ theme: 'pulse', font: FONTS[0][0], corners: '30', subject: 'Staff bulletin', windowBar: true, pill: 'Staff bulletin', blocks: [
+        mk('banner', { eyebrow: 'Week beginning [date]', title: 'Good morning,', highlight: 'everyone.', subtitle: 'Your round-up of news from across the trust.' }),
+        mk('announce', { text: '[One trust-wide message, e.g. half term dates or a deadline.]', linkText: 'All announcements', url: '' }),
+        mk('text', { text: md('Here is a short round-up of news from across the trust this week. Thank you, as ever, for all you do for our learners.') }),
+        mk('heading', { text: 'Celebrating our learners' }),
+        mk('image', { alt: '' }),
+        mk('text', { text: md('[A few lines about the story. Who, what and why it matters.]') }),
+        mk('stats'),
+        mk('heading', { text: 'This week' }),
+        mk('event', { kind: 'trust', day: '14', month: 'Nov', title: '[Trust event]', details: '[Time, place]' }),
+        mk('event', { kind: 'deadline', day: '18', month: 'Nov', title: '[Deadline]', details: '[What is due]' }),
+        mk('event', { kind: 'meeting', day: '21', month: 'Nov', title: '[Meeting]', details: '[Time, place]' }),
+        mk('callout', { title: 'Staff wellbeing', text: md('[Short message, with a link if needed.]') }),
+        mk('button', { label: 'Read the full update' }),
+        mk('spacer'),
+        mk('footer', { text: FOOTER }),
+      ] }),
+    },
+    event: {
+      name: 'Event invitation', desc: 'Invite colleagues to an event, with a booking button', colours: ['#E6F4F3', '#00706A', '#ACCE33', '#ffffff'],
+      make: () => ({ theme: 'green', font: FONTS[0][0], corners: '30', subject: 'You’re invited', windowBar: true, pill: 'Invitation', blocks: [
+        mk('banner', { eyebrow: 'You’re invited', title: '[Event name]', subtitle: '[Day, date] · [Venue]' }),
+        mk('text', { text: md('[Opening line. Why the event is happening and who it is for.]') }),
+        mk('event', { kind: 'trust', day: '28', month: 'Nov', title: '[Event name]', details: '[Start time to end time, venue]' }),
+        mk('columns', { t1: 'What to expect', x1: md('[Short description]'), t2: 'What to bring', x2: md('[Short description]') }),
+        mk('button', { label: 'Book your place', bg: 'highlight' }),
+        mk('divider'),
+        mk('footer', { text: md('Questions? Contact [name] at [email]') + FOOTER }),
+      ] }),
+    },
+    celebration: {
+      name: 'Celebration', desc: 'Say thank you, with big numbers and a quote', colours: ['#6F2789', '#ACCE33', '#F5BA19', '#1F1F1F'],
+      make: () => ({ theme: 'purple', font: FONTS[2][0], corners: '30', subject: 'Thank you', windowBar: true, pill: 'Celebration', blocks: [
+        mk('banner', { eyebrow: '[What we are celebrating]', title: 'Thank you,', highlight: 'everyone!', align: 'center' }),
+        mk('text', { text: md('[A warm message to colleagues.]'), align: 'center' }),
+        mk('stats', { bg: 'accent' }),
+        mk('quote', { text: '[A quote from a learner, parent or colleague.]', who: '[Name, role]' }),
+        mk('footer', { text: FOOTER, bg: 'dark' }),
+      ] }),
+    },
+    notice: {
+      name: 'Quick notice', desc: 'One message, one button, nothing more', colours: ['#F2F7F7', '#F5BA19', '#00706A', '#ffffff'],
+      make: () => ({ theme: 'tint', font: FONTS[0][0], corners: '30', subject: 'Notice', windowBar: false, pill: '', blocks: [
+        mk('announce', { label: 'Notice', text: '[Your headline message]' }),
+        mk('heading', { text: '[Heading]' }),
+        mk('text', { text: md('[A short explanation.]') }),
+        mk('button', { label: '[Button text]' }),
+        mk('footer', { text: FOOTER }),
+      ] }),
+    },
+    blank: {
+      name: 'Blank', desc: 'Start with a banner, text and footer', colours: ['#ffffff', '#00706A', '#E6F4F3', '#F2F7F7'],
+      make: () => ({ theme: 'pulse', font: FONTS[0][0], corners: '30', subject: '', windowBar: false, pill: '', blocks: [mk('banner'), mk('text'), mk('footer')] }),
+    },
+  };
+
+  /* =========================================================
+     State, saving and undo
+     ========================================================= */
+  const STORE_KEY = 'lwlat-email-builder-v3';
+  function migrate(s) {
+    if (!s || !Array.isArray(s.blocks)) return null;
+    s.blocks = s.blocks.filter(b => BLOCKS[b.type]).map(b => {
+      const nb = { ...BLOCKS[b.type].defaults, ...b, id: b.id || nid() };
+      (RICH[b.type] || []).forEach(k => { if (nb[k] && !/<[a-z]/i.test(nb[k])) nb[k] = md(nb[k]); });
+      return nb;
+    });
+    if (!THEMES[s.theme]) s.theme = 'pulse';
+    return { ...TEMPLATES.blank.make(), ...s };
+  }
+  let state = null;
+  try { state = migrate(JSON.parse(localStorage.getItem(STORE_KEY))); } catch (e) {}
+  if (!state) { try { state = migrate(JSON.parse(localStorage.getItem('lwlat-email-builder-v2'))); } catch (e) {} }
+  if (!state) state = TEMPLATES.bulletin.make();
 
   function save() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
-    catch (e) { flash('This email is too large to keep in the browser. Use "Save design file" to keep it.', true); }
+    catch (e) { toast('This email is too big to keep in the browser. Use More, Save design file to keep it.', true); }
   }
-  let t;
-  function refresh() {
-    clearTimeout(t);
-    t = setTimeout(() => {
-      if (mode === 'build') frame.srcdoc = renderDoc(renderBody(), state.subject);
-      else frame.srcdoc = importedHtml || '<p style="font-family:Arial;padding:30px;color:#636466">Paste or open a Canva email to see it here.</p>';
-      save();
-    }, 120);
+  let hist = [], hi = -1, histTimer;
+  function commit() {
+    clearTimeout(histTimer);
+    const s = JSON.stringify(state);
+    if (hist[hi] === s) return;
+    hist = hist.slice(0, hi + 1); hist.push(s);
+    if (hist.length > 80) hist.shift();
+    hi = hist.length - 1; save(); updUndo();
   }
-  function flash(msg, warn) {
-    const s = $('#status'); s.textContent = msg; s.classList.toggle('warn', !!warn);
-    clearTimeout(flash.t); flash.t = setTimeout(() => { s.textContent = ''; }, 7000);
-  }
-
-  function drawThemes() {
-    const box = $('#themes'); box.innerHTML = '';
-    Object.entries(THEMES).forEach(([k, th]) => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'theme'; b.setAttribute('aria-pressed', String(state.theme === k));
-      b.innerHTML = `<div class="sw" aria-hidden="true"><span style="background:${th.page}"></span><span style="background:${th.primary}"></span><span style="background:${th.accent}"></span><span style="background:${th.highlight}"></span></div>${esc(th.name)}`;
-      b.onclick = () => { state.theme = k; drawThemes(); refresh(); };
-      box.appendChild(b);
-    });
+  const commitSoon = () => { clearTimeout(histTimer); histTimer = setTimeout(commit, 600); save(); };
+  function updUndo() { $('#undo').disabled = hi <= 0; $('#redo').disabled = hi >= hist.length - 1; }
+  function go(step) {
+    commit();
+    const n = hi + step; if (n < 0 || n >= hist.length) return;
+    hi = n; state = JSON.parse(hist[hi]); save(); updUndo();
+    if (selId && !findBlock(selId)) selId = null;
+    renderAll();
   }
 
-  function fieldEl(block, [key, label, type, opts, hint]) {
-    const wrap = document.createElement('div'); wrap.className = 'field';
-    const id = `${block.id}-${key}`;
-    const lab = document.createElement('label'); lab.htmlFor = id; lab.textContent = label; wrap.appendChild(lab);
-    let input;
-    const update = v => { block[key] = v; refresh(); updateSnip(block); };
-    if (type === 'textarea') {
-      input = document.createElement('textarea'); input.value = block[key] || '';
-    } else if (type === 'select' || type === 'role') {
-      input = document.createElement('select');
-      (type === 'role' ? ROLE_OPTS : opts).forEach(([v, l]) => input.appendChild(new Option(l, v)));
-      input.value = block[key];
-    } else if (type === 'image') {
-      const row = document.createElement('div'); row.className = 'imgrow';
-      input = document.createElement('input'); input.type = 'url';
-      const setPh = () => { input.placeholder = /^data:/.test(block[key] || '') ? 'Uploaded picture in use (paste a link to replace)' : 'https://… link to picture'; };
-      input.value = /^data:/.test(block[key] || '') ? '' : (block[key] || ''); setPh();
-      const up = document.createElement('label'); up.className = 'btn small'; up.textContent = 'Upload';
-      const file = document.createElement('input'); file.type = 'file'; file.accept = 'image/*'; file.className = 'sr';
-      file.setAttribute('aria-label', 'Upload ' + label.toLowerCase());
-      up.appendChild(file);
-      const clr = document.createElement('button'); clr.type = 'button'; clr.className = 'btn small'; clr.textContent = 'Remove';
-      clr.onclick = () => { input.value = ''; update(''); setPh(); };
-      file.onchange = async () => {
-        const f = file.files[0]; if (!f) return;
-        try { update(await shrink(f)); input.value = ''; setPh(); flash('Picture added. Send yourself a test before sending to colleagues.'); }
-        catch (e) { flash('That picture could not be read. Try a JPG or PNG.', true); }
-        file.value = '';
-      };
-      row.append(input, up, clr);
-      wrap.appendChild(row);
-      input.id = id;
-      input.addEventListener('input', () => update(input.value));
-      return wrap;
-    } else {
-      input = document.createElement('input'); input.type = type === 'url' ? 'url' : 'text'; input.value = block[key] || '';
-      if (type === 'url') input.placeholder = 'https://';
+  /* =========================================================
+     Canvas
+     ========================================================= */
+  const cv = $('#cv');
+  let selId = null;
+  const findBlock = id => state.blocks.find(b => b.id === id);
+
+  function blkHtml(b, i) {
+    const T = theme();
+    const pos = { first: !state.windowBar && i === 0, last: i === state.blocks.length - 1 };
+    const L = BLOCKS[b.type].label;
+    return `<div class="blk${b.id === selId ? ' sel' : ''}" data-bid="${b.id}">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${renderBlock(b, T, state.font, state.corners, pos, true)}</table>
+<div class="tag">${esc(L)}</div>
+<div class="tools ui">
+<span data-act="drag" draggable="true" title="Drag to move" aria-hidden="true">${ICONS.drag}</span>
+<button data-act="up" title="Move up" aria-label="Move ${esc(L)} up">${ICONS.up}</button>
+<button data-act="down" title="Move down" aria-label="Move ${esc(L)} down">${ICONS.down}</button>
+<button data-act="dup" title="Duplicate" aria-label="Duplicate ${esc(L)}">${ICONS.copy}</button>
+<button data-act="del" title="Delete" aria-label="Delete ${esc(L)}">${ICONS.trash}</button>
+</div></div>`;
+  }
+  function renderCanvas() {
+    const T = theme();
+    cv.style.backgroundColor = T.page;
+    let h = '<div class="card" id="card">';
+    if (state.windowBar) h += `<div class="wb" data-wb><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${windowBar(T, state.font, state.pill, { first: true, last: !state.blocks.length })}</table></div>`;
+    h += state.blocks.map(blkHtml).join('');
+    if (!state.blocks.length) h += '<div class="empty">Your email is empty.<br>Drag a block here, or click one on the left.</div>';
+    h += '<div class="dropline" id="dropline"></div></div>';
+    cv.innerHTML = h;
+  }
+  function rerenderBlock(id) {
+    const i = state.blocks.findIndex(b => b.id === id);
+    const el = cv.querySelector(`[data-bid="${id}"]`);
+    if (i < 0 || !el) return renderCanvas();
+    el.outerHTML = blkHtml(state.blocks[i], i);
+  }
+  function select(id, opts = {}) {
+    selId = id;
+    cv.querySelectorAll('.blk').forEach(el => el.classList.toggle('sel', el.dataset.bid === id));
+    if (id) showInspector(); else showMain();
+    if (id && opts.scroll) cv.querySelector(`[data-bid="${id}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function addBlock(type, at) {
+    const nb = mk(type);
+    if (at == null) { const si = state.blocks.findIndex(b => b.id === selId); at = si >= 0 ? si + 1 : state.blocks.length; }
+    state.blocks.splice(at, 0, nb);
+    commit(); selId = nb.id; renderCanvas(); select(nb.id, { scroll: true });
+  }
+  function moveBlock(id, to) {
+    const from = state.blocks.findIndex(b => b.id === id); if (from < 0) return;
+    const [b] = state.blocks.splice(from, 1);
+    if (to > from) to--;
+    state.blocks.splice(Math.max(0, Math.min(to, state.blocks.length)), 0, b);
+    commit(); renderCanvas(); select(id);
+  }
+
+  // Clicks on the canvas
+  cv.addEventListener('click', e => {
+    if (e.target.closest('a')) e.preventDefault();
+    const tool = e.target.closest('.tools button');
+    const blk = e.target.closest('.blk');
+    if (tool && blk) {
+      const id = blk.dataset.bid, i = state.blocks.findIndex(b => b.id === id), a = tool.dataset.act;
+      if (a === 'up' && i > 0) moveBlock(id, i - 1);
+      if (a === 'down' && i < state.blocks.length - 1) moveBlock(id, i + 2);
+      if (a === 'dup') { const c = { ...state.blocks[i], id: nid() }; state.blocks.splice(i + 1, 0, c); commit(); renderCanvas(); select(c.id); }
+      if (a === 'del') delBlock(id);
+      return;
     }
-    input.id = id;
-    input.addEventListener(input.tagName === 'SELECT' ? 'change' : 'input', () => update(input.value));
-    wrap.appendChild(input);
-    if (hint) { const h = document.createElement('div'); h.className = 'hint'; h.textContent = hint; wrap.appendChild(h); }
-    return wrap;
+    if (e.target.closest('[data-wb]')) { select(null); setTab('styles'); return; }
+    if (blk) { if (blk.dataset.bid !== selId) select(blk.dataset.bid); return; }
+    if (!e.target.closest('.card')) select(null);
+  });
+  function delBlock(id) {
+    const i = state.blocks.findIndex(b => b.id === id); if (i < 0) return;
+    state.blocks.splice(i, 1); commit();
+    selId = null; renderCanvas(); showMain();
+    toast('Block deleted. Press Undo to bring it back.');
+  }
+
+  // Typing on the canvas
+  cv.addEventListener('input', e => {
+    const f = e.target.closest('[data-f]'); const blk = e.target.closest('.blk');
+    if (!f || !blk) return;
+    const b = findBlock(blk.dataset.bid); if (!b) return;
+    b[f.dataset.f] = f.hasAttribute('data-rich') ? clean(f.innerHTML) : f.textContent.replace(/\s+/g, ' ');
+    commitSoon();
+  });
+  cv.addEventListener('keydown', e => {
+    const f = e.target.closest('[data-f]');
+    if (f && !f.hasAttribute('data-rich') && e.key === 'Enter') { e.preventDefault(); f.blur(); }
+    if (f && e.key === 'Escape') f.blur();
+  });
+  cv.addEventListener('paste', e => {
+    const f = e.target.closest('[data-f]'); if (!f) return;
+    e.preventDefault();
+    const cd = e.clipboardData;
+    if (f.hasAttribute('data-rich')) {
+      const h = cd.getData('text/html');
+      document.execCommand('insertHTML', false, h ? clean(h) : md(cd.getData('text/plain')));
+    } else document.execCommand('insertText', false, cd.getData('text/plain').replace(/\s+/g, ' ').trim());
+  });
+  cv.addEventListener('focusout', e => {
+    const f = e.target.closest?.('[data-f]');
+    if (f) commit();
+  });
+
+  // Drag and drop: new blocks from the panel, existing blocks by their handle, and picture files.
+  let dragData = null;
+  document.addEventListener('dragstart', e => {
+    const tile = e.target.closest?.('.tile');
+    const handle = e.target.closest?.('[data-act="drag"]');
+    if (tile) dragData = { add: tile.dataset.type };
+    else if (handle) { const blk = handle.closest('.blk'); dragData = { move: blk.dataset.bid }; e.dataTransfer.setDragImage(blk, 20, 20); }
+    else return;
+    e.dataTransfer.effectAllowed = 'copyMove';
+    e.dataTransfer.setData('text/plain', JSON.stringify(dragData));
+  });
+  document.addEventListener('dragend', () => { dragData = null; hideDrop(); });
+  function dropIndex(y) {
+    const blks = Array.from(cv.querySelectorAll('.blk'));
+    for (let i = 0; i < blks.length; i++) {
+      const r = blks[i].getBoundingClientRect();
+      if (y < r.top + r.height / 2) return i;
+    }
+    return blks.length;
+  }
+  function showDrop(i) {
+    const line = $('#dropline'), card = $('#card'); if (!line || !card) return;
+    const blks = cv.querySelectorAll('.blk'), cr = card.getBoundingClientRect();
+    let y;
+    if (!blks.length) y = (state.windowBar ? cv.querySelector('.wb').getBoundingClientRect().bottom : cr.top + 20) - cr.top;
+    else if (i < blks.length) y = blks[i].getBoundingClientRect().top - cr.top;
+    else y = blks[blks.length - 1].getBoundingClientRect().bottom - cr.top;
+    line.style.top = (y - 2) + 'px'; line.style.display = 'block';
+  }
+  function hideDrop() { const l = $('#dropline'); if (l) l.style.display = 'none'; }
+  $('#stage').addEventListener('dragover', e => {
+    const files = e.dataTransfer.types.includes('Files');
+    if (!dragData && !files) return;
+    e.preventDefault();
+    if (files) { e.dataTransfer.dropEffect = 'copy'; return; }
+    showDrop(dropIndex(e.clientY));
+  });
+  $('#stage').addEventListener('dragleave', e => { if (!e.relatedTarget || !$('#stage').contains(e.relatedTarget)) hideDrop(); });
+  $('#stage').addEventListener('drop', async e => {
+    e.preventDefault(); hideDrop();
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file && /^image\//.test(file.type)) {
+      const blk = e.target.closest('.blk'); let b = blk && findBlock(blk.dataset.bid);
+      try {
+        const data = await shrink(file);
+        if (b && b.type === 'image') { b.src = data; commit(); rerenderBlock(b.id); select(b.id); }
+        else { const nb = mk('image', { src: data }); state.blocks.splice(dropIndex(e.clientY), 0, nb); commit(); renderCanvas(); select(nb.id); }
+        toast('Picture added. Remember to add a description.');
+      } catch (err) { toast('That picture could not be read. Try a JPG or PNG.', true); }
+      return;
+    }
+    let d = dragData; if (!d) { try { d = JSON.parse(e.dataTransfer.getData('text/plain')); } catch (err) { return; } }
+    const i = dropIndex(e.clientY);
+    if (d.add && BLOCKS[d.add]) addBlock(d.add, i);
+    else if (d.move) moveBlock(d.move, i);
+    dragData = null;
+  });
+
+  /* =========================================================
+     Rich text toolbar
+     ========================================================= */
+  const rtb = $('#rtb'), pop = $('#linkpop');
+  let richEl = null, savedRange = null;
+  function placeRtb() {
+    if (!richEl) return;
+    const r = richEl.getBoundingClientRect();
+    rtb.hidden = false;
+    const top = Math.max(66, r.top - 48);
+    rtb.style.top = top + 'px';
+    rtb.style.left = Math.max(8, Math.min(r.left, window.innerWidth - rtb.offsetWidth - 8)) + 'px';
+  }
+  cv.addEventListener('focusin', e => {
+    const f = e.target.closest('[data-rich]');
+    if (f) { richEl = f; placeRtb(); } else if (!e.target.closest('.rtb')) { rtb.hidden = true; richEl = null; }
+  });
+  cv.addEventListener('focusout', () => setTimeout(() => {
+    const a = document.activeElement;
+    if (!a || (!a.closest('[data-rich]') && !a.closest('#linkpop'))) { rtb.hidden = true; if (!pop.contains(a)) richEl = null; }
+  }, 0));
+  $('#stage').addEventListener('scroll', () => { if (!rtb.hidden) placeRtb(); pop.hidden = true; });
+  window.addEventListener('resize', () => { if (!rtb.hidden) placeRtb(); });
+  rtb.addEventListener('mousedown', e => e.preventDefault());
+  rtb.addEventListener('click', e => {
+    const btn = e.target.closest('button'); if (!btn || !richEl) return;
+    const c = btn.dataset.cmd;
+    if (c === 'link') {
+      const sel = getSelection();
+      if (!sel.rangeCount || sel.isCollapsed) { toast('Select some words first, then add the link.', true); return; }
+      savedRange = sel.getRangeAt(0).cloneRange();
+      const r = btn.getBoundingClientRect();
+      pop.style.top = (r.bottom + 8) + 'px'; pop.style.left = Math.max(8, Math.min(r.left - 120, window.innerWidth - 350)) + 'px';
+      pop.hidden = false; $('#link-url').value = ''; $('#link-url').focus();
+      return;
+    }
+    if (c === 'clear') { document.execCommand('removeFormat'); document.execCommand('unlink'); }
+    else document.execCommand(c);
+    richEl.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  function applyLink() {
+    const url = linkOnly($('#link-url').value);
+    pop.hidden = true;
+    if (!richEl || !savedRange) return;
+    richEl.focus();
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(savedRange);
+    if (url) document.execCommand('createLink', false, url);
+    else if ($('#link-url').value.trim()) toast('That link does not look right. Start it with https://', true);
+    richEl.dispatchEvent(new Event('input', { bubbles: true }));
+    savedRange = null;
+  }
+  $('#link-apply').onclick = applyLink;
+  $('#link-url').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyLink(); } if (e.key === 'Escape') { pop.hidden = true; richEl?.focus(); } });
+
+  /* =========================================================
+     Side panel
+     ========================================================= */
+  function setTab(t) {
+    showMain();
+    $('#tab-content').setAttribute('aria-selected', String(t === 'content'));
+    $('#tab-styles').setAttribute('aria-selected', String(t === 'styles'));
+    $('#pane-content').hidden = t !== 'content';
+    $('#pane-styles').hidden = t !== 'styles';
+  }
+  $('#tab-content').onclick = () => setTab('content');
+  $('#tab-styles').onclick = () => setTab('styles');
+  function showMain() { $('#side-main').hidden = false; $('#side-insp').hidden = true; }
+
+  function drawTiles() {
+    $('#tiles').innerHTML = Object.entries(BLOCKS).map(([k, d]) =>
+      `<div class="tile" role="button" tabindex="0" draggable="true" data-type="${k}" title="Add ${esc(d.label.toLowerCase())}">${ICONS[k]}${esc(d.label)}</div>`).join('');
+    $('#tiles').onclick = e => { const t = e.target.closest('.tile'); if (t) addBlock(t.dataset.type); };
+    $('#tiles').onkeydown = e => { const t = e.target.closest('.tile'); if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); addBlock(t.dataset.type); } };
+  }
+  function drawStyles() {
+    $('#themes').innerHTML = Object.entries(THEMES).map(([k, th]) =>
+      `<button class="theme" data-k="${k}" aria-pressed="${state.theme === k}"><div class="sw" aria-hidden="true"><span style="background:${th.page}"></span><span style="background:${th.primary}"></span><span style="background:${th.accent}"></span><span style="background:${th.highlight}"></span></div>${esc(th.name)}</button>`).join('');
+    $('#font-seg').innerHTML = FONTS.map(([v, l]) => `<button data-v="${esc(v)}" aria-pressed="${state.font === v}" style="font-family:${esc(v)}">${l}</button>`).join('');
+    $('#corner-seg').innerHTML = CORNERS.map(([v, l]) => `<button data-v="${v}" aria-pressed="${String(state.corners) === v}">${l}</button>`).join('');
+    $('#windowbar').checked = !!state.windowBar;
+    $('#pilltext').value = state.pill || '';
+    $('#pill-field').hidden = !state.windowBar;
+  }
+  $('#themes').onclick = e => { const t = e.target.closest('.theme'); if (!t) return; state.theme = t.dataset.k; commit(); drawStyles(); renderCanvas(); };
+  $('#font-seg').onclick = e => { const t = e.target.closest('button'); if (!t) return; state.font = t.dataset.v; commit(); drawStyles(); renderCanvas(); };
+  $('#corner-seg').onclick = e => { const t = e.target.closest('button'); if (!t) return; state.corners = t.dataset.v; commit(); drawStyles(); renderCanvas(); };
+  $('#windowbar').onchange = e => { state.windowBar = e.target.checked; commit(); drawStyles(); renderCanvas(); };
+  $('#pilltext').oninput = e => { state.pill = e.target.value; commitSoon(); renderCanvas(); };
+
+  function showInspector() {
+    const b = findBlock(selId); if (!b) return showMain();
+    const d = BLOCKS[b.type];
+    const box = $('#side-insp');
+    $('#side-main').hidden = true; box.hidden = false;
+    const inline = !['divider', 'spacer'].includes(b.type) ? `<p class="hint">Click the words in the email to change them.${RICH[b.type] ? ' Select words to make them bold or add a link.' : ''}</p>` : '';
+    box.innerHTML = `<div class="insp-head"><button class="back" id="insp-back">${ICONS.back}<span>Blocks</span></button><h2>${esc(d.label)}</h2></div>
+<div class="pane">${inline}${d.fields.map(f => fieldHtml(b, f)).join('')}
+<div class="insp-actions"><button class="btn" data-x="dup">${ICONS.copy} Duplicate</button><button class="btn danger" data-x="del">${ICONS.trash} Delete</button></div></div>`;
+    $('#insp-back').onclick = () => select(null);
+    box.querySelector('[data-x="dup"]').onclick = () => { const i = state.blocks.findIndex(x => x.id === b.id); const c = { ...b, id: nid() }; state.blocks.splice(i + 1, 0, c); commit(); renderCanvas(); select(c.id); };
+    box.querySelector('[data-x="del"]').onclick = () => delBlock(b.id);
+    wireFields(b, box);
+  }
+  function fieldHtml(b, [k, label, type, opt]) {
+    const id = 'f-' + k, v = b[k] ?? '';
+    if (type === 'text' || type === 'url') {
+      const sub = type === 'text' && typeof opt === 'string' ? `<div class="sub">${esc(opt)}</div>` : '';
+      return `<div class="f"><label for="${id}">${esc(label)}</label><input id="${id}" data-k="${k}" type="${type === 'url' ? 'url' : 'text'}" value="${esc(v)}" ${type === 'url' ? 'placeholder="https://… or an email address"' : ''}>${sub}</div>`;
+    }
+    if (type === 'seg' || type === 'align') {
+      const opts = type === 'align' ? [['left', ICONS.left, 'Left'], ['center', ICONS.center, 'Centre'], ['right', ICONS.right, 'Right']] : opt.map(([a, l]) => [a, esc(l), l]);
+      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="seg" role="group" aria-label="${esc(label)}">${opts.map(([a, inner, name]) => `<button data-k="${k}" data-v="${a}" aria-pressed="${String(v) === a}" aria-label="${esc(name)}" title="${esc(name)}">${inner}</button>`).join('')}</div></div>`;
+    }
+    if (type === 'roles') {
+      const T = theme();
+      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="swatches" role="group" aria-label="${esc(label)}">${opt.map(r => `<button class="swatch" data-k="${k}" data-v="${r}" aria-pressed="${v === r}" title="${ROLE_NAMES[r]}" aria-label="${ROLE_NAMES[r]}" style="background:${roleColour(r, T)}"></button>`).join('')}</div></div>`;
+    }
+    if (type === 'image') {
+      const has = !!safeUrl(v), isData = /^data:/i.test(v);
+      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="imgbox">${has ? `<img src="${esc(v)}" alt="">` : ''}
+<div class="row"><label class="btn">${has ? 'Replace' : 'Upload'}<input type="file" accept="image/*" class="sr" data-up="${k}"></label>${has ? `<button class="btn danger" data-rm="${k}">Remove</button>` : ''}</div>
+<input type="url" data-k="${k}" id="${id}" aria-label="Link to a picture online" placeholder="or paste a link to a picture online" value="${isData ? '' : esc(v)}" style="width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px">
+${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yourself a test before sending to colleagues.</div>' : ''}</div></div>`;
+    }
+    return '';
+  }
+  function wireFields(b, box) {
+    const after = (redraw) => { rerenderBlock(b.id); if (redraw) showInspector(); };
+    box.querySelectorAll('input[data-k]').forEach(inp => inp.addEventListener('input', () => { b[inp.dataset.k] = inp.value; commitSoon(); after(false); }));
+    box.querySelectorAll('button[data-k]').forEach(btn => btn.addEventListener('click', () => { b[btn.dataset.k] = btn.dataset.v; commit(); after(true); }));
+    box.querySelectorAll('[data-rm]').forEach(btn => btn.addEventListener('click', () => { b[btn.dataset.rm] = ''; commit(); after(true); }));
+    box.querySelectorAll('[data-up]').forEach(inp => inp.addEventListener('change', async () => {
+      const f = inp.files[0]; if (!f) return;
+      try { b[inp.dataset.up] = await shrink(f); commit(); after(true); toast('Picture added.'); }
+      catch (e) { toast('That picture could not be read. Try a JPG or PNG.', true); }
+    }));
   }
 
   // Resize uploaded pictures so the email stays a sensible size (max 1200px wide).
@@ -844,128 +1176,130 @@ ${body}
     });
   }
 
-  function updateSnip(b) {
-    const el = document.querySelector(`[data-id="${b.id}"] .snip`);
-    if (el) el.textContent = String(BLOCKS[b.type].snip(b) || '').replace(/\s+/g, ' ');
+  /* =========================================================
+     Top bar, menus and dialogs
+     ========================================================= */
+  let toastT;
+  function toast(msg, warn) {
+    const t = $('#toast'); t.textContent = msg; t.classList.toggle('warn', !!warn); t.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 5000);
   }
+  $('#name').oninput = e => { state.subject = e.target.value; commitSoon(); };
+  $('#undo').onclick = () => go(-1);
+  $('#redo').onclick = () => go(1);
+  document.addEventListener('keydown', e => {
+    const editing = e.target.closest?.('[contenteditable], input, textarea');
+    if ((e.ctrlKey || e.metaKey) && !editing) {
+      if (e.key.toLowerCase() === 'z' && !e.shiftKey) { e.preventDefault(); go(-1); }
+      if (e.key.toLowerCase() === 'y' || (e.key.toLowerCase() === 'z' && e.shiftKey)) { e.preventDefault(); go(1); }
+    }
+    if (e.key === 'Escape') {
+      const open = document.querySelector('.modal:not([hidden])');
+      if (open) closeModal(open); else if (!editing && selId) select(null);
+    }
+    if (e.key === 'Delete' && !editing && selId && !document.querySelector('.modal:not([hidden])')) { e.preventDefault(); delBlock(selId); }
+  });
 
-  let openId = null;
-  function drawBlocks() {
-    const ul = $('#blocks'); ul.innerHTML = '';
-    state.blocks.forEach((b, i) => {
-      const def = BLOCKS[b.type]; if (!def) return;
-      const li = document.createElement('li'); li.className = 'block'; li.dataset.id = b.id;
-      const det = document.createElement('details'); det.open = openId === b.id;
-      det.addEventListener('toggle', () => { if (det.open) openId = b.id; else if (openId === b.id) openId = null; });
-      const sum = document.createElement('summary');
-      sum.innerHTML = `<span class="type">${esc(def.label)}</span><span class="snip"></span><span class="tools">
-        <button type="button" data-a="up" title="Move up" aria-label="Move ${esc(def.label)} up">&#8593;</button>
-        <button type="button" data-a="down" title="Move down" aria-label="Move ${esc(def.label)} down">&#8595;</button>
-        <button type="button" data-a="copy" title="Duplicate" aria-label="Duplicate ${esc(def.label)}">&#10697;</button>
-        <button type="button" data-a="del" title="Delete" aria-label="Delete ${esc(def.label)}">&#10005;</button></span>`;
-      sum.querySelector('.tools').addEventListener('click', e => {
-        const a = e.target.closest('button')?.dataset.a; if (!a) return;
-        e.preventDefault(); e.stopPropagation();
-        const arr = state.blocks;
-        if (a === 'up' && i > 0) [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
-        if (a === 'down' && i < arr.length - 1) [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
-        if (a === 'copy') { const c = { ...b, id: nid() }; arr.splice(i + 1, 0, c); openId = c.id; }
-        if (a === 'del' && confirm(`Delete this ${def.label.toLowerCase()} block?`)) arr.splice(i, 1);
-        drawBlocks(); refresh();
-      });
-      const body = document.createElement('div'); body.className = 'body';
-      def.fields.forEach(f => body.appendChild(fieldEl(b, f)));
-      det.append(sum, body); li.appendChild(det); ul.appendChild(li);
-      updateSnip(b);
-    });
-  }
-
-  function drawAdd() {
-    const g = $('#addgrid');
-    Object.entries(BLOCKS).forEach(([k, d]) => {
-      const b = document.createElement('button'); b.type = 'button'; b.textContent = '+ ' + d.label;
-      b.onclick = () => {
-        const nb = mk(k); state.blocks.push(nb); openId = nb.id; drawBlocks(); refresh();
-        document.querySelector(`[data-id="${nb.id}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      };
-      g.appendChild(b);
-    });
-  }
-
-  function drawSettings() {
-    $('#font').value = state.font; $('#corners').value = state.corners; $('#subject').value = state.subject || '';
-    $('#windowbar').checked = !!state.windowBar; $('#pilltext').value = state.pill || '';
-    $('#pill-field').hidden = !state.windowBar;
-  }
-  $('#font').onchange = e => { state.font = e.target.value; refresh(); };
-  $('#corners').onchange = e => { state.corners = e.target.value; refresh(); };
-  $('#subject').oninput = e => { state.subject = e.target.value; save(); };
-  $('#windowbar').onchange = e => { state.windowBar = e.target.checked; $('#pill-field').hidden = !e.target.checked; refresh(); };
-  $('#pilltext').oninput = e => { state.pill = e.target.value; refresh(); };
-
-  $('#template').onchange = e => {
-    const k = e.target.value; e.target.value = '';
-    if (!k) return;
-    if (!confirm('Replace your current email with this template? Save a design file first if you want to keep it.')) return;
-    state = TEMPLATES[k](); openId = null; drawAll();
+  const moreBtn = $('#more-btn'), menu = $('#more-menu');
+  moreBtn.onclick = () => { menu.hidden = !menu.hidden; moreBtn.setAttribute('aria-expanded', String(!menu.hidden)); };
+  document.addEventListener('click', e => { if (!e.target.closest('.menu-wrap')) { menu.hidden = true; moreBtn.setAttribute('aria-expanded', 'false'); } });
+  menu.onclick = e => {
+    const m = e.target.closest('[data-m]')?.dataset.m; if (!m) return;
+    menu.hidden = true;
+    if (m === 'templates') openModal('#m-templates');
+    if (m === 'canva') openModal('#m-canva');
+    if (m === 'save') { download(fileBase() + '.design.json', JSON.stringify(state, null, 1), 'application/json'); toast('Design file saved.'); }
+    if (m === 'download') { download(fileBase() + '.html', renderDoc(), 'text/html'); toast('Downloaded.'); }
+    if (m === 'code') navigator.clipboard.writeText(renderDoc()).then(() => toast('HTML code copied. This is for tools that ask for code, not for Outlook.'), () => toast('Copying was blocked. Use Download .html instead.', true));
+  };
+  $('#open-design').onchange = async e => {
+    const f = e.target.files[0]; menu.hidden = true; if (!f) return;
+    try {
+      const s = migrate(JSON.parse(await f.text())); if (!s) throw new Error('bad');
+      state = s; commit(); selId = null; renderAll(); toast('Design opened.');
+    } catch (err) { toast('That file is not an email design from this tool.', true); }
+    e.target.value = '';
   };
 
-  /* ---------- Tabs ---------- */
-  function setMode(m) {
-    mode = m;
-    $('#tab-build').setAttribute('aria-selected', String(m === 'build'));
-    $('#tab-import').setAttribute('aria-selected', String(m === 'import'));
-    $('#panel-build').hidden = m !== 'build';
-    $('#panel-import').hidden = m !== 'import';
-    $('#template-wrap').hidden = m !== 'build';
-    $('#editor-pill').textContent = m === 'build' ? 'Editor' : 'Canva';
-    refresh();
-  }
-  $('#tab-build').onclick = () => setMode('build');
-  $('#tab-import').onclick = () => setMode('import');
-  $('#import-html').oninput = e => { importedHtml = e.target.value; refresh(); };
-  $('#import-file').onchange = async e => {
-    const f = e.target.files[0]; if (!f) return;
-    importedHtml = await f.text(); $('#import-html').value = importedHtml; refresh(); e.target.value = '';
+  let lastFocus = null;
+  function openModal(sel) { lastFocus = document.activeElement; const m = $(sel); m.hidden = false; m.querySelector('[data-close]')?.focus(); }
+  function closeModal(m) { m.hidden = true; lastFocus?.focus?.(); }
+  document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m || e.target.closest('[data-close]')) closeModal(m); });
+  });
+
+  // Templates
+  $('#tpl-grid').innerHTML = Object.entries(TEMPLATES).map(([k, t]) =>
+    `<button class="tpl" data-t="${k}"><div class="thumb" style="background:${t.colours[0]}" aria-hidden="true">
+<i style="height:30px;background:${t.colours[1]}"></i><i style="height:10px;width:70%;background:${t.colours[3]}"></i><i style="height:10px;width:50%;background:${t.colours[2]}"></i><i style="height:22px;width:40%;border-radius:12px;background:${t.colours[1]}"></i></div>
+<div class="meta"><strong>${esc(t.name)}</strong><span>${esc(t.desc)}</span></div></button>`).join('');
+  $('#tpl-grid').onclick = e => {
+    const t = e.target.closest('.tpl'); if (!t) return;
+    commit(); state = TEMPLATES[t.dataset.t].make(); commit(); selId = null; renderAll();
+    closeModal($('#m-templates')); toast('Template loaded. Press Undo to go back to your previous email.');
+  };
+  $('#tpl-card').onclick = () => openModal('#m-templates');
+
+  // Preview
+  $('#preview-btn').onclick = () => {
+    const doc = renderDoc();
+    $('#pv-frame-d').srcdoc = doc; $('#pv-frame-m').srcdoc = doc;
+    openModal('#m-preview');
+  };
+  $('#pv-frame-m').addEventListener('load', () => {
+    const f = $('#pv-frame-m'); const h = f.contentDocument?.documentElement?.scrollHeight || 1200;
+    f.style.height = h + 'px'; f.parentElement.style.setProperty('--h', h);
+    f.style.marginBottom = (-(h * (1 - 0.592))) + 'px';
+  });
+  $('#pv-seg').onclick = e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $('#pv-seg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    $('#pv-desktop').hidden = b.dataset.v !== 'desktop'; $('#pv-mobile').hidden = b.dataset.v !== 'mobile';
   };
 
-  /* ---------- Output ---------- */
-  function currentDoc() { return mode === 'build' ? renderDoc(renderBody(), state.subject) : importedHtml; }
+  // Canva
+  let canvaHtml = '';
+  const setCanva = h => { canvaHtml = h; $('#canva-frame').srcdoc = h || '<p style="font-family:Arial;padding:24px;color:#636466">Your Canva email will show here.</p>'; };
+  setCanva('');
+  $('#canva-html').oninput = e => setCanva(e.target.value);
+  $('#canva-file').onchange = async e => { const f = e.target.files[0]; if (!f) return; const t = await f.text(); $('#canva-html').value = t; setCanva(t); e.target.value = ''; };
+  $('#canva-copy').onclick = () => {
+    if (!canvaHtml.trim()) return toast('Paste or open a Canva email first.', true);
+    // Copying from the rendered preview lets the browser carry Canva's styles inline, which Outlook needs.
+    if (selectAndCopy($('#canva-frame').contentDocument)) toast('Copied. In Outlook, start a new email, click in the body and press Ctrl+V.');
+    else toast('Copying was blocked by your browser.', true);
+  };
 
-  // Copy the rendered email as rich content so it pastes straight into an Outlook message.
-  async function copyOutlook() {
-    if (mode === 'import' && !importedHtml.trim()) { flash('Paste or open a Canva email first.', true); return; }
-    const done = () => flash('Copied. In Outlook, start a new email, click in the body and press Ctrl+V.');
-    let html, plain;
-    if (mode === 'build') {
-      html = renderBody();
-      plain = frame.contentDocument?.body?.innerText || '';
-    } else {
-      // Canva's HTML may rely on a style sheet in the <head>, which Outlook drops on paste.
-      // Copying from the rendered preview lets the browser carry those styles inline.
-      if (copyFromFrame()) { done(); return; }
-      html = importedHtml; plain = '';
-    }
+  /* =========================================================
+     Output
+     ========================================================= */
+  function selectAndCopy(doc) {
     try {
-      await navigator.clipboard.write([new ClipboardItem({
-        'text/html': new Blob([html], { type: 'text/html' }),
-        'text/plain': new Blob([plain], { type: 'text/plain' }),
-      })]);
-      done();
-    } catch (e) {
-      if (copyFromFrame()) done();
-      else flash('Your browser blocked copying. Use "Open in new tab", then press Ctrl+A and Ctrl+C.', true);
-    }
-  }
-  function copyFromFrame() {
-    try {
-      const d = frame.contentDocument, w = frame.contentWindow;
-      const r = d.createRange(); r.selectNodeContents(d.body);
+      const w = doc.defaultView, r = doc.createRange(); r.selectNodeContents(doc.body);
       const sel = w.getSelection(); sel.removeAllRanges(); sel.addRange(r);
-      const ok = d.execCommand('copy'); sel.removeAllRanges();
-      return ok;
+      const ok = doc.execCommand('copy'); sel.removeAllRanges(); return ok;
     } catch (e) { return false; }
   }
+  // Copy the finished email as rich content so it pastes straight into an Outlook message.
+  $('#copy-outlook').onclick = async () => {
+    commit();
+    const html = renderBody();
+    const tmp = document.createElement('div'); tmp.innerHTML = html;
+    const plain = tmp.innerText || tmp.textContent || '';
+    const done = () => toast('Copied. In Outlook, start a new email, click in the body and press Ctrl+V.');
+    try {
+      await navigator.clipboard.write([new ClipboardItem({ 'text/html': new Blob([html], { type: 'text/html' }), 'text/plain': new Blob([plain], { type: 'text/plain' }) })]);
+      done();
+    } catch (e) {
+      const holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed;left:-10000px;top:0;width:700px';
+      holder.innerHTML = html; document.body.appendChild(holder);
+      const r = document.createRange(); r.selectNodeContents(holder);
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      const ok = document.execCommand('copy'); sel.removeAllRanges(); holder.remove();
+      ok ? done() : toast('Your browser blocked copying. Use Preview, then select the email and press Ctrl+C.', true);
+    }
+  };
   function download(name, text, type) {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([text], { type }));
@@ -974,32 +1308,17 @@ ${body}
   }
   const fileBase = () => (state.subject || 'email').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() || 'email';
 
-  $('#copy-outlook').onclick = copyOutlook;
-  $('#download').onclick = () => { download(fileBase() + '.html', currentDoc(), 'text/html'); flash('Downloaded.'); };
-  $('#copy-code').onclick = async () => {
-    try { await navigator.clipboard.writeText(currentDoc()); flash('HTML code copied. Use this for tools that ask for code, not for Outlook.'); }
-    catch (e) { flash('Copying was blocked. Use "Download .html" instead.', true); }
-  };
-  $('#open-tab').onclick = () => {
-    const w = window.open('', '_blank');
-    if (!w) { flash('Pop-up blocked. Allow pop-ups for this site and try again.', true); return; }
-    w.document.open(); w.document.write(currentDoc()); w.document.close();
-  };
-  $('#save-design').onclick = () => download(fileBase() + '.design.json', JSON.stringify(state, null, 1), 'application/json');
-  $('#open-design').onchange = async e => {
-    const f = e.target.files[0]; if (!f) return;
-    try {
-      const s = JSON.parse(await f.text());
-      if (!Array.isArray(s.blocks)) throw new Error('bad');
-      s.blocks = s.blocks.filter(b => BLOCKS[b.type]).map(b => ({ ...BLOCKS[b.type].defaults, ...b, id: nid() }));
-      if (!THEMES[s.theme]) s.theme = 'pulse';
-      state = { ...TEMPLATES.blank(), ...s }; openId = null; drawAll(); flash('Design opened.');
-    } catch (err) { flash('That file is not an email design from this tool.', true); }
-    e.target.value = '';
-  };
-
-  function drawAll() { drawThemes(); drawSettings(); drawBlocks(); refresh(); }
-  drawAdd(); drawAll();
+  /* =========================================================
+     Start
+     ========================================================= */
+  function renderAll() {
+    $('#name').value = state.subject || '';
+    drawStyles(); renderCanvas();
+    if (selId) select(selId); else showMain();
+  }
+  drawTiles();
+  renderAll();
+  commit();
 })();
 </script>
 </body>
