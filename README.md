@@ -49,6 +49,12 @@ Always fill in the description. It is shown when pictures are blocked and read a
 
 Only use photographs of learners where the school holds photo consent for internal use.
 
+## The logo
+
+The white LwLAT logo sits at the top right of the banner. Turn it on or off in the banner's settings. Because the lettering is white, it only appears when the banner uses the main colour or the dark background.
+
+The logo is kept as `logo-white.png`, because Outlook cannot show SVG files. On the live site, emails link to this file, which is the most reliable option for Outlook. If you open `index.html` from your computer instead, the builder uses a copy of the logo built into the page.
+
 ## Saving and sharing designs
 
 Your current email is kept in your browser. Under **More**, **Save design file** downloads a small file you can open later with **Open design file**, or pass to a colleague to reuse as a template.
