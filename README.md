@@ -8,27 +8,32 @@ Everything happens in your browser. Nothing is sent to a server and there is no 
 
 ## Making an email
 
-1. Open the site and choose a template from **Start from**, or edit the one already there.
-2. Pick a colour theme. All six use the brand palette only, and every colour pairing has been checked so text stays easy to read.
-3. Click a block on the left to edit it. Use the arrows to move blocks, and the buttons under **Add a block** to add more.
-4. Press **Copy for Outlook**.
-5. In Outlook, start a new email, click in the body and press **Ctrl+V**. Add the subject and recipients and send.
+The builder works like Mailchimp. The email sits in the middle of the screen and you edit it where it is.
+
+1. Choose **Start from a template** on the left, or edit the email already there.
+2. **Click any words in the email** and type to change them. In text blocks, select words to make them bold or italic, add a link or start a bullet list from the small black toolbar.
+3. **Click a block** to see its settings on the left, such as colours, pictures, links and alignment.
+4. **Add a block** by dragging it from the left into the email, or by clicking it to drop it under the block you have selected.
+5. **Move or remove a block** with the buttons that appear beside it. The dotted handle lets you drag it to a new place.
+6. Use the **Styles** tab for the colour theme, font, button shape and window bar.
+7. Press **Preview** to see it on a desktop and on a phone.
+8. Press **Copy for Outlook**. In Outlook, start a new email, click in the body and press **Ctrl+V**. Add the subject and recipients and send.
+
+**Undo** and **Redo** are at the top, and work with Ctrl+Z and Ctrl+Y when you are not typing. To drop a picture straight in, drag a photo from your computer onto the email.
 
 Always send the first copy to yourself, and open it in Outlook on a PC and on a phone, before sending it to colleagues.
 
 ## The look
 
-The builder and its emails follow the Pulse homepage Concept C specification: a teal backdrop, white "app window" cards with red, orange and light-green window dots and a teal pill label, an orange announcement bar with dark text, and date cards coloured by type (trust events in darkest teal, deadlines in orange, meetings in purple). Small text is only ever set in darkest teal, grey or near-black. Light green is used for large headline words on dark backgrounds only.
+The emails follow the Pulse homepage Concept C specification: a teal backdrop, white "app window" cards with red, orange and light-green window dots and a teal pill label, an orange announcement bar with dark text, and date cards coloured by type (trust events in darkest teal, deadlines in orange, meetings in purple). Small text is only ever set in darkest teal, grey or near-black. Light green is used for large headline words on dark backgrounds only.
 
 The builder screen uses Source Sans 3 as a stand-in for The Sans. Emails use Arial or another web-safe font, because Outlook swaps any font it does not have for Times New Roman.
-
-The logo in the builder's header is a labelled placeholder until the master white logo artwork is supplied.
 
 ## Using a Canva email
 
 1. In Canva, create a design using the **Email** design type.
 2. Choose **Share**, then the HTML export option, and **Copy HTML**.
-3. In the builder, open the **Use a Canva email** tab and paste it in.
+3. In the builder, choose **More**, then **Use a Canva email**, and paste it in.
 4. Press **Copy for Outlook** and paste into a new email.
 
 Use Canva text boxes for words. Text grouped with a picture is turned into an image, which cannot be read when Outlook blocks pictures or by a screen reader.
@@ -46,7 +51,7 @@ Only use photographs of learners where the school holds photo consent for intern
 
 ## Saving and sharing designs
 
-Your current email is kept in your browser. **Save design file** downloads a small file you can open later with **Open design file**, or pass to a colleague to reuse as a template.
+Your current email is kept in your browser. Under **More**, **Save design file** downloads a small file you can open later with **Open design file**, or pass to a colleague to reuse as a template.
 
 ## How it is built, and why
 
