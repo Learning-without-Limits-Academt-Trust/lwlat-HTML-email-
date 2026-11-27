@@ -15,7 +15,7 @@ The builder works like Mailchimp. The email sits in the middle of the screen and
 3. **Click a block** to see its settings on the left, such as colours, pictures, links and alignment.
 4. **Add a block** by dragging it from the left into the email, or by clicking it to drop it under the block you have selected.
 5. **Move or remove a block** with the buttons that appear beside it. The dotted handle lets you drag it to a new place.
-6. Use the **Styles** tab for the colour theme, font, button shape and window bar.
+6. The headline, the call to action and the footer are always there. Click them to change the words, or clear a line to hide it. Choose the email font at the bottom of the left panel.
 7. Press **Preview** to see it on a desktop and on a phone.
 8. Press **Copy for Outlook**. In Outlook, start a new email, click in the body and press **Ctrl+V**. Add the subject and recipients and send.
 
@@ -25,9 +25,18 @@ Always send the first copy to yourself, and open it in Outlook on a PC and on a 
 
 ## The look
 
-The emails follow the Pulse homepage Concept C specification: a teal backdrop, white "app window" cards with red, orange and light-green window dots and a teal pill label, an orange announcement bar with dark text, and date cards coloured by type (trust events in darkest teal, deadlines in orange, meetings in purple). Small text is only ever set in darkest teal, grey or near-black. Light green is used for large headline words on dark backgrounds only.
+The emails follow the **LwLAT Pulse poster style**:
 
-The builder screen uses Source Sans 3 as a stand-in for The Sans. Emails use Arial or another web-safe font, because Outlook swaps any font it does not have for Times New Roman.
+- a deep teal background, lit softly from the top-left corner
+- the white trust logo at the top left
+- a small glass pill naming the topic
+- a large white headline with one phrase in lime, and a one-sentence standfirst under it
+- one white card with rounded corners holding the detail: headings in dark teal, pale teal tiles for numbers and dates, and simple square-marked lists
+- a short question and a lime pill button under the card, then a small footer
+
+Only the style guide's colours are used: teal, lime, ink, grey, the pale teal tint and, for comparisons only, purple. Lime is never used for small text on white. Write headlines of eight words or fewer, with no exclamation marks.
+
+Outlook on Windows shows the background as one flat teal and squares off the rounded corners. Other email apps show the soft light and the rounded corners. Emails use Arial, the closest standard font to Open Sans, because Outlook replaces fonts it does not have with Times New Roman. The builder itself uses Open Sans.
 
 ## Using a Canva email
 
@@ -51,7 +60,7 @@ Only use photographs of learners where the school holds photo consent for intern
 
 ## The logo
 
-The white LwLAT logo sits at the top right of the banner. Turn it on or off in the banner's settings. Because the lettering is white, it only appears when the banner uses the main colour or the dark background.
+The white LwLAT logo sits at the top left of the email, on the teal. Click the headline to show or hide it.
 
 The logo is kept as `logo-white.png`, because Outlook cannot show SVG files. On the live site, emails link to this file, which is the most reliable option for Outlook. If you open `index.html` from your computer instead, the builder uses a copy of the logo built into the page.
 
