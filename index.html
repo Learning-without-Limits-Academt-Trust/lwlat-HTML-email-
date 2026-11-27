@@ -7,33 +7,34 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* LwLAT Pulse poster style. Colours from the style guide only. */
   :root {
+    --mission: #098F88;
     --teal-dark: #00706A;
-    --teal-shade: #00524E;
+    --teal-deep: #00524E;
     --teal: #009189;
-    --tint: #E6F4F3;
-    --tint-2: #F2F7F7;
     --lime: #ACCE33;
-    --orange: #F5BA19;
-    --red: #CE153F;
     --ink: #1F1F1F;
+    --body: #3D3E40;
+    --purple: #6F2789;
     --grey: #636466;
-    --line: #dde5e4;
-    --panel: #ffffff;
-    --chrome: #f5f7f7;
-    --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.08);
+    --tint: #E8F4F3;
+    --rule: #E3EBEA;
+    --field: radial-gradient(120% 90% at 0% 0%, #098F88, #00706A 45%, #00524E);
+    --shadow: 0 24px 60px rgba(0,40,38,.35);
+    --shadow-s: 0 2px 6px rgba(0,40,38,.08), 0 8px 24px rgba(0,40,38,.10);
   }
   html, body { margin: 0; height: 100%; }
   body {
-    background: var(--chrome);
+    background: var(--teal-deep);
     color: var(--ink);
-    font-family: "Source Sans 3", Arial, sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-size: 15px;
     display: grid;
     grid-template-columns: 340px 1fr;
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 68px 1fr;
     overflow: hidden;
   }
   .ui, .ui * { box-sizing: border-box; }
@@ -42,205 +43,190 @@
   [hidden] { display: none !important; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-  /* ---------- Top bar ---------- */
+  /* ---------- Top bar: the teal field ---------- */
   .topbar {
-    grid-column: 1 / -1; background: var(--panel); border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; gap: 10px; padding: 0 16px; z-index: 5;
+    grid-column: 1 / -1; background: var(--field); color: #fff;
+    display: flex; align-items: center; gap: 10px; padding: 0 18px; z-index: 5;
   }
-  .brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 17px; color: var(--teal-dark); white-space: nowrap; }
-  .brand svg { width: 24px; height: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { height: 40px; width: auto; display: block; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.28);
+    font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
+  }
+  .chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lime); }
   .name {
-    border: 1px solid transparent; border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 16px; font-weight: 600; min-width: 0; width: 280px;
-    background: transparent; color: var(--ink);
+    border: 1px solid transparent; border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 15px; font-weight: 600;
+    min-width: 0; width: 260px; background: transparent; color: #fff;
   }
-  .name:hover { border-color: var(--line); }
-  .name:focus { border-color: var(--teal); background: #fff; outline: none; }
+  .name::placeholder { color: rgba(255,255,255,.7); }
+  .name:hover { border-color: rgba(255,255,255,.28); }
+  .name:focus { border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.10); outline: none; }
   .grow { flex: 1; }
   .icon-btn {
-    width: 40px; height: 40px; border-radius: 8px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; color: var(--grey);
+    width: 40px; height: 40px; border-radius: 999px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; color: rgba(255,255,255,.85);
   }
-  .icon-btn:hover:not(:disabled) { background: var(--tint-2); color: var(--ink); }
+  .icon-btn:hover:not(:disabled) { background: rgba(255,255,255,.12); color: #fff; }
   .icon-btn:disabled { opacity: .35; cursor: default; }
   .icon-btn svg { width: 20px; height: 20px; }
   .btn {
-    min-height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer;
-    font-weight: 600; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--ink);
+    min-height: 42px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--rule); background: #fff; cursor: pointer;
+    font-weight: 700; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--ink);
   }
   .btn:hover { border-color: var(--teal); }
-  .btn.primary { background: var(--teal-dark); border-color: var(--teal-dark); color: #fff; }
-  .btn.primary:hover { background: var(--teal-shade); }
   .btn svg { width: 18px; height: 18px; }
+  .btn.glass { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.28); color: #fff; }
+  .btn.glass:hover { background: rgba(255,255,255,.18); }
+  .btn.lime { background: var(--lime); border-color: var(--lime); color: var(--ink); font-weight: 800; }
+  .btn.lime:hover { filter: brightness(1.05); }
+  .btn.teal { background: var(--teal-dark); border-color: var(--teal-dark); color: #fff; }
   .menu-wrap { position: relative; }
   .menu {
-    position: absolute; right: 0; top: 46px; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow);
-    padding: 6px; min-width: 230px; z-index: 20;
+    position: absolute; right: 0; top: 50px; background: #fff; color: var(--ink); border-radius: 18px; box-shadow: var(--shadow);
+    padding: 8px; min-width: 240px; z-index: 20;
   }
   .menu button, .menu label {
-    display: flex; width: 100%; text-align: left; padding: 9px 12px; border: 0; background: none; border-radius: 6px; cursor: pointer; font-size: 15px; gap: 10px; align-items: center;
+    display: flex; width: 100%; text-align: left; padding: 10px 14px; border: 0; background: none; border-radius: 10px; cursor: pointer; font-size: 15px; gap: 10px; align-items: center;
   }
-  .menu button:hover, .menu label:hover { background: var(--tint-2); }
-  .menu hr { border: 0; border-top: 1px solid var(--line); margin: 6px 0; }
+  .menu button:hover, .menu label:hover { background: var(--tint); }
+  .menu hr { border: 0; border-top: 2px solid var(--rule); margin: 6px 0; }
 
-  /* ---------- Sidebar ---------- */
-  .side { background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; display: flex; flex-direction: column; min-height: 0; }
-  .tabs { display: flex; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 2; }
-  .tabs button {
-    flex: 1; border: 0; background: none; padding: 14px 0 12px; cursor: pointer; font-weight: 700; color: var(--grey); border-bottom: 3px solid transparent;
-  }
-  .tabs button[aria-selected="true"] { color: var(--teal-dark); border-bottom-color: var(--teal-dark); }
-  .pane { padding: 16px; }
-  .pane h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--grey); margin: 18px 0 10px; font-weight: 700; }
-  .pane h3:first-child { margin-top: 0; }
-  .hint { color: var(--grey); font-size: 14px; line-height: 1.45; margin: 0 0 12px; }
-
+  /* ---------- Side panel: one white card ---------- */
+  .side { background: #fff; overflow-y: auto; min-height: 0; border-top-right-radius: 30px; box-shadow: var(--shadow); z-index: 3; }
+  .pane { padding: 22px 20px; }
+  .pane h2 { font-size: 17px; font-weight: 800; color: var(--teal-dark); margin: 24px 0 10px; }
+  .pane h2:first-child { margin-top: 0; }
+  .hint { color: var(--grey); font-size: 14px; line-height: 1.5; margin: 0 0 12px; }
   .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .tile {
-    border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 12px 4px 10px; cursor: grab; display: flex; flex-direction: column;
-    align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); min-height: 76px; user-select: none;
+    border: 0; background: var(--tint); border-radius: 18px; padding: 14px 4px 12px; cursor: grab; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--teal-dark); min-height: 80px; user-select: none;
   }
-  .tile:hover { border-color: var(--teal); box-shadow: var(--shadow); color: var(--teal-dark); }
-  .tile svg { width: 26px; height: 26px; color: var(--teal-dark); }
+  .tile:hover { background: #d9edeb; }
+  .tile svg { width: 26px; height: 26px; }
   .tile:active { cursor: grabbing; }
   .template-card {
-    display: flex; gap: 12px; align-items: center; width: 100%; border: 1px dashed var(--teal); background: var(--tint-2); border-radius: 10px;
-    padding: 12px; cursor: pointer; text-align: left; margin-bottom: 4px;
+    display: flex; gap: 14px; align-items: center; width: 100%; border: 0; background: var(--field); color: #fff; border-radius: 22px;
+    padding: 16px 18px; cursor: pointer; text-align: left;
   }
-  .template-card:hover { background: var(--tint); }
-  .template-card svg { width: 28px; height: 28px; color: var(--teal-dark); flex: none; }
-  .template-card strong { display: block; color: var(--teal-dark); }
-  .template-card span { font-size: 14px; color: var(--grey); }
-
-  .insp-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 2; }
-  .insp-head h2 { font-size: 17px; margin: 0; flex: 1; }
-  .back { border: 0; background: none; cursor: pointer; color: var(--teal-dark); font-weight: 700; padding: 8px; border-radius: 8px; display: flex; align-items: center; gap: 4px; }
-  .back:hover { background: var(--tint-2); }
+  .template-card:hover { filter: brightness(1.06); }
+  .template-card .dot { width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.12); display: grid; place-items: center; flex: none; }
+  .template-card .dot i { width: 12px; height: 12px; border-radius: 3px; background: var(--lime); }
+  .template-card strong { display: block; font-weight: 800; }
+  .template-card span { font-size: 13px; opacity: .88; }
+  .insp-head { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 2px solid var(--rule); position: sticky; top: 0; background: #fff; z-index: 2; }
+  .insp-head h2 { font-size: 17px; font-weight: 800; margin: 0; flex: 1; color: var(--teal-dark); }
+  .back { border: 0; background: none; cursor: pointer; color: var(--teal-dark); font-weight: 700; padding: 8px 10px; border-radius: 999px; display: flex; align-items: center; gap: 4px; }
+  .back:hover { background: var(--tint); }
   .back svg { width: 18px; height: 18px; }
   .f { margin-bottom: 16px; }
   .f > label, .f > .lbl { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
   .f input[type=text], .f input[type=url] {
-    width: 100%; font: inherit; font-size: 15px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
+    width: 100%; font: inherit; font-size: 15px; padding: 10px 14px; border: 1px solid #cfdcdb; border-radius: 12px; background: #fff; color: var(--ink);
   }
-  .f input:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px rgba(0,145,137,.18); }
-  .f .sub { font-size: 13px; color: var(--grey); margin-top: 5px; line-height: 1.4; }
-  .seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .seg button { flex: 1; border: 0; background: #fff; padding: 9px 6px; cursor: pointer; font-size: 14px; font-weight: 600; border-right: 1px solid var(--line); color: var(--grey); }
-  .seg button:last-child { border-right: 0; }
-  .seg button[aria-pressed="true"] { background: var(--tint); color: var(--teal-dark); }
+  .f input:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px rgba(172,206,51,.45); }
+  .f .sub { font-size: 13px; color: var(--grey); margin-top: 6px; line-height: 1.45; }
+  .seg { display: flex; background: var(--tint); border-radius: 999px; padding: 3px; gap: 3px; }
+  .seg button { flex: 1; border: 0; background: transparent; padding: 8px 6px; cursor: pointer; font-size: 14px; font-weight: 700; color: var(--teal-dark); border-radius: 999px; }
+  .seg button[aria-pressed="true"] { background: var(--teal-dark); color: #fff; }
   .seg button svg { width: 18px; height: 18px; vertical-align: middle; }
-  .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
-  .swatch {
-    width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); cursor: pointer; padding: 0; position: relative;
-  }
-  .swatch[aria-pressed="true"] { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--teal-dark); }
-  .imgbox { border: 1px dashed var(--line); border-radius: 10px; padding: 10px; background: var(--tint-2); }
-  .imgbox img { display: block; max-width: 100%; max-height: 140px; margin: 0 auto 10px; border-radius: 6px; }
+  .imgbox { border-radius: 18px; padding: 12px; background: var(--tint); }
+  .imgbox img { display: block; max-width: 100%; max-height: 140px; margin: 0 auto 10px; border-radius: 12px; }
   .imgbox .row { display: flex; gap: 8px; margin-bottom: 8px; }
   .imgbox .row .btn { flex: 1; justify-content: center; }
-  .danger { color: var(--red) !important; }
-  .insp-actions { display: flex; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); margin-top: 8px; }
+  .danger { color: #8f1d1d !important; }
+  .insp-actions { display: flex; gap: 8px; padding-top: 14px; border-top: 2px solid var(--rule); margin-top: 8px; }
 
-  .themes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .theme { border: 2px solid var(--line); border-radius: 10px; padding: 8px; background: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 14px; }
-  .theme[aria-pressed="true"] { border-color: var(--teal-dark); background: var(--tint-2); }
-  .theme .sw { display: flex; height: 22px; border-radius: 6px; overflow: hidden; margin-bottom: 6px; }
-  .theme .sw span { flex: 1; }
-  .toggle { display: flex; align-items: center; gap: 10px; font-weight: 600; cursor: pointer; }
-  .toggle input { width: 20px; height: 20px; accent-color: var(--teal-dark); }
-
-  /* ---------- Canvas ---------- */
-  .stage { overflow: auto; min-height: 0; position: relative; }
-  .cv { min-height: 100%; padding: 40px 24px 80px; box-sizing: border-box; transition: background-color .2s; }
-  .card { width: 600px; margin: 0 auto; background: #fff; border-radius: 24px; position: relative; box-shadow: 0 12px 40px rgba(0,0,0,.18); }
-  .card table { border-collapse: separate; }
+  /* ---------- Canvas: the teal field with faint arcs ---------- */
+  .stage { overflow: auto; min-height: 0; position: relative; background: var(--field); }
+  .stage::before, .stage::after {
+    content: ""; position: fixed; border-radius: 50%; border: 3px solid rgba(255,255,255,.07); pointer-events: none; z-index: 0;
+  }
+  .stage::before { width: 620px; height: 620px; left: 140px; bottom: -380px; }
+  .stage::after { width: 520px; height: 520px; right: -240px; top: -140px; }
+  .cv { min-height: 100%; padding: 40px 24px 90px; box-sizing: border-box; position: relative; z-index: 1; }
+  .mail { width: 600px; margin: 0 auto; position: relative; }
+  .mail table { border-collapse: separate; }
+  .card { background: #fff; border-radius: 24px; box-shadow: var(--shadow); padding: 12px 0 20px; position: relative; }
   .blk { position: relative; cursor: pointer; }
-  .blk::after { content: ""; position: absolute; inset: 0; border: 2px solid transparent; pointer-events: none; border-radius: 4px; z-index: 1; }
-  .blk:hover::after { border-color: rgba(0,145,137,.45); }
-  .blk.sel::after { border-color: var(--teal-dark); box-shadow: 0 0 0 1px #fff inset; }
+  .blk::after { content: ""; position: absolute; inset: -2px; border: 2px solid transparent; pointer-events: none; border-radius: 10px; z-index: 1; }
+  .blk:hover::after { border-color: rgba(172,206,51,.6); }
+  .blk.sel::after { border-color: var(--lime); }
   .blk .tag {
-    position: absolute; left: -2px; top: -24px; background: var(--teal-dark); color: #fff; font: 700 12px "Source Sans 3", Arial, sans-serif;
-    padding: 3px 8px; border-radius: 6px 6px 0 0; display: none; z-index: 3; letter-spacing: .03em;
+    position: absolute; left: -2px; top: -26px; background: var(--lime); color: var(--ink); font: 800 12px "Open Sans", Arial, sans-serif;
+    padding: 4px 10px; border-radius: 8px 8px 0 0; display: none; z-index: 3;
   }
   .blk.sel .tag { display: block; }
   .blk .tools {
-    position: absolute; right: -54px; top: 0; display: none; flex-direction: column; gap: 2px; background: #fff; border-radius: 10px; box-shadow: var(--shadow);
+    position: absolute; right: -58px; top: 0; display: none; flex-direction: column; gap: 2px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-s);
     padding: 4px; z-index: 3;
   }
   .blk.sel .tools, .blk:hover .tools { display: flex; }
-  .blk .tools button, .blk .tools span { width: 36px; height: 36px; border: 0; background: none; border-radius: 8px; cursor: pointer; display: grid; place-items: center; color: var(--grey); }
-  .blk .tools button:hover, .blk .tools span:hover { background: var(--tint-2); color: var(--ink); }
+  .blk .tools button, .blk .tools span { width: 36px; height: 36px; border: 0; background: none; border-radius: 10px; cursor: pointer; display: grid; place-items: center; color: var(--grey); }
+  .blk .tools button:hover, .blk .tools span:hover { background: var(--tint); color: var(--teal-dark); }
   .blk .tools [data-act="drag"] { cursor: grab; }
   .blk .tools svg { width: 18px; height: 18px; }
-  .wb { cursor: pointer; position: relative; }
-  .wb:hover::after { content: "Window bar · change in Styles"; position: absolute; left: 50%; top: 14px; transform: translateX(-50%); font: 600 12px "Source Sans 3", Arial, sans-serif; color: var(--grey); }
-  .cv [data-f] { outline: none; cursor: text; border-radius: 3px; }
+  .cv [data-f] { outline: none; cursor: text; border-radius: 4px; }
   .cv [data-f]:hover { box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 40%, transparent); }
   .cv [data-f]:focus { box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 60%, transparent); }
   .cv [data-f]:empty { display: inline-block; min-width: 80px; }
-  .cv [data-f]:empty::before { content: attr(data-ph); opacity: .45; }
+  .cv [data-f]:empty::before { content: attr(data-ph); opacity: .5; }
   .cv [data-rich]:empty { display: block; }
   .cv [data-rich] ul, .cv [data-rich] ol { padding-left: 22px; }
-  .dropline { position: absolute; left: -8px; right: -8px; height: 4px; background: var(--lime); border-radius: 2px; display: none; z-index: 4; box-shadow: 0 0 0 2px #fff; }
-  .empty {
-    margin: 0; padding: 70px 30px; text-align: center; color: var(--grey); font: 600 16px "Source Sans 3", Arial, sans-serif; border: 2px dashed var(--line); border-radius: 24px;
-  }
-  .imgph {
-    border: 2px dashed #b9cfcd; border-radius: 14px; background: var(--tint-2); padding: 40px 10px; text-align: center; color: var(--teal-dark);
-    font: 600 15px "Source Sans 3", Arial, sans-serif;
-  }
+  .dropline { position: absolute; left: 16px; right: 16px; height: 4px; background: var(--lime); border-radius: 2px; display: none; z-index: 4; }
+  .empty { margin: 8px 32px; padding: 50px 20px; text-align: center; color: var(--grey); font: 600 15px "Open Sans", Arial, sans-serif; border: 2px dashed var(--rule); border-radius: 18px; }
+  .imgph { border: 2px dashed #b9d3d0; border-radius: 20px; background: var(--tint); padding: 40px 10px; text-align: center; color: var(--teal-dark); font: 700 15px "Open Sans", Arial, sans-serif; }
   .imgph svg { width: 36px; height: 36px; display: block; margin: 0 auto 8px; }
 
   /* Rich text toolbar */
-  .rtb {
-    position: fixed; z-index: 30; background: var(--ink); border-radius: 10px; padding: 4px; display: flex; gap: 2px; box-shadow: var(--shadow);
-  }
-  .rtb button { width: 34px; height: 34px; border: 0; background: none; color: #fff; border-radius: 7px; cursor: pointer; font-size: 15px; display: grid; place-items: center; }
+  .rtb { position: fixed; z-index: 30; background: var(--ink); border-radius: 999px; padding: 4px 6px; display: flex; gap: 2px; box-shadow: var(--shadow-s); }
+  .rtb button { width: 34px; height: 34px; border: 0; background: none; color: #fff; border-radius: 999px; cursor: pointer; font-size: 15px; display: grid; place-items: center; }
   .rtb button:hover { background: rgba(255,255,255,.15); }
   .rtb svg { width: 18px; height: 18px; }
-  .linkpop {
-    position: fixed; z-index: 31; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 10px; display: flex; gap: 6px; width: 340px;
-  }
-  .linkpop input { flex: 1; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+  .linkpop { position: fixed; z-index: 31; background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 10px; display: flex; gap: 6px; width: 350px; }
+  .linkpop input { flex: 1; font: inherit; padding: 8px 12px; border: 1px solid #cfdcdb; border-radius: 999px; min-width: 0; }
 
-  /* Modals */
-  .modal { position: fixed; inset: 0; background: rgba(20,30,30,.5); display: grid; place-items: center; z-index: 40; padding: 16px; }
-  .dialog { background: #fff; border-radius: 16px; width: min(960px, 100%); max-height: calc(100vh - 32px); display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
-  .dialog header { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
-  .dialog header h2 { margin: 0; font-size: 19px; flex: 1; }
-  .dialog .body { padding: 18px; overflow: auto; }
-  .pv-stage { background: var(--chrome); display: flex; justify-content: center; padding: 20px; overflow: auto; flex: 1; min-height: 0; }
-  .pv-desktop iframe { width: 760px; max-width: 100%; height: 70vh; border: 0; background: #fff; border-radius: 8px; box-shadow: var(--shadow); }
+  /* Dialogs */
+  .modal { position: fixed; inset: 0; background: rgba(0,40,38,.55); display: grid; place-items: center; z-index: 40; padding: 16px; }
+  .dialog { background: #fff; border-radius: 30px; width: min(960px, 100%); max-height: calc(100vh - 32px); display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--shadow); }
+  .dialog header { display: flex; align-items: center; gap: 10px; padding: 16px 22px; border-bottom: 2px solid var(--rule); }
+  .dialog header h2 { margin: 0; font-size: 19px; font-weight: 800; flex: 1; color: var(--teal-dark); }
+  .dialog header .icon-btn { color: var(--grey); }
+  .dialog header .icon-btn:hover { background: var(--tint); color: var(--ink); }
+  .dialog .body { padding: 22px; overflow: auto; }
+  .pv-stage { background: var(--tint); display: flex; justify-content: center; padding: 20px; overflow: auto; flex: 1; min-height: 0; }
+  .pv-desktop iframe { width: 760px; max-width: 100%; height: 70vh; border: 0; background: #fff; border-radius: 12px; box-shadow: var(--shadow-s); }
   .phone { width: 375px; height: 70vh; border: 10px solid #222; border-radius: 36px; overflow: hidden auto; background: #fff; }
   .phone iframe { width: 600px; border: 0; transform: scale(.592); transform-origin: 0 0; display: block; }
   .tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-  .tpl {
-    border: 2px solid var(--line); border-radius: 12px; padding: 0; background: #fff; cursor: pointer; text-align: left; overflow: hidden;
-  }
-  .tpl:hover { border-color: var(--teal-dark); }
-  .tpl .thumb { height: 120px; display: flex; flex-direction: column; gap: 6px; padding: 14px; }
+  .tpl { border: 2px solid var(--rule); border-radius: 22px; padding: 0; background: #fff; cursor: pointer; text-align: left; overflow: hidden; }
+  .tpl:hover { border-color: var(--lime); }
+  .tpl .thumb { height: 130px; display: flex; flex-direction: column; gap: 6px; padding: 14px; background: var(--field); }
   .tpl .thumb i { display: block; border-radius: 4px; }
-  .tpl .meta { padding: 10px 12px 12px; border-top: 1px solid var(--line); }
-  .tpl .meta strong { display: block; }
+  .tpl .meta { padding: 12px 14px 14px; }
+  .tpl .meta strong { display: block; font-weight: 800; color: var(--teal-dark); }
   .tpl .meta span { font-size: 14px; color: var(--grey); }
   .canva-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .canva-grid textarea { width: 100%; min-height: 280px; font: 13px Consolas, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
-  .canva-grid iframe { width: 100%; height: 360px; border: 1px solid var(--line); border-radius: 8px; }
-  .canva-grid ol { padding-left: 20px; line-height: 1.55; margin-top: 0; }
+  .canva-grid textarea { width: 100%; min-height: 280px; font: 13px Consolas, monospace; border: 1px solid #cfdcdb; border-radius: 14px; padding: 10px; }
+  .canva-grid iframe { width: 100%; height: 360px; border: 1px solid var(--rule); border-radius: 14px; }
+  .canva-grid ol { padding-left: 20px; line-height: 1.6; margin-top: 0; }
 
   .toast {
-    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 10px;
-    font-weight: 600; z-index: 50; box-shadow: var(--shadow); max-width: calc(100vw - 32px);
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 999px;
+    font-weight: 700; z-index: 50; box-shadow: var(--shadow-s); max-width: calc(100vw - 32px);
   }
-  .toast.warn { background: var(--red); }
+  .toast.warn { background: #8f1d1d; }
 
   @media (max-width: 860px) {
     body { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; overflow: auto; height: auto; }
-    .topbar { flex-wrap: wrap; padding: 8px 12px; }
+    .topbar { flex-wrap: wrap; padding: 10px 12px; }
     .name { width: 100%; order: 5; }
-    .side { max-height: 46vh; border-right: 0; border-bottom: 1px solid var(--line); }
+    .brand .chip { display: none; }
+    .side { max-height: 46vh; border-radius: 0 0 30px 30px; }
     .stage { overflow-x: auto; }
-    .cv { padding: 30px 60px 60px 12px; width: max-content; min-width: 100%; }
+    .cv { padding: 36px 64px 60px 12px; width: max-content; min-width: 100%; }
     .canva-grid { grid-template-columns: 1fr; }
-    .brand span { display: none; }
   }
 </style>
 </head>
@@ -248,17 +234,17 @@
 
 <header class="topbar ui">
   <div class="brand">
-    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M2 15h6l3-7 5 13 3-6h7" stroke="#00706A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>LwLAT Email Builder</span>
+    <img id="top-logo" alt="Learning without Limits Academy Trust">
+    <span class="chip">Email builder</span>
   </div>
   <label for="name" class="sr">Email name</label>
   <input id="name" class="name" type="text" placeholder="Untitled email" title="Email name. Type the subject line into Outlook yourself.">
   <div class="grow"></div>
   <button class="icon-btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
   <button class="icon-btn" id="redo" title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
-  <button class="btn" id="preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>Preview</button>
+  <button class="btn glass" id="preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>Preview</button>
   <div class="menu-wrap">
-    <button class="btn" id="more-btn" aria-haspopup="true" aria-expanded="false">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+    <button class="btn glass" id="more-btn" aria-haspopup="true" aria-expanded="false">More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
     <div class="menu" id="more-menu" role="menu" hidden>
       <button role="menuitem" data-m="templates">Start from a template</button>
       <button role="menuitem" data-m="canva">Use a Canva email</button>
@@ -270,38 +256,21 @@
       <button role="menuitem" data-m="code">Copy HTML code</button>
     </div>
   </div>
-  <button class="btn primary" id="copy-outlook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h11"/></svg>Copy for Outlook</button>
+  <button class="btn lime" id="copy-outlook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h11"/></svg>Copy for Outlook</button>
 </header>
 
-<aside class="side ui" aria-label="Content and styles">
-  <div id="side-main">
-    <div class="tabs" role="tablist">
-      <button role="tab" id="tab-content" aria-selected="true">Content</button>
-      <button role="tab" id="tab-styles" aria-selected="false">Styles</button>
-    </div>
-    <div class="pane" id="pane-content">
-      <button class="template-card" id="tpl-card">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <div><strong>Start from a template</strong><span>Staff bulletin, event invitation and more</span></div>
-      </button>
-      <h3>Blocks</h3>
-      <p class="hint">Drag a block into your email, or click it to add it under the selected block.</p>
-      <div class="tiles" id="tiles"></div>
-    </div>
-    <div class="pane" id="pane-styles" hidden>
-      <h3>Colour theme</h3>
-      <div class="themes" id="themes"></div>
-      <h3>Font</h3>
-      <div class="seg" id="font-seg"></div>
-      <h3>Button shape</h3>
-      <div class="seg" id="corner-seg"></div>
-      <h3>Window bar</h3>
-      <label class="toggle"><input type="checkbox" id="windowbar"> Show window dots at the top</label>
-      <div class="f" id="pill-field" style="margin-top:12px">
-        <label for="pilltext">Label on the right</label>
-        <input type="text" id="pilltext" placeholder="e.g. Staff bulletin">
-      </div>
-    </div>
+<aside class="side ui" aria-label="Blocks and settings">
+  <div class="pane" id="side-main">
+    <button class="template-card" id="tpl-card">
+      <span class="dot" aria-hidden="true"><i></i></span>
+      <div><strong>Start from a template</strong><span>Staff bulletin, event invitation and more</span></div>
+    </button>
+    <h2>Add to the card</h2>
+    <p class="hint">Drag a block into the white card, or click it to add it under the one you have selected. Click any words in the email to change them.</p>
+    <div class="tiles" id="tiles"></div>
+    <h2>Email font</h2>
+    <div class="seg" id="font-seg"></div>
+    <p class="hint" style="margin-top:8px">Outlook shows only standard fonts. Arial is the closest to Open Sans.</p>
   </div>
   <div id="side-insp" hidden></div>
 </aside>
@@ -322,7 +291,7 @@
 <div class="linkpop ui" id="linkpop" hidden>
   <label for="link-url" class="sr">Link address</label>
   <input id="link-url" type="url" placeholder="https://… or someone@lwlat.org.uk">
-  <button class="btn primary" id="link-apply">Add</button>
+  <button class="btn teal" id="link-apply">Add</button>
 </div>
 
 <!-- Preview -->
@@ -351,7 +320,7 @@
       <button class="icon-btn" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </header>
     <div class="body">
-      <p class="hint">This replaces the email you are working on. Use <strong>More, Save design file</strong> first if you want to keep it.</p>
+      <p class="hint">This replaces the email you are working on. Press Undo afterwards if you change your mind.</p>
       <div class="tpl-grid" id="tpl-grid"></div>
     </div>
   </div>
@@ -376,7 +345,7 @@
           <textarea id="canva-html" placeholder="Paste the HTML from Canva here"></textarea>
           <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
             <label class="btn">Open .html file<input type="file" id="canva-file" accept=".html,.htm,text/html" class="sr"></label>
-            <button class="btn primary" id="canva-copy">Copy for Outlook</button>
+            <button class="btn lime" id="canva-copy">Copy for Outlook</button>
           </div>
           <p class="hint" style="margin-top:12px">Use text boxes in Canva for words. Anything grouped with a picture becomes a flat image that colleagues cannot read when pictures are blocked.</p>
         </div>
@@ -394,49 +363,36 @@
   try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
 
   /* =========================================================
-     Brand and themes
-     Brand palette only. White text sits on "primary" and "dark", near-black
-     text on everything else, so every pairing passes WCAG AA. Light green
-     is only used for large headline words on dark backgrounds.
+     Pulse colours, from the LwLAT Pulse poster style guide.
+     White on teal and ink on lime both pass contrast. Lime is only used
+     for the headline phrase and buttons, never for small text on white.
+     Outlook on Windows cannot show see-through colours, so the glass pill
+     uses the solid colours it would make over the teal.
      ========================================================= */
-  const BRAND = { red: '#CE153F', orange: '#F5BA19', lime: '#ACCE33', teal: '#00706A', purple: '#6F2789', grey: '#636466', ink: '#1F1F1F' };
-  const THEMES = {
-    pulse:  { name: 'Pulse teal',  primary: '#00706A', accent: '#F5BA19', highlight: '#ACCE33', light: '#E6F4F3', dark: '#00524E', page: '#098F88' },
-    tint:   { name: 'Light tint',  primary: '#00706A', accent: '#F5BA19', highlight: '#ACCE33', light: '#E6F4F3', dark: '#00524E', page: '#F2F7F7' },
-    green:  { name: 'Fresh green', primary: '#00706A', accent: '#ACCE33', highlight: '#ACCE33', light: '#F2F7F7', dark: '#1F1F1F', page: '#E6F4F3' },
-    purple: { name: 'Purple',      primary: '#6F2789', accent: '#F5BA19', highlight: '#ACCE33', light: '#F2F7F7', dark: '#1F1F1F', page: '#6F2789' },
-    red:    { name: 'Red',         primary: '#CE153F', accent: '#F5BA19', highlight: '#F5BA19', light: '#F2F7F7', dark: '#1F1F1F', page: '#F2F7F7' },
-    night:  { name: 'Deep teal',   primary: '#00524E', accent: '#ACCE33', highlight: '#ACCE33', light: '#E6F4F3', dark: '#1F1F1F', page: '#00524E' },
+  const C = {
+    field: '#00706A', teal: '#00706A', lime: '#ACCE33', ink: '#1F1F1F', body: '#3D3E40',
+    purple: '#6F2789', grey: '#636466', tint: '#E8F4F3', rule: '#E3EBEA',
+    glass: '#1A7E79', glassLine: '#479894', standfirst: '#E0EEED',
   };
-  const ROLE_NAMES = { primary: 'Main colour', accent: 'Accent', highlight: 'Light green', light: 'Pale tint', white: 'White', dark: 'Dark' };
-  const DARK_ROLES = ['primary', 'dark'];
-  const EVENT_KINDS = {
-    trust:    { label: 'Trust event', bg: BRAND.teal,   fg: '#ffffff' },
-    deadline: { label: 'Deadline',    bg: BRAND.orange, fg: BRAND.ink },
-    meeting:  { label: 'Meeting',     bg: BRAND.purple, fg: '#ffffff' },
-  };
-  const FONTS = [["Arial, Helvetica, sans-serif", 'Arial'], ["Verdana, Geneva, sans-serif", 'Verdana'], ["'Trebuchet MS', Arial, sans-serif", 'Trebuchet'], ["Georgia, 'Times New Roman', serif", 'Georgia']];
-  const CORNERS = [['30', 'Pill'], ['8', 'Rounded'], ['0', 'Square']];
+  const FIELD_CSS = 'radial-gradient(120% 90% at 0% 0%,#098F88,#00706A 45%,#00524E)';
+  const FONTS = [["Arial, Helvetica, sans-serif", 'Arial'], ["Verdana, Geneva, sans-serif", 'Verdana'], ["'Trebuchet MS', Arial, sans-serif", 'Trebuchet']];
 
   /* =========================================================
      Icons
      ========================================================= */
   const ic = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
   const ICONS = {
-    banner: ic('<rect x="3" y="4" width="18" height="10" rx="2"/><path d="M7 18h10M9 21h6"/>'),
-    announce: ic('<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/>'),
     heading: ic('<path d="M6 4v16M18 4v16M6 12h12"/>'),
     text: ic('<path d="M4 6h16M4 10h16M4 14h16M4 18h10"/>'),
-    image: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/>'),
+    image: ic('<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5-5-9 8"/>'),
     button: ic('<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 12h8"/>'),
-    callout: ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 5v14M8 10h8M8 14h5"/>'),
-    columns: ic('<rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/>'),
-    event: ic('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
-    stats: ic('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
+    tiles: ic('<rect x="2" y="7" width="6" height="10" rx="2"/><rect x="9" y="7" width="6" height="10" rx="2"/><rect x="16" y="7" width="6" height="10" rx="2"/>'),
+    list: ic('<rect x="3" y="5" width="4" height="4" rx="1"/><rect x="3" y="15" width="4" height="4" rx="1"/><path d="M10 7h11M10 17h11"/>'),
+    event: ic('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+    columns: ic('<rect x="3" y="4" width="8" height="16" rx="2"/><rect x="13" y="4" width="8" height="16" rx="2"/>'),
     quote: ic('<path d="M7 7h4v4c0 3-2 5-4 6M15 7h4v4c0 3-2 5-4 6"/>'),
-    divider: ic('<path d="M3 12h18"/><path d="M8 6h8M8 18h8" opacity=".4"/>'),
+    divider: ic('<path d="M3 12h18"/>'),
     spacer: ic('<path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/>'),
-    footer: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18"/>'),
     up: ic('<path d="m6 15 6-6 6 6"/>'), down: ic('<path d="m6 9 6 6 6-6"/>'),
     copy: ic('<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a2 2 0 0 1 2-2h11"/>'),
     trash: ic('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'),
@@ -447,41 +403,38 @@
 
   /* =========================================================
      Blocks
-     "inline" fields are typed straight into the email on the canvas.
-     "fields" are the settings shown in the side panel.
+     The headline area, the call to action and the footer sit on the teal
+     and are always there. Everything else goes inside the one white card.
      ========================================================= */
   const ALIGN = ['align', 'Alignment', 'align'];
+  const FIXED = { hero: '__hero', cta: '__cta', footer: '__footer' };
   const BLOCKS = {
-    banner:   { label: 'Banner', fields: [['logo', 'Trust logo (top right)', 'seg', [['show', 'Show'], ['hide', 'Hide']], 'The logo has white lettering, so it only shows on the Main colour or Dark backgrounds.'], ['image', 'Picture across the top', 'image'], ['highlight', 'Highlighted words after the title', 'text', 'Shown in light green on dark colours. Keep it short, such as a name.'], ['bg', 'Background', 'roles', ['primary', 'dark', 'light', 'accent', 'highlight', 'white']], ALIGN],
-                defaults: { logo: 'show', image: '', eyebrow: '', title: 'Your headline here', highlight: '', subtitle: '', bg: 'primary', align: 'left' } },
-    announce: { label: 'Announcement', fields: [['linkText', 'Link text', 'text'], ['url', 'Link address', 'url']],
-                defaults: { label: 'Announcement', text: 'One trust-wide message, short and clear.', linkText: '', url: '' } },
-    heading:  { label: 'Heading', fields: [['size', 'Size', 'seg', [['large', 'Large'], ['medium', 'Medium']]], ['color', 'Colour', 'seg', [['primary', 'Main colour'], ['ink', 'Black']]], ALIGN],
-                defaults: { text: 'Section heading', size: 'large', color: 'primary', align: 'left' } },
-    text:     { label: 'Text', fields: [ALIGN],
-                defaults: { text: '<p>Click here to start writing.</p>', align: 'left' } },
-    image:    { label: 'Image', fields: [['src', 'Picture', 'image'], ['alt', 'Description', 'text', 'Shown when pictures are blocked and read aloud by screen readers.'], ['link', 'Link when clicked', 'url'], ['fit', 'Size', 'seg', [['inset', 'Standard'], ['full', 'Full width'], ['half', 'Small']]], ['caption', 'Caption', 'text']],
-                defaults: { src: '', alt: '', link: '', fit: 'inset', caption: '' } },
-    button:   { label: 'Button', fields: [['url', 'Link address', 'url'], ['bg', 'Colour', 'roles', ['primary', 'dark', 'accent', 'highlight']], ALIGN],
-                defaults: { label: 'Find out more', url: '', bg: 'primary', align: 'left' } },
-    callout:  { label: 'Box', fields: [['bg', 'Background', 'roles', ['light', 'accent', 'highlight', 'primary', 'dark', 'white']]],
-                defaults: { title: 'Don’t forget', text: '<p>A short reminder or key message.</p>', bg: 'light' } },
-    columns:  { label: 'Columns', fields: [['i1', 'Left picture', 'image'], ['l1', 'Left link text', 'text'], ['u1', 'Left link address', 'url'], ['i2', 'Right picture', 'image'], ['l2', 'Right link text', 'text'], ['u2', 'Right link address', 'url']],
-                defaults: { i1: '', t1: 'Left story', x1: '<p>A sentence or two.</p>', l1: '', u1: '', i2: '', t2: 'Right story', x2: '<p>A sentence or two.</p>', l2: '', u2: '' } },
-    event:    { label: 'Date', fields: [['kind', 'Type', 'seg', Object.entries(EVENT_KINDS).map(([k, v]) => [k, v.label])]],
-                defaults: { kind: 'trust', day: '14', month: 'Nov', title: 'Event name', details: '15:30 to 16:30, Main hall' } },
-    stats:    { label: 'Numbers', fields: [['bg', 'Background', 'roles', ['light', 'accent', 'highlight', 'primary', 'dark', 'white']]],
-                defaults: { v1: '96%', l1: 'attendance', v2: '1,200', l2: 'books read', v3: '5', l3: 'academies', bg: 'light' } },
-    quote:    { label: 'Quote', fields: [],
-                defaults: { text: 'A lovely thing someone said.', who: 'Name, role' } },
-    divider:  { label: 'Divider', fields: [['color', 'Colour', 'roles', ['highlight', 'accent', 'primary', 'light']]],
-                defaults: { color: 'highlight' } },
-    spacer:   { label: 'Space', fields: [['h', 'Height', 'seg', [['12', 'Small'], ['24', 'Medium'], ['48', 'Large']]]],
-                defaults: { h: '24' } },
-    footer:   { label: 'Footer', fields: [['bg', 'Background', 'roles', ['light', 'dark', 'primary', 'white']]],
-                defaults: { text: '<p>Learning without Limits Academy Trust<br><a href="https://www.lwlat.org.uk">lwlat.org.uk</a></p>', bg: 'light' } },
+    hero:    { label: 'Headline', fixed: true, fields: [['logo', 'Trust logo', 'seg', [['show', 'Show'], ['hide', 'Hide']]]],
+               note: 'Keep the headline to eight words or fewer, with one phrase in lime. The pill above it names the topic. Clear a line to hide it.',
+               defaults: { logo: 'show', pill: 'Staff news', title: 'Your headline goes', highlight: 'here', standfirst: 'One sentence that explains why it matters.' } },
+    cta:     { label: 'Call to action', fixed: true, fields: [['url', 'Button link', 'url']],
+               note: 'A short question and a lime button under the card. Clear both to hide it.',
+               defaults: { question: '', label: '', url: '' } },
+    footer:  { label: 'Footer', fixed: true, fields: [], defaults: { text: '<p>Learning without Limits Academy Trust<br><a href="https://www.lwlat.org.uk">lwlat.org.uk</a></p>' } },
+    heading: { label: 'Heading', fields: [['size', 'Size', 'seg', [['large', 'Large'], ['medium', 'Medium']]], ALIGN], defaults: { text: 'Card heading', size: 'medium', align: 'left' } },
+    text:    { label: 'Text', fields: [ALIGN], defaults: { text: '<p>Click here to start writing.</p>', align: 'left' } },
+    image:   { label: 'Image', fields: [['src', 'Picture', 'image'], ['alt', 'Description', 'text', 'Shown when pictures are blocked and read aloud by screen readers.'], ['link', 'Link when clicked', 'url'], ['fit', 'Size', 'seg', [['inset', 'Full card width'], ['half', 'Small']]], ['caption', 'Caption', 'text']],
+               defaults: { src: '', alt: '', link: '', fit: 'inset', caption: '' } },
+    button:  { label: 'Button', fields: [['url', 'Link address', 'url'], ALIGN], defaults: { label: 'Find out more', url: '', align: 'left' } },
+    tiles:   { label: 'Numbers', fields: [['colour', 'Colour', 'seg', [['tint', 'Pale teal'], ['purple', 'Purple']]]],
+               note: 'Use purple only when comparing two things, such as this year against last year.',
+               defaults: { v1: '96%', l1: 'Attendance', v2: '1,200', l2: 'Books read', v3: '5', l3: 'Academies', colour: 'tint' } },
+    list:    { label: 'List', fields: [], note: 'Two or three short items. Clear the third to hide it.',
+               defaults: { i1: 'First point', i2: 'Second point', i3: '' } },
+    event:   { label: 'Date', fields: [], defaults: { day: '14', month: 'Nov', title: 'Event name', details: '15:30 to 16:30, Main hall' } },
+    columns: { label: 'Columns', fields: [['i1', 'Left picture', 'image'], ['l1', 'Left link text', 'text'], ['u1', 'Left link address', 'url'], ['i2', 'Right picture', 'image'], ['l2', 'Right link text', 'text'], ['u2', 'Right link address', 'url']],
+               defaults: { i1: '', t1: 'Left story', x1: '<p>A sentence or two.</p>', l1: '', u1: '', i2: '', t2: 'Right story', x2: '<p>A sentence or two.</p>', l2: '', u2: '' } },
+    quote:   { label: 'Quote', fields: [], defaults: { text: 'A short quote from a learner, parent or colleague.', who: 'Name, role' } },
+    divider: { label: 'Divider', fields: [], defaults: {} },
+    spacer:  { label: 'Space', fields: [['h', 'Height', 'seg', [['12', 'Small'], ['24', 'Medium'], ['48', 'Large']]]], defaults: { h: '24' } },
   };
-  const RICH = { text: ['text'], callout: ['text'], columns: ['x1', 'x2'], footer: ['text'] };
+  const CARD_TYPES = Object.keys(BLOCKS).filter(k => !BLOCKS[k].fixed);
+  const RICH = { text: ['text'], columns: ['x1', 'x2'], footer: ['text'] };
 
   /* =========================================================
      Helpers
@@ -498,15 +451,12 @@
     return '';
   };
   const linkOnly = u => { const s = safeUrl(u); return /^data:/i.test(s) ? '' : s; };
-  const roleColour = (role, T) => role === 'white' ? '#ffffff' : (T[role] || T.primary);
-  const isDark = role => DARK_ROLES.includes(role);
-  const fgFor = role => isDark(role) ? '#ffffff' : BRAND.ink;
-  const theme = () => THEMES[state.theme] || THEMES.pulse;
   let uid = 1;
   const nid = () => 'b' + Date.now().toString(36) + (uid++);
   const mk = (type, props = {}) => ({ id: nid(), type, ...BLOCKS[type].defaults, ...props });
+  const fixedBlock = (type, props = {}) => ({ ...BLOCKS[type].defaults, ...props, id: FIXED[type], type });
 
-  // Simple markdown-like text to HTML. Used for templates and for designs saved by the earlier version.
+  // Simple markdown-like text to HTML, for templates and older saved designs.
   function md(s) {
     const inl = t => esc(t)
       .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, x, u) => { const h = linkOnly(u.replace(/&amp;/g, '&')); return h ? `<a href="${esc(h)}">${x}</a>` : x; })
@@ -546,7 +496,6 @@
   function styledRich(html, o) {
     const { colour, linkColour, size = 17, line = 26, align = 'left', font } = o;
     const box = document.createElement('div'); box.innerHTML = clean(html);
-    // Wrap loose text and inline tags at the top level in paragraphs.
     let run = null;
     for (const n of Array.from(box.childNodes)) {
       const block = n.nodeType === 1 && /^(P|UL|OL)$/.test(n.tagName);
@@ -569,17 +518,18 @@
      Email rendering (shared by the canvas and the final email)
      Written for Outlook on Windows, which uses Microsoft Word to draw emails:
      tables for layout, every style inline, bgcolor attributes as well as CSS,
-     pixel widths on images, and web-safe fonts. A fixed 600px card keeps the
-     layout identical in classic Outlook, new Outlook and Outlook on the web.
+     pixel widths on images, and standard fonts. Outlook shows the teal as one
+     flat colour. Other email apps also show the soft light from the corner.
      Rounded corners show everywhere except classic Outlook, which squares them.
      ========================================================= */
-  const W = 600, PAD = 32, CARD_R = 24;
+  const W = 600, PAD = 32, INNER = W - 2 * PAD;
   // White LwLAT logo (480 x 174). Outlook cannot show SVG, so the logo is a PNG.
   // On the live site the email links to the hosted copy, which Outlook handles best.
   // Opened from a computer, the builder uses the copy built into this file instead.
   const LOGO_DATA = 'data:image/png;base64,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';
   const LOGO_W = 150, LOGO_H = 54;
   const logoSrc = () => /^https?:$/.test(location.protocol) ? new URL('logo-white.png', location.href).href : LOGO_DATA;
+
   function img(src, alt, w, link, extra = '') {
     const s = safeUrl(src);
     if (!s) return '';
@@ -587,93 +537,94 @@
     const l = linkOnly(link);
     return l ? `<a href="${esc(l)}" target="_blank">${tag}</a>` : tag;
   }
-  const corners = pos => `border-radius:${pos.first ? CARD_R : 0}px ${pos.first ? CARD_R : 0}px ${pos.last ? CARD_R : 0}px ${pos.last ? CARD_R : 0}px;`;
+  // A lime pill button: ink text on lime, which passes contrast.
+  const pill = (F, label, href, size = 17) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+<td bgcolor="${C.lime}" style="background-color:${C.lime};border-radius:30px;padding:14px 28px;mso-padding-alt:14px 28px">
+<a href="${esc(href || '#')}" target="_blank" style="font-family:${F};font-size:${size}px;line-height:20px;font-weight:800;color:${C.ink};text-decoration:none;display:inline-block">${label}</a>
+</td></tr></table>`;
 
-  function windowBar(T, F, label, pos) {
-    const dot = c => `<td width="12" height="12" bgcolor="${c}" style="width:12px;height:12px;background-color:${c};border-radius:6px;font-size:0;line-height:0">&nbsp;</td><td width="7" style="width:7px;font-size:0;line-height:0">&nbsp;</td>`;
-    const pill = label ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right"><tr><td bgcolor="${T.primary}" style="background-color:${T.primary};border-radius:20px;padding:5px 14px;font-family:${F};font-size:12px;line-height:14px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff">${esc(label)}</td></tr></table>` : '';
-    return `<tr><td style="padding:16px 22px 12px 22px;${corners(pos)}"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td valign="middle"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>${dot(BRAND.red)}${dot(BRAND.orange)}${dot(BRAND.lime)}</tr></table></td>
-<td valign="middle" align="right">${pill}</td></tr></table></td></tr>`;
-  }
-
-  function renderBlock(b, T, F, R, pos, ed) {
+  function renderBlock(b, F, ed) {
     const td = (inner, style = '', attrs = '') => `<tr><td ${attrs} style="${style}">${inner}</td></tr>`;
     // E: a short piece of text. On the canvas it can be typed into directly.
     const E = (k, ph) => ed ? `<span data-f="${k}" contenteditable="plaintext-only" data-ph="${esc(ph)}" spellcheck="true">${esc(b[k])}</span>` : esc(b[k]);
     // RT: formatted text (bold, links, lists). On the canvas it can be typed into directly.
     const RT = (k, o) => ed ? `<div data-f="${k}" data-rich contenteditable="true" data-ph="Type your text here" spellcheck="true">${styledRich(b[k], o)}</div>` : styledRich(b[k], o);
-    const show = k => ed || String(b[k] || '').trim();
+    const has = k => String(b[k] || '').trim();
+    const show = k => ed || has(k);
     switch (b.type) {
-      case 'banner': {
-        const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
-        const hl = isDark(b.bg) ? T.highlight : T.primary;
-        const top = safeUrl(b.image) ? td(img(b.image, '', W, ''), `padding:0;font-size:0;line-height:0;overflow:hidden;${corners({ first: pos.first, last: false })}`) : '';
-        const bannerPos = { first: pos.first && !top, last: pos.last };
-        // align="center" centres the pill. Left alignment leaves it unaligned, because an aligned table floats.
-        const tblAlign = b.align === 'center' ? ' align="center"' : '';
-        const eb = show('eyebrow') ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0"${tblAlign} style="margin:0 0 16px 0"><tr><td style="border:1px solid ${hl};border-radius:20px;padding:6px 14px;font-family:${F};font-size:12px;line-height:14px;letter-spacing:1.5px;text-transform:uppercase;font-weight:bold;color:${fg}"><span style="color:${hl}">&#9679;</span>&nbsp; ${E('eyebrow', 'Add a label')}</td></tr></table>` : '';
-        const logo = b.logo !== 'hide' && isDark(b.bg)
-          ? `<img src="${esc(logoSrc())}" width="${LOGO_W}" height="${LOGO_H}" alt="Learning without Limits Academy Trust" style="display:block;width:${LOGO_W}px;height:${LOGO_H}px;border:0;outline:none">` : '';
-        // Logo and pill label share the top row. With a centred banner the logo sits on its own row.
-        const topRow = !logo ? eb : `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 ${eb && b.align !== 'center' ? 0 : 18}px 0"><tr>
-<td valign="middle" style="text-align:left">${b.align === 'center' ? '&nbsp;' : eb}</td>
-<td valign="top" align="right" width="${LOGO_W}" style="width:${LOGO_W}px">${logo}</td></tr></table>${b.align === 'center' ? eb : ''}`;
-        const title = `${E('title', 'Your headline')}${b.highlight ? ` <span style="color:${hl}">${esc(b.highlight)}</span>` : ''}`;
-        const sub = show('subtitle') ? `<p style="margin:12px 0 0 0;font-family:${F};font-size:19px;line-height:27px;color:${fg};text-align:${b.align}">${E('subtitle', 'Add a subtitle (optional)')}</p>` : '';
-        return top + td(`${topRow}<h1 style="margin:0;font-family:${F};font-size:44px;line-height:50px;font-weight:900;color:${fg};text-align:${b.align}">${title}</h1>${sub}`,
-          `background-color:${bg};padding:40px ${PAD}px;text-align:${b.align};${corners(bannerPos)}`, `bgcolor="${bg}" align="${b.align}"`);
+      case 'hero': {
+        const logo = b.logo !== 'hide' ? `<img src="${esc(logoSrc())}" width="${LOGO_W}" height="${LOGO_H}" alt="Learning without Limits Academy Trust" style="display:block;width:${LOGO_W}px;height:${LOGO_H}px;border:0;outline:none;margin:0 0 30px 0">` : '';
+        const chip = show('pill') ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 18px 0"><tr><td bgcolor="${C.glass}" style="background-color:${C.glass};border:1px solid ${C.glassLine};border-radius:20px;padding:6px 16px;font-family:${F};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;font-weight:bold;color:#ffffff"><span style="color:${C.lime}">&#9679;</span>&nbsp; ${E('pill', 'Topic')}</td></tr></table>` : '';
+        const hl = show('highlight') ? ` <span style="color:${C.lime}">${E('highlight', 'lime phrase')}</span>` : '';
+        const sub = show('standfirst') ? `<p style="margin:16px 0 0 0;font-family:${F};font-size:18px;line-height:27px;color:${C.standfirst}">${E('standfirst', 'One sentence that explains why it matters.')}</p>` : '';
+        return td(`${logo}${chip}<h1 style="margin:0;font-family:${F};font-size:44px;line-height:48px;font-weight:800;letter-spacing:-0.5px;color:#ffffff">${E('title', 'Your headline')}${hl}</h1>${sub}`,
+          'padding:4px 8px 32px 8px');
       }
-      case 'announce': {
-        const link = linkOnly(b.url);
-        const more = b.linkText && link ? `<td valign="middle" align="right" style="padding-left:12px;white-space:nowrap"><a href="${esc(link)}" target="_blank" style="font-family:${F};font-size:15px;line-height:20px;font-weight:bold;color:${BRAND.ink};text-decoration:underline">${esc(b.linkText)} &rarr;</a></td>` : '';
+      case 'cta': {
+        if (!ed && !has('question') && !has('label')) return '';
+        const q = show('question') ? `<p style="margin:0;font-family:${F};font-size:19px;line-height:26px;font-weight:bold;color:#ffffff">${E('question', 'A short question?')}</p>` : '';
+        const btn = show('label') ? pill(F, E('label', 'Button'), linkOnly(b.url), 17) : '';
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td width="40" valign="middle" style="width:40px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="36" height="36" align="center" valign="middle" bgcolor="${BRAND.ink}" style="width:36px;height:36px;background-color:${BRAND.ink};border-radius:18px;font-size:17px;line-height:36px;text-align:center">&#128227;</td></tr></table></td>
-<td valign="middle" style="padding-left:12px"><p style="margin:0;font-family:${F};font-size:12px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.ink}">${E('label', 'Label')}</p>
-<p style="margin:2px 0 0 0;font-family:${F};font-size:16px;line-height:22px;color:${BRAND.ink}">${E('text', 'Your message')}</p></td>${more}
-</tr></table>`, `background-color:${BRAND.orange};padding:14px ${PAD}px;${corners(pos)}`, `bgcolor="${BRAND.orange}"`);
+<td valign="middle" style="padding-right:16px">${q}</td>
+<td valign="middle" align="right" style="white-space:nowrap">${btn}</td></tr></table>`, 'padding:30px 8px 0 8px');
       }
+      case 'footer':
+        return td(RT('text', { colour: C.standfirst, linkColour: '#ffffff', size: 13, line: 20, font: F }), 'padding:30px 8px 0 8px');
       case 'heading': {
-        const size = b.size === 'large' ? 30 : 22;
-        const c = b.color === 'ink' ? BRAND.ink : T.primary;
-        return td(`<h2 style="margin:0;font-family:${F};font-size:${size}px;line-height:${size + 8}px;font-weight:900;color:${c};text-align:${b.align}">${E('text', 'Heading')}</h2>`,
-          `padding:28px ${PAD}px 6px ${PAD}px`, `align="${b.align}"`);
+        const size = b.size === 'large' ? 26 : 21;
+        return td(`<h2 style="margin:0;font-family:${F};font-size:${size}px;line-height:${size + 7}px;font-weight:800;color:${C.teal};text-align:${b.align}">${E('text', 'Heading')}</h2>`,
+          `padding:22px ${PAD}px 4px ${PAD}px`, `align="${b.align}"`);
       }
       case 'text':
-        return td(RT('text', { colour: BRAND.ink, linkColour: T.primary, align: b.align, font: F }), `padding:16px ${PAD}px 4px ${PAD}px`, `align="${b.align}"`);
+        return td(RT('text', { colour: C.body, linkColour: C.teal, align: b.align, font: F }), `padding:14px ${PAD}px 4px ${PAD}px`, `align="${b.align}"`);
       case 'image': {
         if (!safeUrl(b.src)) return ed ? td(`<div class="imgph">${ICONS.image}Add an image<br><span style="font-weight:400;font-size:14px">Click here, then upload or paste a link. You can also drop a picture here.</span></div>`, `padding:12px ${PAD}px`) : '';
-        const w = b.fit === 'full' ? W : b.fit === 'half' ? (W - 2 * PAD) / 2 : W - 2 * PAD;
-        const pad = b.fit === 'full' ? '10px 0' : `12px ${PAD}px`;
-        const radius = b.fit === 'full' ? '' : 'border-radius:18px;';
-        const cap = b.caption ? `<p style="margin:8px 0 0 0;font-family:${F};font-size:14px;line-height:20px;color:${BRAND.grey};text-align:center">${esc(b.caption)}</p>` : '';
-        return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>${img(b.src, b.alt, w, ed ? '' : b.link, radius)}</td></tr></table>${cap}`, `padding:${pad}`, 'align="center"');
+        const w = b.fit === 'half' ? INNER / 2 : INNER;
+        const cap = b.caption ? `<p style="margin:8px 0 0 0;font-family:${F};font-size:14px;line-height:20px;color:${C.grey};text-align:center">${esc(b.caption)}</p>` : '';
+        return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>${img(b.src, b.alt, w, ed ? '' : b.link, 'border-radius:20px;')}</td></tr></table>${cap}`, `padding:14px ${PAD}px`, 'align="center"');
       }
-      case 'button': {
-        const bg = roleColour(b.bg, T), fg = fgFor(b.bg), href = linkOnly(b.url) || '#';
-        return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="${b.align}"><tr>
-<td bgcolor="${bg}" style="background-color:${bg};border-radius:${R}px;padding:15px 32px;mso-padding-alt:15px 32px">
-<a href="${esc(href)}" target="_blank" style="font-family:${F};font-size:17px;line-height:20px;font-weight:bold;color:${fg};text-decoration:none;display:inline-block">${E('label', 'Button text')}</a>
-</td></tr></table>`, `padding:18px ${PAD}px`, `align="${b.align}"`);
+      case 'button':
+        return td(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="${b.align}"><tr><td>${pill(F, E('label', 'Button text'), linkOnly(b.url))}</td></tr></table>`,
+          `padding:18px ${PAD}px`, `align="${b.align}"`);
+      case 'tiles': {
+        const items = [1, 2, 3].filter(n => ed || has('v' + n));
+        if (!items.length) return '';
+        const purple = b.colour === 'purple';
+        const bg = purple ? C.purple : C.tint, fg = purple ? '#ffffff' : C.teal;
+        const gap = 12, w = Math.floor((INNER - gap * (items.length - 1)) / items.length);
+        const cells = items.map((n, i) => `${i ? `<td width="${gap}" style="width:${gap}px;font-size:0;line-height:0">&nbsp;</td>` : ''}<td width="${w}" valign="top" style="width:${w}px;vertical-align:top">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="${bg}" align="center" style="background-color:${bg};border-radius:18px;padding:18px 6px;text-align:center">
+<p style="margin:0;font-family:${F};font-size:32px;line-height:36px;font-weight:800;color:${fg}">${E('v' + n, n === 3 ? '+ number' : '0')}</p></td></tr></table>
+<p style="margin:8px 0 0 0;font-family:${F};font-size:14px;line-height:19px;color:${C.grey};text-align:center">${E('l' + n, 'Label')}</p></td>`).join('');
+        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>${cells}</tr></table>`, `padding:14px ${PAD}px`);
       }
-      case 'callout': {
-        const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
-        const edge = isDark(b.bg) ? T.highlight : (b.bg === 'highlight' || b.bg === 'accent') ? T.primary : T.highlight;
-        const link = isDark(b.bg) ? '#ffffff' : (b.bg === 'light' || b.bg === 'white') ? T.primary : BRAND.ink;
+      case 'list': {
+        const items = [1, 2, 3].filter(n => ed || has('i' + n));
+        if (!items.length) return '';
+        const mark = `<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="26" height="26" bgcolor="${C.tint}" align="center" valign="middle" style="width:26px;height:26px;background-color:${C.tint};border-radius:8px">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="10" height="10" bgcolor="${C.teal}" style="width:10px;height:10px;background-color:${C.teal};border-radius:2px;font-size:0;line-height:0">&nbsp;</td></tr></table></td></tr></table>`;
+        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${items.map(n => `<tr>
+<td width="26" valign="top" style="width:26px;padding:0 0 12px 0">${mark}</td>
+<td valign="middle" style="padding:2px 0 12px 14px;font-family:${F};font-size:17px;line-height:24px;color:${C.body}">${E('i' + n, n === 3 ? 'Third point (optional)' : 'Point')}</td></tr>`).join('')}</table>`, `padding:14px ${PAD}px 2px ${PAD}px`);
+      }
+      case 'event':
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td bgcolor="${bg}" style="background-color:${bg};border-left:6px solid ${edge};padding:22px 26px;border-radius:18px">
-<p style="margin:0 0 8px 0;font-family:${F};font-size:22px;line-height:28px;font-weight:900;color:${fg}">${E('title', 'Box title')}</p>
-${RT('text', { colour: fg, linkColour: link, size: 16, line: 24, font: F })}
-</td></tr></table>`, `padding:14px ${PAD}px`);
-      }
+<td width="80" bgcolor="${C.tint}" align="center" valign="middle" style="width:80px;background-color:${C.tint};border-radius:18px;padding:12px 0;text-align:center">
+<p style="margin:0;font-family:${F};font-size:30px;line-height:34px;font-weight:800;color:${C.teal}">${E('day', '00')}</p>
+<p style="margin:0;font-family:${F};font-size:13px;line-height:16px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:${C.teal}">${E('month', 'Mon')}</p>
+</td>
+<td valign="middle" style="padding:0 0 0 18px;vertical-align:middle">
+<p style="margin:0 0 3px 0;font-family:${F};font-size:19px;line-height:25px;font-weight:800;color:${C.ink}">${E('title', 'What is happening')}</p>
+<p style="margin:0;font-family:${F};font-size:15px;line-height:21px;color:${C.grey}">${E('details', 'When and where')}</p>
+</td></tr></table>`, `padding:10px ${PAD}px`);
       case 'columns': {
-        const colW = (W - 2 * PAD - 20) / 2;
-        const col = (n) => {
+        const colW = (INNER - 20) / 2;
+        const col = n => {
           const href = linkOnly(b['u' + n]), l = b['l' + n];
-          return `${b['i' + n] ? img(b['i' + n], b['t' + n] || '', colW, ed ? '' : b['u' + n], 'margin-bottom:12px;border-radius:14px') : ''}
-${show('t' + n) ? `<p style="margin:0 0 6px 0;font-family:${F};font-size:20px;line-height:26px;font-weight:900;color:${T.primary}">${E('t' + n, 'Title')}</p>` : ''}
-${RT('x' + n, { colour: BRAND.ink, linkColour: T.primary, size: 16, line: 23, font: F })}
-${l && href ? `<p style="margin:10px 0 0 0;font-family:${F};font-size:15px;line-height:20px;font-weight:bold"><a href="${esc(href)}" target="_blank" style="color:${T.primary};text-decoration:underline">${esc(l)} &rarr;</a></p>` : ''}`;
+          return `${b['i' + n] ? img(b['i' + n], b['t' + n] || '', colW, ed ? '' : b['u' + n], 'margin-bottom:12px;border-radius:20px') : ''}
+${show('t' + n) ? `<p style="margin:0 0 6px 0;font-family:${F};font-size:19px;line-height:25px;font-weight:800;color:${C.teal}">${E('t' + n, 'Title')}</p>` : ''}
+${RT('x' + n, { colour: C.body, linkColour: C.teal, size: 16, line: 23, font: F })}
+${l && href ? `<p style="margin:10px 0 0 0;font-family:${F};font-size:15px;line-height:20px;font-weight:bold"><a href="${esc(href)}" target="_blank" style="color:${C.teal};text-decoration:underline">${esc(l)} &rarr;</a></p>` : ''}`;
         };
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
 <td width="${colW}" valign="top" style="width:${colW}px;vertical-align:top">${col(1)}</td>
@@ -681,62 +632,34 @@ ${l && href ? `<p style="margin:10px 0 0 0;font-family:${F};font-size:15px;line-
 <td width="${colW}" valign="top" style="width:${colW}px;vertical-align:top">${col(2)}</td>
 </tr></table>`, `padding:14px ${PAD}px`);
       }
-      case 'event': {
-        const k = EVENT_KINDS[b.kind] || EVENT_KINDS.trust;
-        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td width="78" bgcolor="${k.bg}" align="center" valign="middle" style="width:78px;background-color:${k.bg};border-radius:16px;padding:10px 0;text-align:center">
-<p style="margin:0;font-family:${F};font-size:28px;line-height:32px;font-weight:900;color:${k.fg}">${E('day', '00')}</p>
-<p style="margin:0;font-family:${F};font-size:13px;line-height:16px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:${k.fg}">${E('month', 'Mon')}</p>
-</td>
-<td valign="middle" style="padding:0 0 0 18px;vertical-align:middle">
-<p style="margin:0 0 2px 0;font-family:${F};font-size:12px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.grey}">${esc(k.label)}</p>
-<p style="margin:0 0 2px 0;font-family:${F};font-size:19px;line-height:25px;font-weight:bold;color:${BRAND.ink}">${E('title', 'What is happening')}</p>
-<p style="margin:0;font-family:${F};font-size:15px;line-height:21px;color:${BRAND.grey}">${E('details', 'When and where')}</p>
-</td></tr></table>`, `padding:8px ${PAD}px`);
-      }
-      case 'stats': {
-        const items = [1, 2, 3].filter(n => ed || String(b['v' + n] || '').trim());
-        if (!items.length) return '';
-        const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
-        const numC = (b.bg === 'light' || b.bg === 'white') ? T.primary : isDark(b.bg) ? T.highlight : BRAND.ink;
-        const w = Math.floor((W - 2 * PAD) / items.length);
-        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${bg}" style="background-color:${bg};border-radius:18px"><tr>${items.map(n =>
-          `<td width="${w}" align="center" valign="top" style="width:${w}px;padding:24px 8px;text-align:center">
-<p style="margin:0;font-family:${F};font-size:42px;line-height:48px;font-weight:900;color:${numC}">${E('v' + n, n === 3 ? '+ number' : '0')}</p>
-<p style="margin:4px 0 0 0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${fg}">${E('l' + n, 'Label')}</p></td>`).join('')}</tr></table>`, `padding:14px ${PAD}px`);
-      }
       case 'quote':
         return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-<td style="border-left:6px solid ${T.highlight};padding:4px 0 4px 22px">
-<p style="margin:0 0 8px 0;font-family:${F};font-size:22px;line-height:31px;font-style:italic;color:${BRAND.ink}">&ldquo;${E('text', 'The quote')}&rdquo;</p>
-<p style="margin:0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${T.primary}">${E('who', 'Who said it')}</p>
-</td></tr></table>`, `padding:18px ${PAD}px`);
-      case 'divider': {
-        const c = roleColour(b.color, T);
-        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="4" bgcolor="${c}" style="height:4px;background-color:${c};border-radius:2px;font-size:0;line-height:0">&nbsp;</td></tr></table>`, `padding:20px ${PAD}px`);
-      }
+<td style="border-left:5px solid ${C.lime};padding:4px 0 4px 20px">
+<p style="margin:0 0 8px 0;font-family:${F};font-size:20px;line-height:29px;font-style:italic;color:${C.ink}">&ldquo;${E('text', 'The quote')}&rdquo;</p>
+<p style="margin:0;font-family:${F};font-size:13px;line-height:18px;font-weight:bold;letter-spacing:1.2px;text-transform:uppercase;color:${C.teal}">${E('who', 'Who said it')}</p>
+</td></tr></table>`, `padding:16px ${PAD}px`);
+      case 'divider':
+        return td(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="2" bgcolor="${C.rule}" style="height:2px;background-color:${C.rule};font-size:0;line-height:0">&nbsp;</td></tr></table>`, `padding:18px ${PAD}px`);
       case 'spacer':
         return td('&nbsp;', `height:${b.h}px;font-size:0;line-height:${b.h}px`, `height="${b.h}"`);
-      case 'footer': {
-        const bg = roleColour(b.bg, T), fg = fgFor(b.bg);
-        const link = isDark(b.bg) ? '#ffffff' : T.primary;
-        return td(RT('text', { colour: fg, linkColour: link, size: 14, line: 21, align: 'center', font: F }),
-          `background-color:${bg};padding:26px ${PAD}px;${corners(pos)}`, `bgcolor="${bg}" align="center"`);
-      }
     }
     return '';
   }
 
-  // The part that goes into Outlook: a coloured page band with a white 600px card inside.
+  const T = (rows) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${rows}</table>`;
+
+  // The part that goes into Outlook: the teal field with the headline, one white card, then the call to action and footer.
   function renderBody() {
-    const T = theme(), F = state.font, R = state.corners;
-    const vis = state.blocks.filter(b => BLOCKS[b.type]);
-    const bar = state.windowBar ? windowBar(T, F, state.pill, { first: true, last: !vis.length }) : '';
-    const rows = vis.map((b, i) => renderBlock(b, T, F, R, { first: !bar && i === 0, last: i === vis.length - 1 }, false)).join('\n');
-    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${T.page}" style="width:100%;background-color:${T.page};border-collapse:separate">
-<tr><td align="center" style="padding:32px 10px">
-<table role="presentation" width="${W}" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" align="center" style="width:${W}px;background-color:#ffffff;border-collapse:separate;border-radius:${CARD_R}px">
-${bar}${rows}
+    const F = state.font;
+    const cardRows = state.blocks.map(b => renderBlock(b, F, false)).join('\n');
+    const card = cardRows.trim() ? `<tr><td><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border-radius:24px;border-collapse:separate"><tr><td style="padding:12px 0 20px 0">${T(cardRows)}</td></tr></table></td></tr>` : '';
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.field}" style="width:100%;background-color:${C.field};background-image:${FIELD_CSS};border-collapse:separate">
+<tr><td align="center" style="padding:40px 10px 44px 10px">
+<table role="presentation" width="${W}" cellpadding="0" cellspacing="0" border="0" align="center" style="width:${W}px;border-collapse:separate">
+${renderBlock(state.hero, F, false)}
+${card}
+${renderBlock(state.cta, F, false)}
+${renderBlock(state.footer, F, false)}
 </table>
 </td></tr></table>`;
   }
@@ -750,92 +673,100 @@ ${bar}${rows}
 <title>${esc(state.subject || 'Email')}</title>
 <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
 </head>
-<body style="margin:0;padding:0;background-color:${theme().page}">
+<body style="margin:0;padding:0;background-color:${C.field}">
 ${renderBody()}
 </body>
 </html>`;
   }
 
   /* =========================================================
-     Templates
+     Templates. Words follow the style guide: plain headlines of eight
+     words or fewer, one lime phrase, no exclamation marks.
      ========================================================= */
-  const FOOTER = md('Learning without Limits Academy Trust\n[lwlat.org.uk](https://www.lwlat.org.uk)');
+  const base = (p) => ({ font: FONTS[0][0], subject: '', footer: fixedBlock('footer'), cta: fixedBlock('cta'), ...p });
   const TEMPLATES = {
     bulletin: {
-      name: 'Staff bulletin', desc: 'Weekly round-up with news, numbers and dates', colours: ['#098F88', '#00706A', '#F5BA19', '#E6F4F3'],
-      make: () => ({ theme: 'pulse', font: FONTS[0][0], corners: '30', subject: 'Staff bulletin', windowBar: true, pill: 'Staff bulletin', blocks: [
-        mk('banner', { eyebrow: 'Week beginning [date]', title: 'Good morning,', highlight: 'everyone.', subtitle: 'Your round-up of news from across the trust.' }),
-        mk('announce', { text: '[One trust-wide message, e.g. half term dates or a deadline.]', linkText: 'All announcements', url: '' }),
-        mk('text', { text: md('Here is a short round-up of news from across the trust this week. Thank you, as ever, for all you do for our learners.') }),
-        mk('heading', { text: 'Celebrating our learners' }),
-        mk('image', { alt: '' }),
-        mk('text', { text: md('[A few lines about the story. Who, what and why it matters.]') }),
-        mk('stats'),
-        mk('heading', { text: 'This week' }),
-        mk('event', { kind: 'trust', day: '14', month: 'Nov', title: '[Trust event]', details: '[Time, place]' }),
-        mk('event', { kind: 'deadline', day: '18', month: 'Nov', title: '[Deadline]', details: '[What is due]' }),
-        mk('event', { kind: 'meeting', day: '21', month: 'Nov', title: '[Meeting]', details: '[Time, place]' }),
-        mk('callout', { title: 'Staff wellbeing', text: md('[Short message, with a link if needed.]') }),
-        mk('button', { label: 'Read the full update' }),
-        mk('spacer'),
-        mk('footer', { text: FOOTER }),
-      ] }),
+      name: 'Staff bulletin', desc: 'News, numbers and dates for the week',
+      make: () => base({ subject: 'Staff bulletin', hero: fixedBlock('hero', { pill: 'Staff bulletin', title: 'This week across', highlight: 'the trust', standfirst: 'News, dates and thanks for the week beginning [date].' }),
+        cta: fixedBlock('cta', { question: 'Want the full update?', label: 'Read more' }),
+        blocks: [
+          mk('heading', { text: 'Celebrating our learners' }),
+          mk('image'),
+          mk('text', { text: md('[A few lines about the story. Who, what and why it matters.]') }),
+          mk('divider'),
+          mk('heading', { text: 'This term in numbers' }),
+          mk('tiles'),
+          mk('divider'),
+          mk('heading', { text: 'Dates for your diary' }),
+          mk('event', { day: '14', month: 'Nov', title: '[Event name]', details: '[Time, place]' }),
+          mk('event', { day: '21', month: 'Nov', title: '[Event name]', details: '[Time, place]' }),
+        ] }),
     },
     event: {
-      name: 'Event invitation', desc: 'Invite colleagues to an event, with a booking button', colours: ['#E6F4F3', '#00706A', '#ACCE33', '#ffffff'],
-      make: () => ({ theme: 'green', font: FONTS[0][0], corners: '30', subject: 'You’re invited', windowBar: true, pill: 'Invitation', blocks: [
-        mk('banner', { eyebrow: 'You’re invited', title: '[Event name]', subtitle: '[Day, date] · [Venue]' }),
-        mk('text', { text: md('[Opening line. Why the event is happening and who it is for.]') }),
-        mk('event', { kind: 'trust', day: '28', month: 'Nov', title: '[Event name]', details: '[Start time to end time, venue]' }),
-        mk('columns', { t1: 'What to expect', x1: md('[Short description]'), t2: 'What to bring', x2: md('[Short description]') }),
-        mk('button', { label: 'Book your place', bg: 'highlight' }),
-        mk('divider'),
-        mk('footer', { text: md('Questions? Contact [name] at [email]') + FOOTER }),
-      ] }),
+      name: 'Event invitation', desc: 'One event, what to expect and a booking button',
+      make: () => base({ subject: 'You’re invited', hero: fixedBlock('hero', { pill: 'Staff event', title: 'Join us for', highlight: '[event name]', standfirst: '[Day, date] at [venue]. [Why it is worth coming, in one sentence.]' }),
+        cta: fixedBlock('cta', { question: 'Can you come?', label: 'Book a place' }),
+        blocks: [
+          mk('event', { day: '28', month: 'Nov', title: '[Event name]', details: '[Start time to end time, venue]' }),
+          mk('divider'),
+          mk('heading', { text: 'What to expect' }),
+          mk('list', { i1: '[First thing]', i2: '[Second thing]', i3: '[Third thing]' }),
+        ] }),
     },
-    celebration: {
-      name: 'Celebration', desc: 'Say thank you, with big numbers and a quote', colours: ['#6F2789', '#ACCE33', '#F5BA19', '#1F1F1F'],
-      make: () => ({ theme: 'purple', font: FONTS[2][0], corners: '30', subject: 'Thank you', windowBar: true, pill: 'Celebration', blocks: [
-        mk('banner', { eyebrow: '[What we are celebrating]', title: 'Thank you,', highlight: 'everyone!', align: 'center' }),
-        mk('text', { text: md('[A warm message to colleagues.]'), align: 'center' }),
-        mk('stats', { bg: 'accent' }),
-        mk('quote', { text: '[A quote from a learner, parent or colleague.]', who: '[Name, role]' }),
-        mk('footer', { text: FOOTER, bg: 'dark' }),
-      ] }),
+    thanks: {
+      name: 'Thank you', desc: 'Thank colleagues, with numbers and a quote',
+      make: () => base({ subject: 'Thank you', hero: fixedBlock('hero', { pill: 'Thank you', title: 'Thank you for', highlight: 'a brilliant term', standfirst: '[One sentence about what colleagues have achieved together.]' }),
+        blocks: [
+          mk('heading', { text: 'What you made happen' }),
+          mk('tiles'),
+          mk('divider'),
+          mk('quote', { text: '[A quote from a learner, parent or colleague.]', who: '[Name, role]' }),
+        ] }),
     },
     notice: {
-      name: 'Quick notice', desc: 'One message, one button, nothing more', colours: ['#F2F7F7', '#F5BA19', '#00706A', '#ffffff'],
-      make: () => ({ theme: 'tint', font: FONTS[0][0], corners: '30', subject: 'Notice', windowBar: false, pill: '', blocks: [
-        mk('announce', { label: 'Notice', text: '[Your headline message]' }),
-        mk('heading', { text: '[Heading]' }),
-        mk('text', { text: md('[A short explanation.]') }),
-        mk('button', { label: '[Button text]' }),
-        mk('footer', { text: FOOTER }),
-      ] }),
+      name: 'Quick notice', desc: 'One message and one button',
+      make: () => base({ subject: 'Notice', hero: fixedBlock('hero', { pill: 'Notice', title: '[Plain headline of', highlight: 'eight words or fewer]', standfirst: '[Why it matters, in one sentence.]' }),
+        cta: fixedBlock('cta', { question: '[Short question?]', label: '[Button]' }),
+        blocks: [mk('text', { text: md('[The detail, in a short paragraph or two.]') })] }),
     },
     blank: {
-      name: 'Blank', desc: 'Start with a banner, text and footer', colours: ['#ffffff', '#00706A', '#E6F4F3', '#F2F7F7'],
-      make: () => ({ theme: 'pulse', font: FONTS[0][0], corners: '30', subject: '', windowBar: false, pill: '', blocks: [mk('banner'), mk('text'), mk('footer')] }),
+      name: 'Blank', desc: 'Headline, one text block and the footer',
+      make: () => base({ hero: fixedBlock('hero'), blocks: [mk('text')] }),
     },
   };
 
   /* =========================================================
      State, saving and undo
      ========================================================= */
-  const STORE_KEY = 'lwlat-email-builder-v3';
+  const STORE_KEY = 'lwlat-email-builder-v4';
   function migrate(s) {
     if (!s || !Array.isArray(s.blocks)) return null;
-    s.blocks = s.blocks.filter(b => BLOCKS[b.type]).map(b => {
-      const nb = { ...BLOCKS[b.type].defaults, ...b, id: b.id || nid() };
+    // Designs from the earlier look: the banner becomes the headline, the footer
+    // block becomes the footer, and blocks outside the Pulse palette become text.
+    const out = TEMPLATES.blank.make();
+    out.subject = s.subject || '';
+    out.font = FONTS.some(f => f[0] === s.font) ? s.font : FONTS[0][0];
+    out.hero = fixedBlock('hero', s.hero);
+    out.cta = fixedBlock('cta', s.cta);
+    out.footer = fixedBlock('footer', s.footer);
+    const blocks = [];
+    for (const b of s.blocks) {
+      if (b.type === 'banner') { out.hero = fixedBlock('hero', { pill: b.eyebrow, title: b.title, highlight: b.highlight, standfirst: b.subtitle, logo: b.logo || 'show' }); if (b.image) blocks.push(mk('image', { src: b.image })); continue; }
+      if (b.type === 'footer') { if (!s.footer) out.footer = fixedBlock('footer', { text: /<[a-z]/i.test(b.text || '') ? b.text : md(b.text) }); continue; }
+      if (b.type === 'announce') { blocks.push(mk('text', { text: `<p><strong>${esc(b.label)}:</strong> ${esc(b.text)}</p>` })); continue; }
+      if (b.type === 'callout') { blocks.push(mk('heading', { text: b.title })); blocks.push(mk('text', { text: /<[a-z]/i.test(b.text || '') ? b.text : md(b.text) })); continue; }
+      if (b.type === 'stats') { blocks.push(mk('tiles', { v1: b.v1, l1: b.l1, v2: b.v2, l2: b.l2, v3: b.v3, l3: b.l3 })); continue; }
+      if (!BLOCKS[b.type] || BLOCKS[b.type].fixed) continue;
+      const nb = { ...BLOCKS[b.type].defaults, ...b, id: b.id && !String(b.id).startsWith('__') ? b.id : nid() };
       (RICH[b.type] || []).forEach(k => { if (nb[k] && !/<[a-z]/i.test(nb[k])) nb[k] = md(nb[k]); });
-      return nb;
-    });
-    if (!THEMES[s.theme]) s.theme = 'pulse';
-    return { ...TEMPLATES.blank.make(), ...s };
+      blocks.push(nb);
+    }
+    out.blocks = blocks;
+    return out;
   }
   let state = null;
   try { state = migrate(JSON.parse(localStorage.getItem(STORE_KEY))); } catch (e) {}
-  if (!state) { try { state = migrate(JSON.parse(localStorage.getItem('lwlat-email-builder-v2'))); } catch (e) {} }
+  if (!state) { try { state = migrate(JSON.parse(localStorage.getItem('lwlat-email-builder-v3'))); } catch (e) {} }
   if (!state) state = TEMPLATES.bulletin.make();
 
   function save() {
@@ -866,38 +797,34 @@ ${renderBody()}
      ========================================================= */
   const cv = $('#cv');
   let selId = null;
-  const findBlock = id => state.blocks.find(b => b.id === id);
+  const findBlock = id => id === FIXED.hero ? state.hero : id === FIXED.cta ? state.cta : id === FIXED.footer ? state.footer : state.blocks.find(b => b.id === id);
+  const isFixed = id => String(id).startsWith('__');
 
-  function blkHtml(b, i) {
-    const T = theme();
-    const pos = { first: !state.windowBar && i === 0, last: i === state.blocks.length - 1 };
+  function blkHtml(b) {
     const L = BLOCKS[b.type].label;
-    return `<div class="blk${b.id === selId ? ' sel' : ''}" data-bid="${b.id}">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${renderBlock(b, T, state.font, state.corners, pos, true)}</table>
-<div class="tag">${esc(L)}</div>
-<div class="tools ui">
+    const tools = isFixed(b.id) ? '' : `<div class="tools ui">
 <span data-act="drag" draggable="true" title="Drag to move" aria-hidden="true">${ICONS.drag}</span>
 <button data-act="up" title="Move up" aria-label="Move ${esc(L)} up">${ICONS.up}</button>
 <button data-act="down" title="Move down" aria-label="Move ${esc(L)} down">${ICONS.down}</button>
 <button data-act="dup" title="Duplicate" aria-label="Duplicate ${esc(L)}">${ICONS.copy}</button>
 <button data-act="del" title="Delete" aria-label="Delete ${esc(L)}">${ICONS.trash}</button>
-</div></div>`;
+</div>`;
+    return `<div class="blk${b.id === selId ? ' sel' : ''}" data-bid="${b.id}">${T(renderBlock(b, state.font, true))}<div class="tag">${esc(L)}</div>${tools}</div>`;
   }
   function renderCanvas() {
-    const T = theme();
-    cv.style.backgroundColor = T.page;
-    let h = '<div class="card" id="card">';
-    if (state.windowBar) h += `<div class="wb" data-wb><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${windowBar(T, state.font, state.pill, { first: true, last: !state.blocks.length })}</table></div>`;
+    let h = '<div class="mail">';
+    h += blkHtml(state.hero);
+    h += '<div class="card" id="card">';
     h += state.blocks.map(blkHtml).join('');
-    if (!state.blocks.length) h += '<div class="empty">Your email is empty.<br>Drag a block here, or click one on the left.</div>';
+    if (!state.blocks.length) h += '<div class="empty">The card is empty.<br>Drag a block here, or click one on the left.</div>';
     h += '<div class="dropline" id="dropline"></div></div>';
+    h += blkHtml(state.cta) + blkHtml(state.footer) + '</div>';
     cv.innerHTML = h;
   }
   function rerenderBlock(id) {
-    const i = state.blocks.findIndex(b => b.id === id);
-    const el = cv.querySelector(`[data-bid="${id}"]`);
-    if (i < 0 || !el) return renderCanvas();
-    el.outerHTML = blkHtml(state.blocks[i], i);
+    const b = findBlock(id), el = cv.querySelector(`[data-bid="${id}"]`);
+    if (!b || !el) return renderCanvas();
+    el.outerHTML = blkHtml(b);
   }
   function select(id, opts = {}) {
     selId = id;
@@ -918,8 +845,18 @@ ${renderBody()}
     state.blocks.splice(Math.max(0, Math.min(to, state.blocks.length)), 0, b);
     commit(); renderCanvas(); select(id);
   }
+  function delBlock(id) {
+    if (isFixed(id)) return;
+    const i = state.blocks.findIndex(b => b.id === id); if (i < 0) return;
+    state.blocks.splice(i, 1); commit();
+    selId = null; renderCanvas(); showMain();
+    toast('Block deleted. Press Undo to bring it back.');
+  }
+  function dupBlock(id) {
+    const i = state.blocks.findIndex(b => b.id === id); if (i < 0) return;
+    const c = { ...state.blocks[i], id: nid() }; state.blocks.splice(i + 1, 0, c); commit(); renderCanvas(); select(c.id);
+  }
 
-  // Clicks on the canvas
   cv.addEventListener('click', e => {
     if (e.target.closest('a')) e.preventDefault();
     const tool = e.target.closest('.tools button');
@@ -928,20 +865,13 @@ ${renderBody()}
       const id = blk.dataset.bid, i = state.blocks.findIndex(b => b.id === id), a = tool.dataset.act;
       if (a === 'up' && i > 0) moveBlock(id, i - 1);
       if (a === 'down' && i < state.blocks.length - 1) moveBlock(id, i + 2);
-      if (a === 'dup') { const c = { ...state.blocks[i], id: nid() }; state.blocks.splice(i + 1, 0, c); commit(); renderCanvas(); select(c.id); }
+      if (a === 'dup') dupBlock(id);
       if (a === 'del') delBlock(id);
       return;
     }
-    if (e.target.closest('[data-wb]')) { select(null); setTab('styles'); return; }
     if (blk) { if (blk.dataset.bid !== selId) select(blk.dataset.bid); return; }
     if (!e.target.closest('.card')) select(null);
   });
-  function delBlock(id) {
-    const i = state.blocks.findIndex(b => b.id === id); if (i < 0) return;
-    state.blocks.splice(i, 1); commit();
-    selId = null; renderCanvas(); showMain();
-    toast('Block deleted. Press Undo to bring it back.');
-  }
 
   // Typing on the canvas
   cv.addEventListener('input', e => {
@@ -965,12 +895,9 @@ ${renderBody()}
       document.execCommand('insertHTML', false, h ? clean(h) : md(cd.getData('text/plain')));
     } else document.execCommand('insertText', false, cd.getData('text/plain').replace(/\s+/g, ' ').trim());
   });
-  cv.addEventListener('focusout', e => {
-    const f = e.target.closest?.('[data-f]');
-    if (f) commit();
-  });
+  cv.addEventListener('focusout', e => { if (e.target.closest?.('[data-f]')) commit(); });
 
-  // Drag and drop: new blocks from the panel, existing blocks by their handle, and picture files.
+  // Drag and drop: new blocks from the panel, card blocks by their handle, and picture files.
   let dragData = null;
   document.addEventListener('dragstart', e => {
     const tile = e.target.closest?.('.tile');
@@ -983,7 +910,7 @@ ${renderBody()}
   });
   document.addEventListener('dragend', () => { dragData = null; hideDrop(); });
   function dropIndex(y) {
-    const blks = Array.from(cv.querySelectorAll('.blk'));
+    const blks = Array.from(cv.querySelectorAll('#card > .blk'));
     for (let i = 0; i < blks.length; i++) {
       const r = blks[i].getBoundingClientRect();
       if (y < r.top + r.height / 2) return i;
@@ -992,9 +919,9 @@ ${renderBody()}
   }
   function showDrop(i) {
     const line = $('#dropline'), card = $('#card'); if (!line || !card) return;
-    const blks = cv.querySelectorAll('.blk'), cr = card.getBoundingClientRect();
+    const blks = cv.querySelectorAll('#card > .blk'), cr = card.getBoundingClientRect();
     let y;
-    if (!blks.length) y = (state.windowBar ? cv.querySelector('.wb').getBoundingClientRect().bottom : cr.top + 20) - cr.top;
+    if (!blks.length) y = 12;
     else if (i < blks.length) y = blks[i].getBoundingClientRect().top - cr.top;
     else y = blks[blks.length - 1].getBoundingClientRect().bottom - cr.top;
     line.style.top = (y - 2) + 'px'; line.style.display = 'block';
@@ -1012,7 +939,7 @@ ${renderBody()}
     e.preventDefault(); hideDrop();
     const file = e.dataTransfer.files && e.dataTransfer.files[0];
     if (file && /^image\//.test(file.type)) {
-      const blk = e.target.closest('.blk'); let b = blk && findBlock(blk.dataset.bid);
+      const blk = e.target.closest('.blk'); const b = blk && findBlock(blk.dataset.bid);
       try {
         const data = await shrink(file);
         if (b && b.type === 'image') { b.src = data; commit(); rerenderBlock(b.id); select(b.id); }
@@ -1023,8 +950,8 @@ ${renderBody()}
     }
     let d = dragData; if (!d) { try { d = JSON.parse(e.dataTransfer.getData('text/plain')); } catch (err) { return; } }
     const i = dropIndex(e.clientY);
-    if (d.add && BLOCKS[d.add]) addBlock(d.add, i);
-    else if (d.move) moveBlock(d.move, i);
+    if (d.add && BLOCKS[d.add] && !BLOCKS[d.add].fixed) addBlock(d.add, i);
+    else if (d.move && !isFixed(d.move)) moveBlock(d.move, i);
     dragData = null;
   });
 
@@ -1037,13 +964,12 @@ ${renderBody()}
     if (!richEl) return;
     const r = richEl.getBoundingClientRect();
     rtb.hidden = false;
-    const top = Math.max(66, r.top - 48);
-    rtb.style.top = top + 'px';
+    rtb.style.top = Math.max(76, r.top - 50) + 'px';
     rtb.style.left = Math.max(8, Math.min(r.left, window.innerWidth - rtb.offsetWidth - 8)) + 'px';
   }
   cv.addEventListener('focusin', e => {
     const f = e.target.closest('[data-rich]');
-    if (f) { richEl = f; placeRtb(); } else if (!e.target.closest('.rtb')) { rtb.hidden = true; richEl = null; }
+    if (f) { richEl = f; placeRtb(); } else { rtb.hidden = true; richEl = null; }
   });
   cv.addEventListener('focusout', () => setTimeout(() => {
     const a = document.activeElement;
@@ -1060,7 +986,7 @@ ${renderBody()}
       if (!sel.rangeCount || sel.isCollapsed) { toast('Select some words first, then add the link.', true); return; }
       savedRange = sel.getRangeAt(0).cloneRange();
       const r = btn.getBoundingClientRect();
-      pop.style.top = (r.bottom + 8) + 'px'; pop.style.left = Math.max(8, Math.min(r.left - 120, window.innerWidth - 350)) + 'px';
+      pop.style.top = (r.bottom + 8) + 'px'; pop.style.left = Math.max(8, Math.min(r.left - 120, window.innerWidth - 360)) + 'px';
       pop.hidden = false; $('#link-url').value = ''; $('#link-url').focus();
       return;
     }
@@ -1085,53 +1011,34 @@ ${renderBody()}
   /* =========================================================
      Side panel
      ========================================================= */
-  function setTab(t) {
-    showMain();
-    $('#tab-content').setAttribute('aria-selected', String(t === 'content'));
-    $('#tab-styles').setAttribute('aria-selected', String(t === 'styles'));
-    $('#pane-content').hidden = t !== 'content';
-    $('#pane-styles').hidden = t !== 'styles';
-  }
-  $('#tab-content').onclick = () => setTab('content');
-  $('#tab-styles').onclick = () => setTab('styles');
   function showMain() { $('#side-main').hidden = false; $('#side-insp').hidden = true; }
-
   function drawTiles() {
-    $('#tiles').innerHTML = Object.entries(BLOCKS).map(([k, d]) =>
-      `<div class="tile" role="button" tabindex="0" draggable="true" data-type="${k}" title="Add ${esc(d.label.toLowerCase())}">${ICONS[k]}${esc(d.label)}</div>`).join('');
+    $('#tiles').innerHTML = CARD_TYPES.map(k =>
+      `<div class="tile" role="button" tabindex="0" draggable="true" data-type="${k}" title="Add ${esc(BLOCKS[k].label.toLowerCase())}">${ICONS[k]}${esc(BLOCKS[k].label)}</div>`).join('');
     $('#tiles').onclick = e => { const t = e.target.closest('.tile'); if (t) addBlock(t.dataset.type); };
     $('#tiles').onkeydown = e => { const t = e.target.closest('.tile'); if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); addBlock(t.dataset.type); } };
   }
-  function drawStyles() {
-    $('#themes').innerHTML = Object.entries(THEMES).map(([k, th]) =>
-      `<button class="theme" data-k="${k}" aria-pressed="${state.theme === k}"><div class="sw" aria-hidden="true"><span style="background:${th.page}"></span><span style="background:${th.primary}"></span><span style="background:${th.accent}"></span><span style="background:${th.highlight}"></span></div>${esc(th.name)}</button>`).join('');
+  function drawFont() {
     $('#font-seg').innerHTML = FONTS.map(([v, l]) => `<button data-v="${esc(v)}" aria-pressed="${state.font === v}" style="font-family:${esc(v)}">${l}</button>`).join('');
-    $('#corner-seg').innerHTML = CORNERS.map(([v, l]) => `<button data-v="${v}" aria-pressed="${String(state.corners) === v}">${l}</button>`).join('');
-    $('#windowbar').checked = !!state.windowBar;
-    $('#pilltext').value = state.pill || '';
-    $('#pill-field').hidden = !state.windowBar;
   }
-  $('#themes').onclick = e => { const t = e.target.closest('.theme'); if (!t) return; state.theme = t.dataset.k; commit(); drawStyles(); renderCanvas(); };
-  $('#font-seg').onclick = e => { const t = e.target.closest('button'); if (!t) return; state.font = t.dataset.v; commit(); drawStyles(); renderCanvas(); };
-  $('#corner-seg').onclick = e => { const t = e.target.closest('button'); if (!t) return; state.corners = t.dataset.v; commit(); drawStyles(); renderCanvas(); };
-  $('#windowbar').onchange = e => { state.windowBar = e.target.checked; commit(); drawStyles(); renderCanvas(); };
-  $('#pilltext').oninput = e => { state.pill = e.target.value; commitSoon(); renderCanvas(); };
+  $('#font-seg').onclick = e => { const t = e.target.closest('button'); if (!t) return; state.font = t.dataset.v; commit(); drawFont(); renderCanvas(); };
 
   function showInspector() {
     const b = findBlock(selId); if (!b) return showMain();
     const d = BLOCKS[b.type];
     const box = $('#side-insp');
     $('#side-main').hidden = true; box.hidden = false;
-    const inline = !['divider', 'spacer'].includes(b.type) ? `<p class="hint">Click the words in the email to change them.${RICH[b.type] ? ' Select words to make them bold or add a link.' : ''}</p>` : '';
+    const typing = !['divider', 'spacer'].includes(b.type) ? `<p class="hint">Click the words in the email to change them.${RICH[b.type] ? ' Select words to make them bold or add a link.' : ''}</p>` : '';
+    const note = d.note ? `<p class="hint">${esc(d.note)}</p>` : '';
+    const actions = d.fixed ? '' : `<div class="insp-actions"><button class="btn" data-x="dup">${ICONS.copy} Duplicate</button><button class="btn danger" data-x="del">${ICONS.trash} Delete</button></div>`;
     box.innerHTML = `<div class="insp-head"><button class="back" id="insp-back">${ICONS.back}<span>Blocks</span></button><h2>${esc(d.label)}</h2></div>
-<div class="pane">${inline}${d.fields.map(f => fieldHtml(b, f)).join('')}
-<div class="insp-actions"><button class="btn" data-x="dup">${ICONS.copy} Duplicate</button><button class="btn danger" data-x="del">${ICONS.trash} Delete</button></div></div>`;
+<div class="pane">${typing}${note}${d.fields.map(f => fieldHtml(b, f)).join('')}${actions}</div>`;
     $('#insp-back').onclick = () => select(null);
-    box.querySelector('[data-x="dup"]').onclick = () => { const i = state.blocks.findIndex(x => x.id === b.id); const c = { ...b, id: nid() }; state.blocks.splice(i + 1, 0, c); commit(); renderCanvas(); select(c.id); };
-    box.querySelector('[data-x="del"]').onclick = () => delBlock(b.id);
+    box.querySelector('[data-x="dup"]')?.addEventListener('click', () => dupBlock(b.id));
+    box.querySelector('[data-x="del"]')?.addEventListener('click', () => delBlock(b.id));
     wireFields(b, box);
   }
-  function fieldHtml(b, [k, label, type, opt, note]) {
+  function fieldHtml(b, [k, label, type, opt]) {
     const id = 'f-' + k, v = b[k] ?? '';
     if (type === 'text' || type === 'url') {
       const sub = type === 'text' && typeof opt === 'string' ? `<div class="sub">${esc(opt)}</div>` : '';
@@ -1139,17 +1046,13 @@ ${renderBody()}
     }
     if (type === 'seg' || type === 'align') {
       const opts = type === 'align' ? [['left', ICONS.left, 'Left'], ['center', ICONS.center, 'Centre'], ['right', ICONS.right, 'Right']] : opt.map(([a, l]) => [a, esc(l), l]);
-      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="seg" role="group" aria-label="${esc(label)}">${opts.map(([a, inner, name]) => `<button data-k="${k}" data-v="${a}" aria-pressed="${String(v) === a}" aria-label="${esc(name)}" title="${esc(name)}">${inner}</button>`).join('')}</div>${note ? `<div class="sub">${esc(note)}</div>` : ''}</div>`;
-    }
-    if (type === 'roles') {
-      const T = theme();
-      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="swatches" role="group" aria-label="${esc(label)}">${opt.map(r => `<button class="swatch" data-k="${k}" data-v="${r}" aria-pressed="${v === r}" title="${ROLE_NAMES[r]}" aria-label="${ROLE_NAMES[r]}" style="background:${roleColour(r, T)}"></button>`).join('')}</div></div>`;
+      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="seg" role="group" aria-label="${esc(label)}">${opts.map(([a, inner, name]) => `<button data-k="${k}" data-v="${a}" aria-pressed="${String(v) === a}" aria-label="${esc(name)}" title="${esc(name)}">${inner}</button>`).join('')}</div></div>`;
     }
     if (type === 'image') {
-      const has = !!safeUrl(v), isData = /^data:/i.test(v);
-      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="imgbox">${has ? `<img src="${esc(v)}" alt="">` : ''}
-<div class="row"><label class="btn">${has ? 'Replace' : 'Upload'}<input type="file" accept="image/*" class="sr" data-up="${k}"></label>${has ? `<button class="btn danger" data-rm="${k}">Remove</button>` : ''}</div>
-<input type="url" data-k="${k}" id="${id}" aria-label="Link to a picture online" placeholder="or paste a link to a picture online" value="${isData ? '' : esc(v)}" style="width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px">
+      const hasImg = !!safeUrl(v), isData = /^data:/i.test(v);
+      return `<div class="f"><span class="lbl">${esc(label)}</span><div class="imgbox">${hasImg ? `<img src="${esc(v)}" alt="">` : ''}
+<div class="row"><label class="btn">${hasImg ? 'Replace' : 'Upload'}<input type="file" accept="image/*" class="sr" data-up="${k}"></label>${hasImg ? `<button class="btn danger" data-rm="${k}">Remove</button>` : ''}</div>
+<input type="url" data-k="${k}" id="${id}" aria-label="Link to a picture online" placeholder="or paste a link to a picture online" value="${isData ? '' : esc(v)}" style="width:100%;font:inherit;padding:10px 14px;border:1px solid #cfdcdb;border-radius:12px">
 ${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yourself a test before sending to colleagues.</div>' : ''}</div></div>`;
     }
     return '';
@@ -1196,6 +1099,7 @@ ${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yo
     const t = $('#toast'); t.textContent = msg; t.classList.toggle('warn', !!warn); t.hidden = false;
     clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 5000);
   }
+  $('#top-logo').src = logoSrc();
   $('#name').oninput = e => { state.subject = e.target.value; commitSoon(); };
   $('#undo').onclick = () => go(-1);
   $('#redo').onclick = () => go(1);
@@ -1209,7 +1113,7 @@ ${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yo
       const open = document.querySelector('.modal:not([hidden])');
       if (open) closeModal(open); else if (!editing && selId) select(null);
     }
-    if (e.key === 'Delete' && !editing && selId && !document.querySelector('.modal:not([hidden])')) { e.preventDefault(); delBlock(selId); }
+    if (e.key === 'Delete' && !editing && selId && !isFixed(selId) && !document.querySelector('.modal:not([hidden])')) { e.preventDefault(); delBlock(selId); }
   });
 
   const moreBtn = $('#more-btn'), menu = $('#more-menu');
@@ -1242,8 +1146,8 @@ ${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yo
 
   // Templates
   $('#tpl-grid').innerHTML = Object.entries(TEMPLATES).map(([k, t]) =>
-    `<button class="tpl" data-t="${k}"><div class="thumb" style="background:${t.colours[0]}" aria-hidden="true">
-<i style="height:30px;background:${t.colours[1]}"></i><i style="height:10px;width:70%;background:${t.colours[3]}"></i><i style="height:10px;width:50%;background:${t.colours[2]}"></i><i style="height:22px;width:40%;border-radius:12px;background:${t.colours[1]}"></i></div>
+    `<button class="tpl" data-t="${k}"><div class="thumb" aria-hidden="true">
+<i style="height:8px;width:30%;background:rgba(255,255,255,.35)"></i><i style="height:16px;width:85%;background:#fff"></i><i style="height:16px;width:55%;background:${C.lime}"></i><i style="flex:1;background:#fff;border-radius:10px;margin-top:6px"></i></div>
 <div class="meta"><strong>${esc(t.name)}</strong><span>${esc(t.desc)}</span></div></button>`).join('');
   $('#tpl-grid').onclick = e => {
     const t = e.target.closest('.tpl'); if (!t) return;
@@ -1260,8 +1164,7 @@ ${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yo
   };
   $('#pv-frame-m').addEventListener('load', () => {
     const f = $('#pv-frame-m'); const h = f.contentDocument?.documentElement?.scrollHeight || 1200;
-    f.style.height = h + 'px'; f.parentElement.style.setProperty('--h', h);
-    f.style.marginBottom = (-(h * (1 - 0.592))) + 'px';
+    f.style.height = h + 'px'; f.style.marginBottom = (-(h * (1 - 0.592))) + 'px';
   });
   $('#pv-seg').onclick = e => {
     const b = e.target.closest('button'); if (!b) return;
@@ -1325,7 +1228,7 @@ ${isData ? '<div class="sub">Uploaded pictures work best in new Outlook. Send yo
      ========================================================= */
   function renderAll() {
     $('#name').value = state.subject || '';
-    drawStyles(); renderCanvas();
+    drawFont(); renderCanvas();
     if (selId) select(selId); else showMain();
   }
   drawTiles();
